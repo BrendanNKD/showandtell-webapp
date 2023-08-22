@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../app/store";
+import { RootState } from "../app/store/store";
 
 export type CognitoUserInfo = {
   username: string;
@@ -12,20 +12,18 @@ export type CognitoUserInfo = {
 
 // todo for profile
 export interface AuthState {
-  //networkUnavailable: boolean
   isAuthenticated: boolean;
   tokenExpiry: number;
-  //profile?: ProfileInfo
 }
 
-export const initialState: AuthState = {
+export const authinitialState: AuthState = {
   isAuthenticated: false,
   tokenExpiry: 0,
 };
 
 export const authSlice = createSlice({
   name: "auth",
-  initialState,
+  initialState: authinitialState,
   reducers: {
     setIsAuthenticated: (state: AuthState, action) => {
       state.isAuthenticated = action.payload;

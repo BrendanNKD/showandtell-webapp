@@ -1,6 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { authApi } from "services/auth/authApi";
-import authReducer from "../features/authSlice";
+import { unauthApi } from "services/auth/unauthApi";
+import { accountApi } from "services/account/accountApi";
+import { signUpApi } from "services/signUp/signUp";
+
+import authReducer from "../../features/authSlice";
+import accountReducer from "../../features/accountSlice";
+import profileReducer from "../../features/profileSlice";
+
 import { setupListeners } from "@reduxjs/toolkit/query/react";
 import { combineReducers } from "redux";
 import {
@@ -17,12 +24,14 @@ import storage from "redux-persist/lib/storage";
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  account: accountReducer,
+  profile: profileReducer,
 });
 
 const persistConfig = {
   key: "root", // Key for the persisted state in storage
   storage, // Storage method (e.g., localStorage or AsyncStorage)
-  whitelist: ["auth"], // List of keys to persist (only "auth" in this case)
+  whitelist: ["auth", "account", "profile"], // List of keys to persist (only "auth" in this case)
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -31,6 +40,9 @@ export const store = configureStore({
   reducer: {
     reducer: persistedReducer,
     [authApi.reducerPath]: authApi.reducer,
+    [accountApi.reducerPath]: accountApi.reducer,
+    [unauthApi.reducerPath]: unauthApi.reducer,
+    [signUpApi.reducerPath]: signUpApi.reducer,
   },
   devTools: process.env.NODE_ENV !== "production",
 
@@ -40,7 +52,12 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(authApi.middleware),
+    }).concat([
+      authApi.middleware,
+      accountApi.middleware,
+      unauthApi.middleware,
+      signUpApi.middleware,
+    ]),
 });
 
 export const persistor = persistStore(store);

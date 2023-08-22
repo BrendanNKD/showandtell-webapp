@@ -1,32 +1,39 @@
-// import { useAppDispatch } from "../../app/useHooks";
-import { setIsAuthenticated } from "features/authSlice";
-import { useAppDispatch } from "app/hooks/useHooks";
+import {
+  UseAuthenticatedRoute,
+  UseNonAuthenticatedRoute,
+} from "utils/authRoute";
+import { UseProfile } from "app/state/profile/useProfile";
 import { useSignOut } from "app/hooks/useCognitoAuth";
-import { UseAuthenticatedRoute } from "utils/PrivateRoute";
+
 const Home = () => {
   // Redirect user to profile if they are authenticated
   UseAuthenticatedRoute();
-  const { signOut, loginData, isLoginSuccess, isErr, loginErr, loading } =
-    useSignOut();
-  const handleSubmit = async (event: any) => {
-    event.preventDefault();
+  const profile = UseProfile();
+  const { signOut } = useSignOut();
+
+  const handleProfileClick = () => {
+    console.log(profile);
+  };
+  const handleProfileClick2 = () => {
     signOut();
   };
 
   return (
-    <div>
-      <p>HOMEPAGE HERE!</p>
+    <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
+      <p>IM AT HOME NOW</p>
       <button
-        type="submit"
-        className="border w-full my-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white"
-        onClick={handleSubmit}
+        className="border-2 border-gray-600 text-gray-600 px-4 py-1 mt-20 hover:border-gray-400 hover:text-gray-400"
+        onClick={handleProfileClick}
       >
-        Sign Out
+        Manage Profiles
+      </button>
+      <button
+        className="border-2 border-gray-600 text-gray-600 px-4 py-1 mt-20 hover:border-gray-400 hover:text-gray-400"
+        onClick={handleProfileClick2}
+      >
+        SIGNOUT
       </button>
     </div>
   );
 };
 export default Home;
-function useNonAuthenticatedRoute() {
-  throw new Error("Function not implemented.");
-}
