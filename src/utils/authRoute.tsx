@@ -19,7 +19,7 @@ export const UseNonAuthenticatedRoute = () => {
   const isAuthenticated = useAppSelector(selectAuth);
   useEffect(() => {
     if (isAuthenticated.isAuthenticated) {
-      navigate("/home");
+      navigate("/profiles");
     }
   }, [navigate, isAuthenticated]);
 };

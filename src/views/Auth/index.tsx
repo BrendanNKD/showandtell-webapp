@@ -1,8 +1,11 @@
-import LoginForm from "components/Login/loginForm";
+import LoginForm from "components/login-signup.tsx/login-signup-form";
 import loginimage from "../../assets/loginimage.jpg";
-import { UseNonAuthenticatedRoute } from "utils/PrivateRoute";
+import { UseNonAuthenticatedRoute } from "utils/authRoute";
 const Login = () => {
-  // Redirect user to profile if they are authenticated
+  // TODO
+  // verification page 
+  // Restrict user when not verified  
+  
   UseNonAuthenticatedRoute();
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
