@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSignIn, useSignUp } from "../../app/hooks/useCognitoAuth";
-import DatePicker from "react-datepicker";
+import { useNavigate } from "react-router-dom";
+import { useGetAccount } from "app/hooks/useGetAccount";
 
 type Form = {
   firstname: string;
@@ -16,14 +17,14 @@ const initialState: Form = {
   firstname: "",
   lastname: "",
   email: "",
-  dateOfBirth: "",
+  dateOfBirth: new Date().toLocaleDateString(),
   username: "",
   password: "",
   confirmPassword: "",
 };
 
-const LoginForm = () => {
-  const [startDate, setStartDate] = useState<Date | null>(null);
+const LoginForm: React.FC = () => {
+  const navigate = useNavigate();
   const [formValue, setFormValue] = useState(initialState);
   const [showRegister, setShowRegister] = useState(false);
   const {
@@ -63,15 +64,16 @@ const LoginForm = () => {
       password,
       confirmPassword,
     } = formValue;
+    console.log(password);
+    console.log(confirmPassword);
     if (password !== confirmPassword) {
-      console.log("password is not same");
       return;
     }
 
     if (!firstname || !lastname || !email || !dateOfBirth || !username) {
       return;
     }
-
+    // password restriction
     signUp({
       username: username,
       password: password,
@@ -88,18 +90,16 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (signUpData) {
-      console.log("SUCCESSFULLY CREATED");
-      setShowRegister(false);
+      navigate(`/registration/confirmOtp?username=${formValue.username}`);
     }
-  }, [signUpData]);
+  }, [formValue, navigate, signUpData]);
 
   return (
     <>
-      <script src="../path/to/flowbite/dist/datepicker.js"></script>
       <div className="bg-gray-100 flex flex-col justify-center">
         <form
           className={`max-w-[500px] w-full mx-auto bg-white p-12 shadow-xl rounded-lg`}
-          onSubmit={handleSubmit}
+          onSubmit={showRegister ? handleSignUp : handleSubmit}
         >
           <h2 className="text-4xl font-bold text-center py-5">
             {!showRegister ? "Login" : "Register"}
@@ -137,11 +137,11 @@ const LoginForm = () => {
 
               <div className="flex flex-col py-2">
                 <label htmlFor="">Date of birth</label>
-                <DatePicker
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
-                  isClearable
-                  placeholderText="I have been cleared!"
+                <input
+                  className="border p-2"
+                  type="text"
+                  name="dateOfBirth" // Set the name attribute for proper identification
+                  onChange={handleOnInput}
                 />
               </div>
             </>
@@ -174,7 +174,7 @@ const LoginForm = () => {
                 <input
                   className="border p-2"
                   type="password"
-                  name="password" // Set the name attribute for proper identification
+                  name="confirmPassword" // Set the name attribute for proper identification
                   onChange={handleOnInput}
                 />
               </div>

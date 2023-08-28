@@ -1,15 +1,22 @@
-import { useIsomorphicLayoutEffect } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import { TUserLogin } from "domain/types/auth/UserLogin";
-import { TUserRegistration } from "domain/types/auth/UserRegistration";
+import {
+  TUserConfirmOtp,
+  TUserRegistration,
+} from "domain/types/auth/UserRegistration";
 import { accountinitialState, setAccount } from "features/accountSlice";
 import { setIsAuthenticated, setTokenExpiry } from "features/authSlice";
+import { setProfile } from "features/profileSlice";
 import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useGetAccountMutation } from "services/account/accountApi";
-import { useAuthUserMutation } from "services/auth/authApi";
-import { useUnauthUserMutation } from "services/auth/unauthApi";
-import { useSignUpUserMutation } from "services/signUp/signUp";
+import {
+  useAuthUserMutation,
+  useUnauthUserMutation,
+} from "services/auth/authApi";
+import {
+  useSignUpUserMutation,
+  useConfirmSignUpMutation,
+} from "services/signUp/signUp";
 
 export const useSignIn = () => {
   const dispatch = useDispatch();
@@ -24,23 +31,13 @@ export const useSignIn = () => {
       isLoading: authloading,
     },
   ] = useAuthUserMutation();
-  const [
-    getAccount,
-    {
-      data: accountData,
-      isSuccess: isGetAccountSuccess,
-      isError: accountisErr,
-      error: getAccountErr,
-      isLoading: accountloading,
-    },
-  ] = useGetAccountMutation();
 
   const signIn = useCallback(
     async (data: TUserLogin) => {
       const { username, password } = data;
       try {
-        await authUser({ username, password });
-        await getAccount();
+        await authUser({ username, password }).unwrap();
+
         //todo get profileY
         //await getCurrentUserInfo(dispatch)
         // todo show toast
@@ -49,24 +46,24 @@ export const useSignIn = () => {
         dispatch(setIsAuthenticated(false));
         dispatch(setTokenExpiry(0));
         dispatch(setAccount(accountinitialState));
-        if (e.response.data.code === "UserNotConfirmedException") {
+
+        if (e.data.err === "UserNotConfirmedException") {
           navigate(`/registration/confirmOtp?username=${username}`);
         }
       }
     },
-    [authUser, getAccount, dispatch, navigate]
+    [authUser, dispatch, navigate]
   );
 
   useEffect(() => {
-    if (isGetAccountSuccess && isLoginSuccess) {
+    if (isLoginSuccess) {
       dispatch(setIsAuthenticated(true));
       dispatch(
         // set token expiry to 1 day - 10 min
         setTokenExpiry(new Date().getTime() / 1000 + 24 * 60 * 60 - 600)
       );
-      dispatch(setAccount(accountData));
     }
-  }, [dispatch, loginData, isLoginSuccess, accountData, isGetAccountSuccess]);
+  }, [dispatch, loginData, isLoginSuccess]);
 
   return {
     signIn,
@@ -94,11 +91,12 @@ export const useSignOut = () => {
 
   const signOut = useCallback(async () => {
     try {
-      await unauthUser();
+      await unauthUser().unwrap();
     } catch (e: any) {
       dispatch(setIsAuthenticated(false));
       dispatch(setTokenExpiry(0));
       dispatch(setAccount(accountinitialState));
+      dispatch(setProfile(null));
     }
   }, [dispatch, unauthUser]);
 
@@ -110,6 +108,7 @@ export const useSignOut = () => {
         setTokenExpiry(0)
       );
       dispatch(setAccount(accountinitialState));
+      dispatch(setProfile(null));
       // todo show toast
       //showToast({ message: 'Successfuly sign in', type: 'success' })
     }
@@ -133,7 +132,7 @@ export const useSignUp = () => {
   const signUp = useCallback(
     async (data: TUserRegistration) => {
       try {
-        await signUpUser(data);
+        await signUpUser(data).unwrap();
       } catch (e: any) {
         //handle signUp error
       }
@@ -142,4 +141,78 @@ export const useSignUp = () => {
   );
 
   return { signUp, signUpData, signUpLoading };
+};
+
+export const useConfirmSignUp = () => {
+  const navigate = useNavigate();
+  const [
+    confirmSignUp,
+    {
+      data: confirmSignUpData,
+      isSuccess: isconfirmSignUpSuccess,
+      isError: isconfirmSignUpErr,
+      error: confirmSignUpErr,
+      isLoading: confirmSignUpLoading,
+    },
+  ] = useConfirmSignUpMutation();
+
+  const confirmOtp = useCallback(
+    async (data: TUserConfirmOtp) => {
+      try {
+        await confirmSignUp(data).unwrap();
+      } catch (e: any) {
+        //handle signUp error
+      }
+    },
+    [confirmSignUp]
+  );
+
+  useEffect(() => {
+    if (isconfirmSignUpSuccess) {
+      // currently reauthenticate first no way
+      navigate("/login");
+    } else {
+      //toast to show confirm sign up error
+      //second layer defense after try catch
+    }
+  }, [isconfirmSignUpSuccess, navigate]);
+
+  return { confirmOtp, confirmSignUpData, isconfirmSignUpSuccess };
+};
+
+export const useResendConfirmSignUp = () => {
+  const navigate = useNavigate();
+  const [
+    confirmSignUp,
+    {
+      data: confirmSignUpData,
+      isSuccess: isconfirmSignUpSuccess,
+      isError: isconfirmSignUpErr,
+      error: confirmSignUpErr,
+      isLoading: confirmSignUpLoading,
+    },
+  ] = useConfirmSignUpMutation();
+
+  const confirmOtp = useCallback(
+    async (data: TUserConfirmOtp) => {
+      try {
+        await confirmSignUp(data).unwrap();
+      } catch (e: any) {
+        //handle signUp error
+      }
+    },
+    [confirmSignUp]
+  );
+
+  useEffect(() => {
+    if (isconfirmSignUpSuccess) {
+      // currently reauthenticate first no way
+      navigate("/login");
+    } else {
+      //toast to show confirm sign up error
+      //second layer defense after try catch
+    }
+  }, [isconfirmSignUpSuccess, navigate]);
+
+  return { confirmOtp, confirmSignUpData, isconfirmSignUpSuccess };
 };

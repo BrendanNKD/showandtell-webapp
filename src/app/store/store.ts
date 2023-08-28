@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { authApi } from "services/auth/authApi";
-import { unauthApi } from "services/auth/unauthApi";
+// import { unauthApi } from "services/auth/unauthApi";
 import { accountApi } from "services/account/accountApi";
 import { signUpApi } from "services/signUp/signUp";
 
@@ -41,7 +41,6 @@ export const store = configureStore({
     reducer: persistedReducer,
     [authApi.reducerPath]: authApi.reducer,
     [accountApi.reducerPath]: accountApi.reducer,
-    [unauthApi.reducerPath]: unauthApi.reducer,
     [signUpApi.reducerPath]: signUpApi.reducer,
   },
   devTools: process.env.NODE_ENV !== "production",
@@ -55,7 +54,6 @@ export const store = configureStore({
     }).concat([
       authApi.middleware,
       accountApi.middleware,
-      unauthApi.middleware,
       signUpApi.middleware,
     ]),
 });

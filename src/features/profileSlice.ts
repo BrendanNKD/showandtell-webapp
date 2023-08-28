@@ -3,7 +3,7 @@ import { RootState } from "../app/store/store";
 import { ProfileState } from "domain/types/profile/Profile";
 
 export const profileinitialState: ProfileState = {
-  profile: 0,
+  profile: null,
 };
 
 export const profileSlice = createSlice({

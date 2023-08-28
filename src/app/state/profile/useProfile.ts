@@ -5,5 +5,8 @@ import { selectAccount } from "features/accountSlice";
 export const UseProfile = () => {
   const { profile } = useAppSelector(selectProfile);
   const { profiles } = useAppSelector(selectAccount);
-  return profiles[profile];
+  if (profile !== null) {
+    return profiles[profile];
+  }
+  return null;
 };

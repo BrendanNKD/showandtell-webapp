@@ -1,5 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { TUserRegistration } from "domain/types/auth/UserRegistration";
+import {
+  TUserConfirmOtp,
+  TUserRegistration,
+} from "domain/types/auth/UserRegistration";
 
 export const signUpApi = createApi({
   reducerPath: "signUpApi",
@@ -17,7 +20,17 @@ export const signUpApi = createApi({
         };
       },
     }),
+    confirmSignUp: builder.mutation({
+      query: (body: TUserConfirmOtp) => {
+        return {
+          url: "/api/v1/auth/confirmSignup",
+          method: "post",
+          credentials: "include",
+          body,
+        };
+      },
+    }),
   }),
 });
 
-export const { useSignUpUserMutation } = signUpApi;
+export const { useSignUpUserMutation, useConfirmSignUpMutation } = signUpApi;

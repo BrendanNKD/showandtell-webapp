@@ -10,12 +10,14 @@ import { useDispatch } from "react-redux";
 import { setProfile } from "features/profileSlice";
 import { useNavigate } from "react-router-dom";
 import { UseProfile } from "app/state/profile/useProfile";
+import { useGetAccount } from "app/hooks/useGetAccount";
 
 const Profiles = () => {
   // Redirect user to profile if they are authenticated
   UseAuthenticatedRoute();
-  const dispatch = useDispatch();
+  useGetAccount();
   const account = UseAccount();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { signOut } = useSignOut();
 

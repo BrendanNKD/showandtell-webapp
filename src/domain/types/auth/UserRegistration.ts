@@ -5,3 +5,8 @@ export interface TUserRegistration {
   password: string;
   profiles: ProfileResponseModel[];
 }
+
+export interface TUserConfirmOtp {
+  otp: string;
+  username: string;
+}

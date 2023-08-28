@@ -6,5 +6,5 @@ export interface ProfileResponseModel {
 }
 
 export interface ProfileState {
-  profile: number;
+  profile: number | null;
 }

@@ -8,7 +8,7 @@ export const accountApi = createApi({
     baseUrl: "http://localhost:3000",
   }),
   endpoints: (builder) => ({
-    getAccount: builder.mutation<AccountResponseModel, void>({
+    getAccount: builder.query<AccountResponseModel, void>({
       query: () => {
         return {
           url: "/api/v1/profile/current",
@@ -20,4 +20,4 @@ export const accountApi = createApi({
   }),
 });
 
-export const { useGetAccountMutation } = accountApi;
+export const { useGetAccountQuery } = accountApi;

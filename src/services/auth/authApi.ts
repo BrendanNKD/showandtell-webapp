@@ -17,7 +17,16 @@ export const authApi = createApi({
         };
       },
     }),
+    unauthUser: builder.mutation<Boolean, void>({
+      query: () => {
+        return {
+          url: "/api/v1/auth/logout",
+          method: "post",
+          credentials: "include",
+        };
+      },
+    }),
   }),
 });
 
-export const { useAuthUserMutation } = authApi;
+export const { useAuthUserMutation, useUnauthUserMutation } = authApi;
