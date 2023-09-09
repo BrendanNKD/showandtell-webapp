@@ -3,6 +3,7 @@ import { authApi } from "services/auth/authApi";
 // import { unauthApi } from "services/auth/unauthApi";
 import { accountApi } from "services/account/accountApi";
 import { signUpApi } from "services/signUp/signUp";
+import { generateApi } from "services/replicate/inference";
 
 import authReducer from "../../features/authSlice";
 import accountReducer from "../../features/accountSlice";
@@ -21,6 +22,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { openAiCompletionApi } from "services/openAi/completion";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -42,6 +44,8 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [accountApi.reducerPath]: accountApi.reducer,
     [signUpApi.reducerPath]: signUpApi.reducer,
+    [generateApi.reducerPath]: generateApi.reducer,
+    [openAiCompletionApi.reducerPath]: openAiCompletionApi.reducer,
   },
   devTools: process.env.NODE_ENV !== "production",
 
@@ -55,6 +59,8 @@ export const store = configureStore({
       authApi.middleware,
       accountApi.middleware,
       signUpApi.middleware,
+      generateApi.middleware,
+      openAiCompletionApi.middleware,
     ]),
 });
 

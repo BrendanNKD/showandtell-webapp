@@ -4,7 +4,7 @@ import { TUserLogin } from "domain/types/auth/UserLogin";
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000",
+    baseUrl: "http://localhost:4000",
   }),
   endpoints: (builder) => ({
     authUser: builder.mutation({

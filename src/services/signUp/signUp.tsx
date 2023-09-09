@@ -7,7 +7,7 @@ import {
 export const signUpApi = createApi({
   reducerPath: "signUpApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000",
+    baseUrl: "http://localhost:4000",
   }),
   endpoints: (builder) => ({
     signUpUser: builder.mutation({

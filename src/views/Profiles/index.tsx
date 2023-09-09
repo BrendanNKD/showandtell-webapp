@@ -5,7 +5,7 @@ import { useSignOut } from "app/hooks/useCognitoAuth";
 import { UseAuthenticatedRoute } from "utils/authRoute";
 import { UseAccount } from "../../app/state/account/useAccount";
 import { useEffect, useState } from "react";
-import { profileSelectionCard } from "../../components/proflieSelection/profileSelectionCard";
+import { profileSelectionCard } from "../../components/proflieSelection";
 import { useDispatch } from "react-redux";
 import { setProfile } from "features/profileSlice";
 import { useNavigate } from "react-router-dom";

@@ -5,7 +5,7 @@ import { AccountResponseModel } from "domain/types/account/UserAccount";
 export const accountApi = createApi({
   reducerPath: "accountApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000",
+    baseUrl: "http://localhost:4000",
   }),
   endpoints: (builder) => ({
     getAccount: builder.query<AccountResponseModel, void>({
