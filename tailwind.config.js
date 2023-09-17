@@ -2,6 +2,9 @@
 module.exports = {
   content: ["./src/**/*.{html,js,tsx,ts}"],
   theme: {
+    container: {
+      center: true,
+    },
     screens: {
       sm: "640px",
       md: "768px",

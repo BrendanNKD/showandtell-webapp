@@ -37,6 +37,8 @@ export const useSignIn = () => {
       const { username, password } = data;
       try {
         await authUser({ username, password }).unwrap();
+        // .then((payload) => console.error("fufilled"))
+        // .catch((error) => console.error("rejected", error));
 
         //todo get profileY
         //await getCurrentUserInfo(dispatch)
@@ -56,12 +58,12 @@ export const useSignIn = () => {
   );
 
   useEffect(() => {
-    if (isLoginSuccess) {
-      dispatch(setIsAuthenticated(true));
+    if (loginData) {
       dispatch(
         // set token expiry to 1 day - 10 min
         setTokenExpiry(new Date().getTime() / 1000 + 24 * 60 * 60 - 600)
       );
+      dispatch(setIsAuthenticated(true));
     }
   }, [dispatch, loginData, isLoginSuccess]);
 

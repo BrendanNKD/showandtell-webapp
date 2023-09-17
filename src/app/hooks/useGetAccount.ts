@@ -1,14 +1,36 @@
-import { setAccount } from "features/accountSlice";
+import { accountinitialState, setAccount } from "features/accountSlice";
 
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useGetAccountQuery } from "services/account/accountApi";
 import { useAppSelector } from "./useHooks";
+import { setIsAuthenticated, setTokenExpiry } from "features/authSlice";
+import { setProfile } from "features/profileSlice";
+import { resetState } from "utils/resetState";
+import { ErrorHandler } from "utils/errorHandler";
+import { useCallback, useEffect } from "react";
 
-export const useGetAccount = async () => {
+export const useGetAccount = () => {
   const dispatch = useDispatch();
-  const { data: accountData, isLoading, isError } = await useGetAccountQuery();
-  if (!isLoading) {
-    dispatch(setAccount(accountData));
-  }
+  const { data: accountData, isLoading, isError, error } = useGetAccountQuery();
+
+  const setProfileState = useCallback(
+    async (index: number) => {
+      await dispatch(setProfile(index));
+    },
+    [dispatch]
+  );
+
+  useEffect(() => {
+    if (accountData) dispatch(setAccount(accountData));
+  }, [accountData, dispatch]);
+
+  useEffect(() => {
+    ErrorHandler(error, dispatch);
+  }, [error, dispatch]);
+
+  return {
+    setProfileState,
+    accountData,
+  };
 };

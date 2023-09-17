@@ -13,6 +13,7 @@ const DragDrop: React.FC<DragDropProps> = (props) => {
       reader.readAsDataURL(file);
       reader.onload = (e) => {
         const base64Image = e.target?.result as string;
+        console.log(base64Image);
         const img = document.createElement("img");
         img.src = base64Image;
         img.onload = () => {

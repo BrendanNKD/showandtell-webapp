@@ -9,17 +9,19 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie"; // Import js-cookie library
 import { useDispatch } from "react-redux";
 import { accountinitialState, setAccount } from "features/accountSlice";
+import { useIsAuthenticated } from "app/state/account/useAuthenticated";
 import { UseProfile } from "app/state/profile/useProfile";
 
 export const UseAuthenticatedRoute = () => {
   const navigate = useNavigate();
-  const isAuthenticated = useAppSelector(selectAuth);
+
+  const isAuthenticated = useIsAuthenticated();
   const profile = UseProfile();
   useEffect(() => {
-    if (!isAuthenticated.isAuthenticated) {
+    if (!isAuthenticated) {
       navigate("/login");
     }
-    if (isAuthenticated.isAuthenticated && profile === null) {
+    if (isAuthenticated && profile === null) {
       navigate("/profiles");
     }
   }, [navigate, isAuthenticated, profile]);
@@ -27,10 +29,10 @@ export const UseAuthenticatedRoute = () => {
 
 export const UseNonAuthenticatedRoute = () => {
   const navigate = useNavigate();
-  const isAuthenticated = useAppSelector(selectAuth);
+  const isAuthenticated = useIsAuthenticated();
 
   useEffect(() => {
-    if (isAuthenticated.isAuthenticated) {
+    if (isAuthenticated) {
       navigate("/profiles");
     }
   }, [navigate, isAuthenticated]);

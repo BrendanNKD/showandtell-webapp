@@ -1,4 +1,4 @@
-import { generateCaptionRequest } from "domain/types/generateCaption/generateCaption";
+import { generateCaptionRequest } from "domain/types/generate";
 import { promptRequest } from "domain/types/openAi/completion";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";

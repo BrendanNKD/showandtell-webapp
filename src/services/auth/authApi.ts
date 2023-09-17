@@ -26,7 +26,20 @@ export const authApi = createApi({
         };
       },
     }),
+    sessionAuth: builder.mutation<Boolean, void>({
+      query: () => {
+        return {
+          url: "/api/v1/auth/session",
+          method: "post",
+          credentials: "include",
+        };
+      },
+    }),
   }),
 });
 
-export const { useAuthUserMutation, useUnauthUserMutation } = authApi;
+export const {
+  useAuthUserMutation,
+  useUnauthUserMutation,
+  useSessionAuthMutation,
+} = authApi;

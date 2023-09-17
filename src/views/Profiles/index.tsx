@@ -5,25 +5,30 @@ import { useSignOut } from "app/hooks/useCognitoAuth";
 import { UseAuthenticatedRoute } from "utils/authRoute";
 import { UseAccount } from "../../app/state/account/useAccount";
 import { useEffect, useState } from "react";
-import { profileSelectionCard } from "../../components/proflieSelection";
+import {
+  ProfilePicSelectionCard,
+  ProfileSelectionCard,
+} from "../../components/proflieSelection";
 import { useDispatch } from "react-redux";
 import { setProfile } from "features/profileSlice";
 import { useNavigate } from "react-router-dom";
 import { UseProfile } from "app/state/profile/useProfile";
 import { useGetAccount } from "app/hooks/useGetAccount";
+import { ProfileResponseModel } from "domain/types/profile/Profile";
 
 const Profiles = () => {
   // Redirect user to profile if they are authenticated
+  const { setProfileState, accountData } = useGetAccount();
+  const [profiles, setProfiles] = useState<ProfileResponseModel[] | []>([]);
   UseAuthenticatedRoute();
-  useGetAccount();
-  const account = UseAccount();
-  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const { signOut } = useSignOut();
 
   const handleProfileClick = (index: number) => {
-    console.log(index);
-    dispatch(setProfile(index));
+    // console.log(index);
+    // dispatch(setProfile(index));
+    setProfileState(index);
     navigate("/home");
   };
 
@@ -31,6 +36,10 @@ const Profiles = () => {
     event.preventDefault();
     signOut();
   };
+
+  useEffect(() => {
+    if (accountData) setProfiles(accountData.profiles);
+  }, [accountData]);
 
   return (
     <>
@@ -41,14 +50,14 @@ const Profiles = () => {
         {/* Profiles */}
         <div className="flex flex-row flex-wrap gap-5 mt-8">
           {/* Profile 1 */}
-          {account.profiles.map((object, index) => {
+          {profiles.map((object, index) => {
             return (
               <div
                 key={index}
                 className={`rounded-lg p-4 cursor-pointer`}
                 onClick={() => handleProfileClick(index)}
               >
-                {profileSelectionCard({ object, index })}
+                {ProfileSelectionCard({ object, index })}
               </div>
             );
           })}

@@ -7,13 +7,15 @@ import { useSignOut } from "app/hooks/useCognitoAuth";
 import Navbar from "components/navBar";
 import { useState } from "react";
 import DragDrop from "components/dragAndDrop";
-import { Link } from "react-router-dom";
-import Collections from "components/collection";
+import { Link, useNavigate } from "react-router-dom";
+import Slider from "components/slider";
 import Footer from "components/footer";
 
 const Home = () => {
   // Redirect user to profile if they are authenticate
   // const profile = UseProfile();
+  const navigate = useNavigate();
+
 
   return (
     <div className="h-fit flex-col justify-center align-middle">
@@ -44,7 +46,12 @@ const Home = () => {
                     </p>
 
                     <div className="mt-6">
-                      <button className="hover:bg-violet-600 border-violet-600 bg-violet-600  text-white font-bold py-2 px-4 rounded-full">
+                      <button
+                        className="hover:bg-violet-600 border-violet-600 bg-violet-600  text-white font-bold py-2 px-4 rounded-full"
+                        onClick={() => {
+                          navigate("/generation");
+                        }}
+                      >
                         Explore
                       </button>
                     </div>
@@ -79,7 +86,7 @@ const Home = () => {
               </Link>
             </div>
           </div>
-          <Collections />
+          <Slider />
         </div>
       </div>
       <div className="flex justify-center align-middle">

@@ -1,7 +1,12 @@
 import { ProfileResponseModel } from "domain/types/profile/Profile";
 import ProfileSelectionProps from "domain/types/profileSelection";
 
-export const profileSelectionCard = ({
+import item1 from "../../assets/avatar/1.jpg";
+import item2 from "../../assets/avatar/2.jpg";
+import item3 from "../../assets/avatar/3.jpg";
+import item4 from "../../assets/avatar/4.jpg";
+
+export const ProfileSelectionCard = ({
   object,
   index,
 }: ProfileSelectionProps) => {
@@ -21,6 +26,25 @@ export const profileSelectionCard = ({
             {object.firstName}
           </p>
         </button>
+      </div>
+    </>
+  );
+};
+
+export const ProfilePicSelectionCard: React.FC = () => {
+  return (
+    <>
+      <div className="relative">
+        <img className="w-20 h-20 rounded-full" src={item1} alt="" />
+      </div>
+      <div className="relative">
+        <img className="w-20 h-20 rounded-full" src={item2} alt="" />
+      </div>
+      <div className="relative">
+        <img className="w-20 h-20 rounded-full" src={item3} alt="" />
+      </div>
+      <div className="relative">
+        <img className="w-20 h-20 rounded-full" src={item4} alt="" />
       </div>
     </>
   );
