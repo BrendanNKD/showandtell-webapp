@@ -13,7 +13,7 @@ import Footer from "components/footer";
 import { useGenerateCaption } from "app/hooks/useGenerate";
 import { useOpenAiCompletion } from "app/hooks/useOpenAiCompletion";
 import TextToSpeech from "components/textToSpeech";
-import { useSaveCollection } from "app/hooks/useGetCollection";
+import { useSaveCollection } from "app/hooks/useCollection";
 import { UseProfile, UseProfileIndex } from "app/state/profile/useProfile";
 
 const Generate = () => {

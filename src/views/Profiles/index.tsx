@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { setProfile } from "features/profileSlice";
 import { useNavigate } from "react-router-dom";
 import { UseProfile } from "app/state/profile/useProfile";
-import { useGetAccount } from "app/hooks/useGetAccount";
+import { useGetAccount } from "app/hooks/useAccount";
 import { ProfileResponseModel } from "domain/types/profile/Profile";
 
 const Profiles = () => {

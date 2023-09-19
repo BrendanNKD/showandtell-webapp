@@ -18,12 +18,13 @@ export const collectionApi = createApi({
         };
       },
     }),
-    saveCollection: builder.mutation<CollectionProp[], any>({
-      query: () => {
+    saveCollection: builder.mutation<CollectionProp[], CollectionProp>({
+      query: (body: CollectionProp) => {
         return {
           url: "/api/v1/collection/update",
           method: "post",
           credentials: "include",
+          body,
         };
       },
     }),

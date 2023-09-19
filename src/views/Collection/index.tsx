@@ -8,12 +8,14 @@ import Navbar from "components/navBar";
 import { useNavigate } from "react-router-dom";
 import { CollectionCard } from "components/collection";
 import Footer from "components/footer";
-import { useGetCollection } from "app/hooks/useGetCollection";
+import { useGetCollection } from "app/hooks/useCollection";
 
 const Collection = () => {
   UseAuthenticatedRoute();
   const navigate = useNavigate();
   const { collectionData, isLoading, isError } = useGetCollection();
+
+  console.log(collectionData);
 
   return (
     <div className="h-fit flex-col justify-center align-middle ">

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSignIn, useSignUp } from "../../app/hooks/useCognitoAuth";
 import { useNavigate } from "react-router-dom";
-import { useGetAccount } from "app/hooks/useGetAccount";
+import { useGetAccount } from "app/hooks/useAccount";
 
 type Form = {
   firstname: string;
@@ -88,11 +88,11 @@ const LoginForm: React.FC = () => {
   };
 
   useEffect(() => {
-    if (signUpData) {
+    if (signUpData && !signUpLoading) {
       console.log(signUpData);
       navigate(`/registration/confirmOtp?username=${formValue.username}`);
     }
-  }, [formValue, navigate, signUpData]);
+  }, [signUpData, navigate, formValue.username, signUpLoading]);
 
   return (
     <>
