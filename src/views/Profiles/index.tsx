@@ -29,7 +29,7 @@ const Profiles = () => {
     // console.log(index);
     // dispatch(setProfile(index));
     setProfileState(index);
-    navigate("/home");
+    navigate("/");
   };
 
   const handleLogout = async (event: any) => {
@@ -45,7 +45,7 @@ const Profiles = () => {
     <>
       <div className="bg-black h-screen flex flex-col items-center justify-center">
         {/* Title */}
-        <h1 className="text-gray-200 text-5xl">Select Profile</h1>
+        <h1 className="text-gray-200 text-3xl">Select Profile</h1>
 
         {/* Profiles */}
         <div className="flex flex-row flex-wrap gap-5 mt-8">
@@ -63,12 +63,12 @@ const Profiles = () => {
           })}
           {/* Add Profile */}
           <button
-            className="flex flex-col items-center group gap-3"
+            className="rounded-lg p-4 cursor-pointer flex flex-col align-middle justify-center mb-10"
             // onClick={handleLogout}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-[150px] w-[150px] group-hover:bg-gray-300 border-2 border-transparent"
+              className="h-[80px] w-[80px] group-hover:bg-gray-300 border-2 border-transparent"
               viewBox="0 0 20 20"
               fill="#6b7280"
             >
@@ -78,17 +78,25 @@ const Profiles = () => {
                 clipRule="evenodd"
               />
             </svg>
-            <p className="text-gray-500 group-hover:text-gray-300">Sign Out</p>
+            {/* <p className="text-gray-500 group-hover:text-gray-300">Sign Out</p> */}
           </button>
         </div>
 
         {/* Manage Profiles */}
-        <button
-          className="border-2 border-gray-600 text-gray-600 px-4 py-1 mt-20 hover:border-gray-400 hover:text-gray-400"
-          onClick={handleLogout}
-        >
-          Sign out
-        </button>
+        <div className="flex gap-6">
+          <button
+            className="border-2 border-gray-600 text-gray-600 px-4 py-1 mt-20 hover:border-gray-400 hover:text-gray-400"
+            onClick={handleLogout}
+          >
+            Sign out
+          </button>
+          <button
+            className="border-2 border-gray-600 text-gray-600 px-4 py-1 mt-20 hover:border-gray-400 hover:text-gray-400"
+            onClick={handleLogout}
+          >
+            Manage Profiles
+          </button>
+        </div>
       </div>
     </>
   );

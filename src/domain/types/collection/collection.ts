@@ -1,7 +1,8 @@
 export interface CollectionProp {
   image: string;
   caption: string;
-  profile: number;
+  profile: string;
+  profileIndex: number;
   description: string;
-  avatar: string;
+  avatar: number;
 }

@@ -10,3 +10,8 @@ export const UseProfile = () => {
   }
   return null;
 };
+
+export const UseProfileIndex = () => {
+  const { profile } = useAppSelector(selectProfile);
+  return profile;
+};

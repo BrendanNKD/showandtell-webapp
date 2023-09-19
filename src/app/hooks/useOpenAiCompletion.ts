@@ -27,5 +27,6 @@ export const useOpenAiCompletion = () => {
     completion,
     description,
     descriptionSuccess,
+    descriptionloading,
   };
 };

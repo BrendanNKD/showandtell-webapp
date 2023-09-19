@@ -67,7 +67,7 @@ const Slider = () => {
 
   return (
     <>
-      <div className="grid relative grid-cols-1 mt-10">
+      <div className="grid relative grid-cols-1 ">
         <div className="tiny-four-icon-item">
           <TinySlider settings={sliderSettings}>
             {data.map((item, index) => (
@@ -87,7 +87,7 @@ const Slider = () => {
                     <div className="mt-3">
                       <Link
                         to="/explore-one"
-                        className="font-semibold block text-[18px] hover:text-violet-600 text-white"
+                        className="font-semibold block text-[18px] hover:text-violet-600 text-black"
                       >
                         {item.title}
                       </Link>

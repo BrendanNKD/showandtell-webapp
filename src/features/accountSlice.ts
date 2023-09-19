@@ -9,6 +9,7 @@ export const accountinitialState: AccountResponseModel = {
       lastName: "",
       dateOfBirth: "",
       email: "",
+      profilePic: 1,
     },
   ],
   username: "",

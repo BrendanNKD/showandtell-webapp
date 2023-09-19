@@ -8,11 +8,11 @@ import { Mail, Phone } from "react-feather";
 const Footer = () => {
   return (
     <footer
-      className="bg-violet-600 bg-opacity-10
-     relative text-gray-200 dark:text-gray-200 px-10 rounded-lg"
+      className="bg-gray-800
+     relative text-gray-200 dark:text-gray-200 px-10 rounded-lg "
     >
       <div className="grid grid-cols-1">
-        <div className="relative py-16">
+        <div className="relative py-16 ">
           <div className="relative w-full">
             <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
               <div className="lg:col-span-4 md:col-span-12">
@@ -20,8 +20,7 @@ const Footer = () => {
                   <img src={logo_white} alt="" />
                 </Link>
                 <p className="mt-6 text-gray-300">
-                  Buy, sell and discover exclusive digital assets by the top
-                  artists of NFTs world.
+                  Learn and experience the modern way
                 </p>
               </div>
 

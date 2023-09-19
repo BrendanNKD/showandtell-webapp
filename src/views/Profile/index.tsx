@@ -86,7 +86,7 @@ const Profile = () => {
       <div className="container">
         <div className="py-32 bg-blueGray-200">
           <div className="container mx-auto px-4 flex justify-center">
-            <div className="relative flex flex-col min-w-0 break-words bg-white w-4/5 mb-6 shadow-xl rounded-lg ">
+            <div className="relative flex flex-col min-w-0 break-words bg-gray-200 w-4/5 mb-6 shadow-xl rounded-lg ">
               <div className="px-6 pb-10">
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
@@ -187,7 +187,7 @@ const Profile = () => {
                   </button>
                 </div>
 
-                <div className="py-10 border-t border-blueGray-200 text-center h-96 pb-10">
+                <div className="py-10 border-t border-purple-300 text-center h-96 pb-10">
                   <div className="flex flex-wrap justify-center flex-col px-56">
                     <div className="mb-4">
                       {activeTab === "profile" && (
@@ -222,7 +222,7 @@ const Profile = () => {
                           </div>
                           <div className="mb-6">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                              First Name
+                              Email
                             </label>
                             <input
                               type="email"

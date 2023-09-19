@@ -1,5 +1,6 @@
 import { ProfileResponseModel } from "domain/types/profile/Profile";
 import ProfileSelectionProps from "domain/types/profileSelection";
+import { defaultPics } from "utils/profilePic";
 
 import item1 from "../../assets/avatar/1.jpg";
 import item2 from "../../assets/avatar/2.jpg";
@@ -34,7 +35,16 @@ export const ProfileSelectionCard = ({
 export const ProfilePicSelectionCard: React.FC = () => {
   return (
     <>
-      <div className="relative">
+      {defaultPics.map((item, index) => (
+        <div className="relative">
+          <img
+            className="w-20 h-20 rounded-full"
+            src={item.url}
+            alt={item.label}
+          />
+        </div>
+      ))}
+      {/* <div className="relative">
         <img className="w-20 h-20 rounded-full" src={item1} alt="" />
       </div>
       <div className="relative">
@@ -45,7 +55,7 @@ export const ProfilePicSelectionCard: React.FC = () => {
       </div>
       <div className="relative">
         <img className="w-20 h-20 rounded-full" src={item4} alt="" />
-      </div>
+      </div> */}
     </>
   );
 };

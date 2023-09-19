@@ -1,6 +1,6 @@
 import { TextToSpeechProps } from "domain/types/textToSpeech";
 import React, { useState, useEffect } from "react";
-import { GiSpeaker } from "react-icons/gi";
+import { BsPlayFill, BsPauseFill, BsStopFill } from "react-icons/bs";
 
 const TextToSpeech: React.FC<TextToSpeechProps> = ({ text }) => {
   const [isPaused, setIsPaused] = useState(false);
@@ -50,11 +50,16 @@ const TextToSpeech: React.FC<TextToSpeechProps> = ({ text }) => {
   };
 
   return (
-    <div>
-      <button onClick={handlePlay}>{isPaused ? "Resume" : "Play"}</button>
-      {/* <GiSpeaker></GiSpeaker> */}
-      <button onClick={handlePause}>Pause</button>
-      <button onClick={handleStop}>Stop</button>
+    <div className=" pt-2 space-x-6 ">
+      <button onClick={handlePlay}>
+        <BsPlayFill size={20} /> {/* Play Icon */}
+      </button>
+      <button onClick={handlePause}>
+        <BsPauseFill size={20} /> {/* Pause Icon */}
+      </button>
+      <button onClick={handleStop}>
+        <BsStopFill size={20} /> {/* Stop Icon */}
+      </button>
     </div>
   );
 };
