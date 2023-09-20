@@ -17,6 +17,8 @@ import {
   useSignUpUserMutation,
   useConfirmSignUpMutation,
 } from "services/signUp/signUp";
+import { useGetCollection } from "./useCollection";
+import { resetCollection, setCollection } from "features/collectionSlice";
 
 export const useSignIn = () => {
   const dispatch = useDispatch();
@@ -99,6 +101,7 @@ export const useSignOut = () => {
       dispatch(setTokenExpiry(0));
       dispatch(setAccount(accountinitialState));
       dispatch(setProfile(null));
+      dispatch(resetCollection([]));
     }
   }, [dispatch, unauthUser]);
 
@@ -111,6 +114,7 @@ export const useSignOut = () => {
       );
       dispatch(setAccount(accountinitialState));
       dispatch(setProfile(null));
+      dispatch(resetCollection([]));
       // todo show toast
       //showToast({ message: 'Successfuly sign in', type: 'success' })
     }

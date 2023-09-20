@@ -9,6 +9,9 @@ import { setProfile } from "features/profileSlice";
 import { resetState } from "utils/resetState";
 import { ErrorHandler } from "utils/errorHandler";
 import { useCallback, useEffect } from "react";
+import { useGetCollection } from "./useCollection";
+import { setCollection } from "features/collectionSlice";
+import { useGetCollectionQuery } from "services/collection";
 
 export const useGetAccount = () => {
   const dispatch = useDispatch();
@@ -22,7 +25,9 @@ export const useGetAccount = () => {
   );
 
   useEffect(() => {
-    if (accountData) dispatch(setAccount(accountData));
+    if (accountData) {
+      dispatch(setAccount(accountData));
+    }
   }, [accountData, dispatch]);
 
   useEffect(() => {

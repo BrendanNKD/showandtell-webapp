@@ -11,16 +11,17 @@ export const ProfileSelectionCard = ({
   object,
   index,
 }: ProfileSelectionProps) => {
+  console.log(defaultPics[object.profilePic].url);
   return (
     <>
       <div key={index}>
         <button
-          className="flex flex-col items-center group gap-2"
+          className="flex flex-col items-center group gap-2 w-32 h-32"
           // onClick={handleProfileClick}
         >
           <img
-            className="rounded border-2 border-transparent group-hover:border-2 group-hover:border-gray-300 w-150 h-150"
-            src="https://picsum.photos/seed/a/150/150"
+            className="rounded border-2 border-transparent group-hover:border-2 group-hover:border-gray-300  "
+            src={defaultPics[object.profilePic].url}
             alt={`Profile ${index + 1}`}
           />
           <p className="text-gray-500 group-hover:text-gray-300">

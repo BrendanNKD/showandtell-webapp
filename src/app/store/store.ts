@@ -8,6 +8,7 @@ import { generateApi } from "services/replicate/inference";
 import authReducer from "../../features/authSlice";
 import accountReducer from "../../features/accountSlice";
 import profileReducer from "../../features/profileSlice";
+import collectionReducer from "../../features/collectionSlice";
 
 import { setupListeners } from "@reduxjs/toolkit/query/react";
 import { combineReducers } from "redux";
@@ -29,12 +30,13 @@ const rootReducer = combineReducers({
   auth: authReducer,
   account: accountReducer,
   profile: profileReducer,
+  collection: collectionReducer,
 });
 
 const persistConfig = {
   key: "root", // Key for the persisted state in storage
   storage, // Storage method (e.g., localStorage or AsyncStorage)
-  whitelist: ["auth", "account", "profile"], // List of keys to persist (only "auth" in this case)
+  whitelist: ["auth", "account", "profile", "collection"], // List of keys to persist (only "auth" in this case)
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -15,10 +15,14 @@ import { useNavigate } from "react-router-dom";
 import { UseProfile } from "app/state/profile/useProfile";
 import { useGetAccount } from "app/hooks/useAccount";
 import { ProfileResponseModel } from "domain/types/profile/Profile";
+import { useGetCollectionQuery } from "services/collection";
+import { useGetCollection } from "app/hooks/useCollection";
 
 const Profiles = () => {
   // Redirect user to profile if they are authenticated
   const { setProfileState, accountData } = useGetAccount();
+  const { isLoading } = useGetCollection();
+
   const [profiles, setProfiles] = useState<ProfileResponseModel[] | []>([]);
   UseAuthenticatedRoute();
 

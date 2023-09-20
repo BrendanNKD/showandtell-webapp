@@ -15,6 +15,7 @@ import { useOpenAiCompletion } from "app/hooks/useOpenAiCompletion";
 import TextToSpeech from "components/textToSpeech";
 import { useSaveCollection } from "app/hooks/useCollection";
 import { UseProfile, UseProfileIndex } from "app/state/profile/useProfile";
+import { resetCollection } from "features/collectionSlice";
 
 const Generate = () => {
   // Redirect user to profile if they are authenticate

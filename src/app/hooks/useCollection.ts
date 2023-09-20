@@ -7,6 +7,7 @@ import {
   useSaveCollectionMutation,
 } from "services/collection";
 import { CollectionProp } from "domain/types/collection/collection";
+import { resetCollection, setCollection } from "features/collectionSlice";
 
 export const useGetCollection = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,13 @@ export const useGetCollection = () => {
   useEffect(() => {
     ErrorHandler(error, dispatch);
   }, [error, dispatch]);
+
+  useEffect(() => {
+    if (collectionData) {
+      console.log(collectionData);
+      dispatch(setCollection(collectionData));
+    }
+  }, [collectionData, dispatch]);
 
   return {
     collectionData,
@@ -49,12 +57,18 @@ export const useSaveCollection = () => {
   const update = useCallback(
     async (data: CollectionProp) => {
       try {
-        console.log(data);
         await saveCollection(data).unwrap();
       } catch (e: any) {}
     },
     [saveCollection]
   );
+
+  useEffect(() => {
+    if (updateData) {
+      dispatch(resetCollection([]));
+      dispatch(setCollection(updateData));
+    }
+  }, [updateData, dispatch]);
 
   return {
     update,

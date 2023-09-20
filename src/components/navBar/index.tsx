@@ -1,23 +1,23 @@
 import { useState } from "react";
 import { useSignOut } from "app/hooks/useCognitoAuth";
 import { Link, useNavigate } from "react-router-dom";
-import { useIsAuthenticated } from "app/state/account/useAuthenticated";
+import { UseIsAuthenticated } from "app/state/account/useAuthenticated";
 import { UseProfile } from "app/state/profile/useProfile";
 import { defaultPics } from "utils/profilePic";
 
 const Navbar = () => {
   const { signOut } = useSignOut();
   const [isOpen, setIsOpen] = useState(false);
-  const isAuthenticated = useIsAuthenticated();
+  const isAuthenticated = UseIsAuthenticated();
   const navigate = useNavigate();
   const profile = UseProfile();
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleSignOut = () => {
-    signOut();
-    navigate("/");
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/login");
   };
 
   return (
@@ -191,11 +191,14 @@ const Navbar = () => {
                           <div className="py-10 bg-gradient-to-tr from-violet-600 to-red-600 rounded-md"></div>
                           <div className="absolute px-4 -bottom-7 start-0">
                             <div className="flex items-end">
-                              <img
-                                className="rounded-full w-10 h-w-10 shadow dark:shadow-gray-700"
-                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                alt=""
-                              />
+                              {profile && (
+                                <img
+                                  className="rounded-full w-10 h-w-10 shadow dark:shadow-gray-700"
+                                  src={defaultPics[profile.profilePic].url}
+                                  alt=""
+                                />
+                              )}
+
                               <span className="font-semibold text-[15px] ms-1">
                                 {profile?.firstName} {profile?.lastName}
                               </span>
@@ -206,22 +209,21 @@ const Navbar = () => {
                         <div className="mt-10 px-4">
                           <ul className="py-2 text-start">
                             <li>
-                              <Link
-                                to="/creator-profile"
+                              <button
+                                onClick={() => {
+                                  navigate("/profile");
+                                }}
                                 className="block text-[14px] font-semibold py-1.5 px-4 hover:text-violet-600"
                               >
                                 <i className="uil uil-user text-[16px] align-middle me-1"></i>{" "}
                                 Profile
-                              </Link>
+                              </button>
                             </li>
                             <li>
-                              <Link
-                                to="/creator-profile-edit"
-                                className="block text-[14px] font-semibold py-1.5 px-4 hover:text-violet-600"
-                              >
+                              <button className="block text-[14px] font-semibold py-1.5 px-4 hover:text-violet-600">
                                 <i className="uil uil-setting text-[16px] align-middle me-1"></i>{" "}
                                 Settings
-                              </Link>
+                              </button>
                             </li>
                             <li className="border-t border-gray-100 dark:border-gray-800 my-2"></li>
                             <li>
