@@ -17,12 +17,16 @@ import {
   useSignUpUserMutation,
   useConfirmSignUpMutation,
 } from "services/signUp/signUp";
-import { useGetCollection } from "./useCollection";
+// import { useGetCollection } from "./useCollection";
 import { resetCollection, setCollection } from "features/collectionSlice";
+import { useGetAccountQuery } from "services/account/accountApi";
+import { useGetCollectionQuery } from "services/collection";
+import { skipToken } from "@reduxjs/toolkit/query";
 
 export const useSignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [
     authUser,
     {
@@ -59,15 +63,25 @@ export const useSignIn = () => {
     [authUser, dispatch, navigate]
   );
 
+  const { data: accountData } = useGetAccountQuery(undefined, {
+    skip: !loginData,
+  });
+
+  const { data: collectionData } = useGetCollectionQuery(undefined, {
+    skip: !loginData,
+  });
+
   useEffect(() => {
-    if (loginData) {
+    if (loginData && accountData && collectionData) {
+      dispatch(setAccount(accountData));
+      dispatch(setCollection(collectionData));
       dispatch(
         // set token expiry to 1 day - 10 min
         setTokenExpiry(new Date().getTime() / 1000 + 24 * 60 * 60 - 600)
       );
       dispatch(setIsAuthenticated(true));
     }
-  }, [dispatch, loginData, isLoginSuccess]);
+  }, [dispatch, loginData, isLoginSuccess, accountData, collectionData]);
 
   return {
     signIn,
@@ -76,6 +90,8 @@ export const useSignIn = () => {
     loginisErr,
     loginErr,
     authloading,
+    accountData,
+    collectionData,
   };
 };
 
@@ -107,7 +123,6 @@ export const useSignOut = () => {
 
   useEffect(() => {
     if (logutData) {
-      dispatch(setIsAuthenticated(false));
       dispatch(
         // set token expiry to 1 day - 10 min
         setTokenExpiry(0)
@@ -115,6 +130,8 @@ export const useSignOut = () => {
       dispatch(setAccount(accountinitialState));
       dispatch(setProfile(null));
       dispatch(resetCollection([]));
+
+      dispatch(setIsAuthenticated(false));
       // todo show toast
       //showToast({ message: 'Successfuly sign in', type: 'success' })
     }

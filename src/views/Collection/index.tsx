@@ -8,15 +8,16 @@ import Navbar from "components/navBar";
 import { useNavigate } from "react-router-dom";
 import { CollectionCard } from "components/collection";
 import Footer from "components/footer";
-import { useGetCollection } from "app/hooks/useCollection";
+// import { useGetCollection } from "app/hooks/useCollection";
 import { useEffect, useState } from "react";
 import { UseCollection } from "app/state/collection";
+import { Landing } from "components/landing";
 
 const Collection = () => {
   UseAuthenticatedRoute();
   const navigate = useNavigate();
   const collectionData = UseCollection();
-  console.log(collectionData);
+
   const [collections, setCollections] = useState<[] | null>(null);
 
   useEffect(() => {

@@ -9,15 +9,17 @@ import {
 import { useEffect, useState } from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import { FaBirthdayCake } from "react-icons/fa";
+import { ProfileResponseModel } from "domain/types/profile/Profile";
 
 const Profile = () => {
   const currentprofile = UseProfile();
 
-  const [profile, setProfile] = useState({
+  const [profile, setProfile] = useState<ProfileResponseModel>({
     firstName: "",
     lastName: "",
     email: "",
     dateOfBirth: "",
+    profilePic: 0,
   });
 
   const [passwords, setPasswords] = useState({
@@ -52,23 +54,23 @@ const Profile = () => {
   };
 
   const handleUpdateProfile = async () => {
-    try {
-      // Send a PUT request to update the profile using profile state
-      const response = await fetch("your-update-api-endpoint", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...profile, passwords }),
-      });
-      if (response.ok) {
-        // Profile updated successfully
-      } else {
-        // Handle update error
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    // try {
+    //   // Send a PUT request to update the profile using profile state
+    //   const response = await fetch("your-update-api-endpoint", {
+    //     method: "PUT",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ ...profile, passwords }),
+    //   });
+    //   if (response.ok) {
+    //     // Profile updated successfully
+    //   } else {
+    //     // Handle update error
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
   useEffect(() => {
@@ -140,6 +142,7 @@ const Profile = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 ">
                     {profile.firstName} {profile.lastName}
@@ -162,10 +165,6 @@ const Profile = () => {
                     </div>
                     <span>{profile.dateOfBirth}</span>
                   </div>
-                  {/* <div className="mb-2 text-blueGray-600">
-                    <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-                    University of Computer Science
-                  </div> */}
                 </div>
 
                 <div className="mt-10 flex justify-center ">
@@ -190,8 +189,8 @@ const Profile = () => {
                 <div className="py-10 border-t border-purple-300 text-center h-96 pb-10">
                   <div className="flex flex-wrap justify-center flex-col px-56">
                     <div className="mb-4">
-                      {activeTab === "profile" && (
-                        <div>
+                      {profile && activeTab === "profile" && (
+                        <>
                           <div className="mb-6">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                               First Name
@@ -234,10 +233,10 @@ const Profile = () => {
                               required
                             />
                           </div>
-                        </div>
+                        </>
                       )}
-                      {activeTab === "password" && (
-                        <div>
+                      {profile && activeTab === "password" && (
+                        <>
                           <div className="mb-6">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                               Old Password
@@ -281,7 +280,7 @@ const Profile = () => {
                               required
                             />
                           </div>
-                        </div>
+                        </>
                       )}
                     </div>
                     <button

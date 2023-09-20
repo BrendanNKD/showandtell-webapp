@@ -11,7 +11,6 @@ export const ProfileSelectionCard = ({
   object,
   index,
 }: ProfileSelectionProps) => {
-  console.log(defaultPics[object.profilePic].url);
   return (
     <>
       <div key={index}>

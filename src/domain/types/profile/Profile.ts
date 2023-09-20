@@ -1,5 +1,5 @@
 export interface ProfileResponseModel {
-  email: string;
+  email?: string;
   firstName: string;
   lastName: string;
   dateOfBirth: string;

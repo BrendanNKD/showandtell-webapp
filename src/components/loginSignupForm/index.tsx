@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSignIn, useSignUp } from "../../app/hooks/useCognitoAuth";
 import { useNavigate } from "react-router-dom";
-import { useGetAccount } from "app/hooks/useAccount";
 
 type Form = {
   firstname: string;
@@ -34,6 +33,8 @@ const LoginForm: React.FC = () => {
     loginisErr,
     loginErr,
     authloading,
+    accountData,
+    collectionData,
   } = useSignIn();
 
   const { signUp, signUpData, signUpLoading } = useSignUp();
@@ -183,7 +184,7 @@ const LoginForm: React.FC = () => {
 
           {!showRegister ? (
             <>
-              {authloading ? (
+              {authloading || accountData || collectionData ? (
                 <button
                   disabled
                   type="button"

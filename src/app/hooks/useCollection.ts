@@ -9,32 +9,32 @@ import {
 import { CollectionProp } from "domain/types/collection/collection";
 import { resetCollection, setCollection } from "features/collectionSlice";
 
-export const useGetCollection = () => {
-  const dispatch = useDispatch();
-  const {
-    data: collectionData,
-    isLoading,
-    isError,
-    error,
-  } = useGetCollectionQuery();
+// export const useGetCollection = () => {
+//   const dispatch = useDispatch();
+//   const {
+//     data: collectionData,
+//     isLoading,
+//     isError,
+//     error,
+//   } = useGetCollectionQuery();
 
-  useEffect(() => {
-    ErrorHandler(error, dispatch);
-  }, [error, dispatch]);
+//   useEffect(() => {
+//     ErrorHandler(error, dispatch);
+//   }, [error, dispatch]);
 
-  useEffect(() => {
-    if (collectionData) {
-      console.log(collectionData);
-      dispatch(setCollection(collectionData));
-    }
-  }, [collectionData, dispatch]);
+//   useEffect(() => {
+//     if (collectionData) {
+//       console.log(collectionData);
+//       dispatch(setCollection(collectionData));
+//     }
+//   }, [collectionData, dispatch]);
 
-  return {
-    collectionData,
-    isLoading,
-    isError,
-  };
-};
+//   return {
+//     collectionData,
+//     isLoading,
+//     isError,
+//   };
+// };
 
 export const useSaveCollection = () => {
   const dispatch = useDispatch();
