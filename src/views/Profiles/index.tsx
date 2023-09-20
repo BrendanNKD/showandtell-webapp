@@ -13,11 +13,21 @@ import { useDispatch } from "react-redux";
 import { setProfile } from "features/profileSlice";
 import { useNavigate } from "react-router-dom";
 import { UseProfile } from "app/state/profile/useProfile";
-import { useSetProfile } from "app/hooks/useAccount";
+import { useAddProfile, useSetProfile } from "app/hooks/useAccount";
 import { ProfileResponseModel } from "domain/types/profile/Profile";
 import { useGetCollectionQuery } from "services/collection";
 // import { useGetCollection } from "app/hooks/useCollection";
 import { Landing } from "components/landing";
+import { Modal } from "components/modal";
+import AddProfileForm from "components/form/addProfile";
+import { useGetAccountQuery } from "services/account/accountApi";
+
+const initialState: ProfileResponseModel = {
+  firstName: "",
+  lastName: "",
+  dateOfBirth: "",
+  profilePic: Math.floor(Math.random() * 4),
+};
 
 const Profiles = () => {
   // Redirect user to profile if they are authenticated
@@ -26,11 +36,14 @@ const Profiles = () => {
   // const { isLoading } = useGetCollection();
   const { setProfileState } = useSetProfile();
   const accountData = UseAccount();
-
+  const [showModal, setShowModal] = useState(false);
   const [landing, setLanding] = useState<boolean>(true);
-
+  const [formValue, setFormValue] = useState(initialState);
   const [profiles, setProfiles] = useState<ProfileResponseModel[] | []>([]);
   UseAuthenticatedRoute();
+
+  const { addNewProfile, addProfileLoading, isaddProfileSuccess } =
+    useAddProfile();
 
   const navigate = useNavigate();
   const { signOut } = useSignOut();
@@ -47,6 +60,11 @@ const Profiles = () => {
     signOut();
   };
 
+  const handleNewProfile = async (event: any) => {
+    event.preventDefault();
+    await addNewProfile(formValue);
+  };
+
   useEffect(() => {
     if (accountData && landing) setProfiles(accountData.profiles);
   }, [accountData, landing]);
@@ -58,8 +76,25 @@ const Profiles = () => {
     }, 4000); // 3000 milliseconds = 3 seconds
   }, []); // Empty dependency array ensures this effect runs once on mount
 
+  useEffect(() => {
+    if (isaddProfileSuccess) {
+      setShowModal(false);
+      setProfiles((prevProfiles) => [...prevProfiles, formValue]);
+    }
+  }, [isaddProfileSuccess, formValue]); // Empty dependency array ensures this effect runs once on mount
+
   return (
     <>
+      <Modal
+        title="Create New Profile"
+        setShowModal={setShowModal}
+        showModal={showModal}
+        buttonFn={handleNewProfile}
+        loading={addProfileLoading}
+        element={
+          <AddProfileForm setFormValue={setFormValue} formValue={formValue} />
+        }
+      />
       {landing ? (
         <Landing></Landing>
       ) : (
@@ -84,7 +119,9 @@ const Profiles = () => {
             {/* Add Profile */}
             <button
               className="rounded-lg p-4 cursor-pointer flex flex-col align-middle justify-center mb-10"
-              // onClick={handleLogout}
+              onClick={() => {
+                setShowModal((prevShowModal) => !prevShowModal); // Toggle the state
+              }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

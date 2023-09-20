@@ -1,4 +1,4 @@
-import LoginForm from "components/loginSignupForm";
+import LoginForm from "components/form/loginSignupForm";
 import loginimage from "../../assets/loginimage.jpg";
 import { UseNonAuthenticatedRoute } from "utils/authRoute";
 const Login = () => {

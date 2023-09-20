@@ -10,6 +10,7 @@ import DragDrop from "components/dragAndDrop";
 import { Link, useNavigate } from "react-router-dom";
 import Slider from "components/slider";
 import Footer from "components/footer";
+import about from "../../assets/home1.jpeg";
 
 const Home = () => {
   // Redirect user to profile if they are authenticate
@@ -69,7 +70,55 @@ const Home = () => {
           </div>
         </div>
       </section>
+
       <div className="container">
+        <div className="grid lg:grid-cols-12 md:grid-cols-2 grid-cols-1 items-center gap-[30px] mt-32 ">
+          <div className="lg:col-span-5">
+            <div className="relative  pl-10">
+              <div className="absolute bg-gradient-to-r from-red-600 to-violet-600 rounded-lg -mt-[20px] -ms-[20px] h-[98%] w-[98%] z-0"></div>
+              <img
+                src={about}
+                className="relative rounded-lg shadow-md dark:shadow-gray-800 z-10"
+                alt=""
+              />
+            </div>
+          </div>
+
+          <div className="lg:col-span-7">
+            <div className="lg:ms-5">
+              <span className="text-violet-600 font-medium">
+                Creative Vision & Mission
+              </span>
+              <h3 className="mb-4 md:text-3xl text-2xl md:leading-snug leading-snug font-semibold">
+                We develop & create <br /> digital art.
+              </h3>
+
+              <p className="text-slate-400 max-w-xl">
+                We are a huge marketplace dedicated to connecting great artists
+                of all Giglink with their fans and unique token collectors!
+              </p>
+              <p className="text-slate-400 max-w-xl mt-4">
+                It seems that only fragments of the original text remain in the
+                Lorem Ipsum texts used today. One may speculate that over the
+                course of time certain letters were added or deleted at various
+                positions within the text. This might also explain why one can
+                now find slightly different versions.
+              </p>
+
+              <div className="mt-6">
+                <button
+                  className="hover:bg-violet-600 border-violet-600 bg-violet-600  text-white font-bold py-2 px-4 rounded-full"
+                  onClick={() => {
+                    navigate("/generation");
+                  }}
+                >
+                  Explore
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="h-fit flex justify-center align-middle">
           <div className="py-16 h-fit">
             <div className="md:flex justify-between items-center">
@@ -90,9 +139,8 @@ const Home = () => {
             <Slider />
           </div>
         </div>
-        <div className="flex justify-center align-middle">
-          <Footer></Footer>
-        </div>
+
+        <Footer></Footer>
       </div>
     </div>
   );

@@ -1,10 +1,7 @@
 // get account might not be needed
-import {
-  SkipToken,
-  createApi,
-  fetchBaseQuery,
-} from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { AccountResponseModel } from "domain/types/account/UserAccount";
+import { ProfileResponseModel } from "domain/types/profile/Profile";
 
 export const accountApi = createApi({
   reducerPath: "accountApi",
@@ -21,16 +18,18 @@ export const accountApi = createApi({
         };
       },
     }),
-    addProfile: builder.mutation<AccountResponseModel, void>({
-      query: () => {
+
+    addProfile: builder.mutation({
+      query: (body: ProfileResponseModel) => {
         return {
-          url: "/api/v1/profile/current",
-          method: "get",
+          url: "/api/v1/profile/add",
+          method: "post",
           credentials: "include",
+          body,
         };
       },
     }),
   }),
 });
 
-export const { useGetAccountQuery } = accountApi;
+export const { useGetAccountQuery, useAddProfileMutation } = accountApi;

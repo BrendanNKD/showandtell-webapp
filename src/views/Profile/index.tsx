@@ -53,6 +53,8 @@ const Profile = () => {
     setActiveTab(tab);
   };
 
+  const handleProfilePicChange = () => {};
+
   const handleUpdateProfile = async () => {
     // try {
     //   // Send a PUT request to update the profile using profile state
@@ -81,8 +83,11 @@ const Profile = () => {
     <>
       <Navbar></Navbar>
       <Modal
+        title="Profile Picture"
         setShowModal={setShowModal}
         showModal={showModal}
+        buttonFn={handleProfilePicChange}
+        loading={false}
         element={<ProfilePicSelectionCard />}
       />
       <div className="container">

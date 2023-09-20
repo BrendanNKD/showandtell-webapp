@@ -2,7 +2,10 @@ import { accountinitialState, setAccount } from "features/accountSlice";
 
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useGetAccountQuery } from "services/account/accountApi";
+import {
+  useAddProfileMutation,
+  useGetAccountQuery,
+} from "services/account/accountApi";
 import { useAppSelector } from "./useHooks";
 import { setIsAuthenticated, setTokenExpiry } from "features/authSlice";
 import { setProfile } from "features/profileSlice";
@@ -12,6 +15,7 @@ import { useCallback, useEffect } from "react";
 // import { useGetCollection } from "./useCollection";
 import { setCollection } from "features/collectionSlice";
 import { useGetCollectionQuery } from "services/collection";
+import { ProfileResponseModel } from "domain/types/profile/Profile";
 
 // export const useGetAccount = () => {
 //   const dispatch = useDispatch();
@@ -39,6 +43,38 @@ import { useGetCollectionQuery } from "services/collection";
 //     accountData,
 //   };
 // };
+
+export const useAddProfile = () => {
+  const dispatch = useDispatch();
+  const [
+    addProfile,
+    {
+      data: newAccountData,
+      isSuccess: isaddProfileSuccess,
+      isError: isaddProfileErr,
+      error: addProfileErr,
+      isLoading: addProfileLoading,
+    },
+  ] = useAddProfileMutation();
+
+  const addNewProfile = useCallback(
+    async (data: ProfileResponseModel) => {
+      await addProfile(data);
+    },
+    [addProfile]
+  );
+
+  useEffect(() => {
+    if (isaddProfileSuccess) {
+      dispatch(setAccount(newAccountData));
+    } else {
+      //toast to show confirm sign up error
+      //second layer defense after try catch
+    }
+  }, [dispatch, isaddProfileSuccess, newAccountData]);
+
+  return { addNewProfile, addProfileLoading, isaddProfileSuccess };
+};
 
 export const useSetProfile = () => {
   const dispatch = useDispatch();
