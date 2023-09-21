@@ -2,8 +2,6 @@ import { useCallback, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { TUserConfirmOtp } from "domain/types/auth/UserRegistration";
 import { useConfirmSignUp } from "app/hooks/useCognitoAuth";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const ConfirmOtp = () => {
   const [searchParams] = useSearchParams();
@@ -43,15 +41,7 @@ const ConfirmOtp = () => {
     if (username) {
       const combinedOTP = otpValues.join("");
       const data: TUserConfirmOtp = { username: username, otp: combinedOTP };
-      toast.promise(confirmOtp(data), {
-        pending: "Promise is pending",
-        success: "Promise resolved 👌",
-        error: "Promise rejected 🤯",
-      });
     } else {
-      toast.error("Error Notification !", {
-        position: toast.POSITION.TOP_LEFT,
-      });
     }
   };
 

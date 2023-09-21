@@ -1,5 +1,6 @@
 import { TUserLogin } from "domain/types/auth/UserLogin";
 import {
+  ChangePassword,
   TUserConfirmOtp,
   TUserRegistration,
 } from "domain/types/auth/UserRegistration";
@@ -11,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   useAuthUserMutation,
+  useChangePasswordMutation,
   useUnauthUserMutation,
 } from "services/auth/authApi";
 import {
@@ -22,6 +24,7 @@ import { resetCollection, setCollection } from "features/collectionSlice";
 import { useGetAccountQuery } from "services/account/accountApi";
 import { useGetCollectionQuery } from "services/collection";
 import { skipToken } from "@reduxjs/toolkit/query";
+import { AwsErrorHandler } from "utils/errorHandler";
 
 export const useSignIn = () => {
   const dispatch = useDispatch();
@@ -49,8 +52,10 @@ export const useSignIn = () => {
         //todo get profileY
         //await getCurrentUserInfo(dispatch)
         // todo show toast
+
         //showToast({ message: 'Successfuly sign in', type: 'success' })
       } catch (e: any) {
+        AwsErrorHandler(e);
         dispatch(setIsAuthenticated(false));
         dispatch(setTokenExpiry(0));
         dispatch(setAccount(accountinitialState));
@@ -238,4 +243,37 @@ export const useResendConfirmSignUp = () => {
   }, [isconfirmSignUpSuccess, navigate]);
 
   return { confirmOtp, confirmSignUpData, isconfirmSignUpSuccess };
+};
+
+export const useChangePassword = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [
+    changePassword,
+    {
+      data: changePasswordData,
+      isSuccess: ischangePasswordSuccess,
+      isError: ischangePasswordUpErr,
+      error: changePasswordUpErr,
+      isLoading: changePasswordLoading,
+    },
+  ] = useChangePasswordMutation();
+
+  const updatePassword = useCallback(
+    async (data: ChangePassword) => {
+      try {
+        await changePassword(data).unwrap();
+      } catch (e: any) {
+        //handle signUp error
+      }
+    },
+    [changePassword]
+  );
+
+  return {
+    updatePassword,
+    changePasswordData,
+    changePasswordLoading,
+    ischangePasswordSuccess,
+  };
 };

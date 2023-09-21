@@ -1,7 +1,10 @@
 // get account might not be needed
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { AccountResponseModel } from "domain/types/account/UserAccount";
-import { ProfileResponseModel } from "domain/types/profile/Profile";
+import {
+  ProfileResponseModel,
+  UpdateProfileRequestModel,
+} from "domain/types/profile/Profile";
 
 export const accountApi = createApi({
   reducerPath: "accountApi",
@@ -29,7 +32,22 @@ export const accountApi = createApi({
         };
       },
     }),
+
+    updateProfile: builder.mutation({
+      query: (body: UpdateProfileRequestModel) => {
+        return {
+          url: "/api/v1/profile/update",
+          method: "post",
+          credentials: "include",
+          body,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetAccountQuery, useAddProfileMutation } = accountApi;
+export const {
+  useGetAccountQuery,
+  useAddProfileMutation,
+  useUpdateProfileMutation,
+} = accountApi;

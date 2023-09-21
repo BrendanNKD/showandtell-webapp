@@ -8,4 +8,10 @@ export interface ProfileResponseModel {
 
 export interface ProfileState {
   profile: number | null;
+  isMain: boolean;
+}
+
+export interface UpdateProfileRequestModel {
+  index: number;
+  profile: ProfileResponseModel;
 }

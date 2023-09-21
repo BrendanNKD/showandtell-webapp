@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import {
   useAddProfileMutation,
   useGetAccountQuery,
+  useUpdateProfileMutation,
 } from "services/account/accountApi";
 import { useAppSelector } from "./useHooks";
 import { setIsAuthenticated, setTokenExpiry } from "features/authSlice";
@@ -15,7 +16,10 @@ import { useCallback, useEffect } from "react";
 // import { useGetCollection } from "./useCollection";
 import { setCollection } from "features/collectionSlice";
 import { useGetCollectionQuery } from "services/collection";
-import { ProfileResponseModel } from "domain/types/profile/Profile";
+import {
+  ProfileResponseModel,
+  UpdateProfileRequestModel,
+} from "domain/types/profile/Profile";
 
 // export const useGetAccount = () => {
 //   const dispatch = useDispatch();
@@ -88,5 +92,43 @@ export const useSetProfile = () => {
 
   return {
     setProfileState,
+  };
+};
+
+export const useUpdateProfile = () => {
+  const dispatch = useDispatch();
+  const [
+    updateProfile,
+    {
+      data: newAccountData,
+      isSuccess: isupdateProfileSuccess,
+      isError: isupdateProfileErr,
+      error: updateProfileErr,
+      isLoading: updateProfileLoading,
+    },
+  ] = useUpdateProfileMutation();
+
+  const update = useCallback(
+    async (data: UpdateProfileRequestModel) => {
+      await updateProfile(data);
+    },
+    [updateProfile]
+  );
+
+  useEffect(() => {
+    if (isupdateProfileSuccess) {
+      // dispatch(setAccount(newAccountData));
+      dispatch(setAccount(newAccountData));
+    } else {
+      //toast to show confirm sign up error
+      //second layer defense after try catch
+    }
+  }, [dispatch, isupdateProfileSuccess, newAccountData]);
+
+  return {
+    update,
+    updateProfileLoading,
+    newAccountData,
+    isupdateProfileSuccess,
   };
 };

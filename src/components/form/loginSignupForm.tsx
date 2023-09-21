@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSignIn, useSignUp } from "../../app/hooks/useCognitoAuth";
 import { useNavigate } from "react-router-dom";
-
+import { Toaster } from "react-hot-toast";
 type Form = {
   firstname: string;
   lastname: string;
@@ -90,13 +90,13 @@ const LoginForm: React.FC = () => {
 
   useEffect(() => {
     if (signUpData && !signUpLoading) {
-      console.log(signUpData);
       navigate(`/registration/confirmOtp?username=${formValue.username}`);
     }
   }, [signUpData, navigate, formValue.username, signUpLoading]);
 
   return (
     <>
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="bg-gray-100 flex flex-col justify-center">
         <form
           className={`max-w-[500px] w-full mx-auto bg-white p-12 shadow-xl rounded-lg`}
@@ -221,7 +221,7 @@ const LoginForm: React.FC = () => {
           ) : (
             <button
               type="submit"
-              className="border w-full my-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white"
+              className="border w-full my-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg"
             >
               Register
             </button>

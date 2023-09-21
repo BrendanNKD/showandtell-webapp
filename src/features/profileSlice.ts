@@ -4,6 +4,7 @@ import { ProfileState } from "domain/types/profile/Profile";
 
 export const profileinitialState: ProfileState = {
   profile: null,
+  isMain: false,
 };
 
 export const profileSlice = createSlice({
@@ -12,6 +13,10 @@ export const profileSlice = createSlice({
   reducers: {
     setProfile: (state: ProfileState, action) => {
       state.profile = action.payload;
+      if (action.payload === 0) state.isMain = true;
+      else {
+        state.isMain = false;
+      }
     },
   },
 });

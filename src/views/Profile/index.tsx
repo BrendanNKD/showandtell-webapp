@@ -1,4 +1,8 @@
-import { UseProfile } from "app/state/profile/useProfile";
+import {
+  UseIsMain,
+  UseProfile,
+  UseProfileIndex,
+} from "app/state/profile/useProfile";
 import Footer from "components/footer";
 import { Modal } from "components/modal";
 import Navbar from "components/navBar";
@@ -10,10 +14,15 @@ import { useEffect, useState } from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import { FaBirthdayCake } from "react-icons/fa";
 import { ProfileResponseModel } from "domain/types/profile/Profile";
+import { useUpdateProfile } from "app/hooks/useAccount";
+import { defaultPics } from "utils/profilePic";
+import { useChangePassword } from "app/hooks/useCognitoAuth";
+import toast, { Toaster } from "react-hot-toast";
 
 const Profile = () => {
   const currentprofile = UseProfile();
-
+  const profileIndex = UseProfileIndex();
+  const isMain = UseIsMain();
   const [profile, setProfile] = useState<ProfileResponseModel>({
     firstName: "",
     lastName: "",
@@ -21,12 +30,26 @@ const Profile = () => {
     dateOfBirth: "",
     profilePic: 0,
   });
-
+  const [showEditButton, setShowEditButton] = useState(false);
   const [passwords, setPasswords] = useState({
     oldPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
+
+  const {
+    update,
+    updateProfileLoading,
+    newAccountData,
+    isupdateProfileSuccess,
+  } = useUpdateProfile();
+
+  const {
+    updatePassword,
+    changePasswordData,
+    changePasswordLoading,
+    ischangePasswordSuccess,
+  } = useChangePassword();
 
   const [showModal, setShowModal] = useState(false);
 
@@ -42,6 +65,7 @@ const Profile = () => {
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
     const { name, value } = e.target;
     setPasswords((prevPasswords) => ({
       ...prevPasswords,
@@ -56,32 +80,47 @@ const Profile = () => {
   const handleProfilePicChange = () => {};
 
   const handleUpdateProfile = async () => {
-    // try {
-    //   // Send a PUT request to update the profile using profile state
-    //   const response = await fetch("your-update-api-endpoint", {
-    //     method: "PUT",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ ...profile, passwords }),
-    //   });
-    //   if (response.ok) {
-    //     // Profile updated successfully
-    //   } else {
-    //     // Handle update error
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    if (profileIndex !== null && profile)
+      await update({ index: profileIndex, profile: profile });
+  };
+
+  const handleChangePassword = async () => {
+    if (passwords.newPassword === passwords.confirmPassword)
+      await updatePassword({
+        previousPassword: passwords.oldPassword,
+        proposedPassword: passwords.newPassword,
+      });
+    else {
+      console.log("password does not match");
+    }
+  };
+
+  const handleEditClick = () => {
+    // Handle the edit button click event
   };
 
   useEffect(() => {
-    if (currentprofile) setProfile(currentprofile);
+    if (currentprofile) {
+      setProfile(currentprofile);
+    }
   }, [currentprofile]);
+
+  useEffect(() => {
+    if (isupdateProfileSuccess) {
+      toast.success("Successfully Updated Profile!");
+    }
+  }, [isupdateProfileSuccess]);
+
+  useEffect(() => {
+    if (ischangePasswordSuccess) {
+      toast.success("Successfully Updated Password!");
+    }
+  }, [ischangePasswordSuccess]);
 
   return (
     <>
       <Navbar></Navbar>
+      <Toaster position="top-center" reverseOrder={false} />
       <Modal
         title="Profile Picture"
         setShowModal={setShowModal}
@@ -98,14 +137,51 @@ const Profile = () => {
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                     <div className="flex justify-center">
-                      <img
-                        alt="..."
-                        src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
-                        className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 w-40 "
-                        onClick={() => {
-                          setShowModal((prevShowModal) => !prevShowModal); // Toggle the state
-                        }}
-                      />
+                      {currentprofile && (
+                        <>
+                          {/* <img
+                            alt="..."
+                            src={defaultPics[currentprofile?.profilePic].url}
+                            className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 w-40 "
+                            onMouseEnter={() => {
+                              setShowEditButton(true);
+                            }}
+                            onMouseLeave={() => {
+                              setShowEditButton(false);
+                            }}
+                            onClick={() => {
+                              setShowModal((prevShowModal) => !prevShowModal); // Toggle the state
+                            }}
+                          /> */}
+                          <div className="relative w-40 -m-16 -ml-20 lg:-ml-16">
+                            <img
+                              className="w-40 h-40 rounded-full absolute"
+                              src={defaultPics[currentprofile?.profilePic].url}
+                              alt=""
+                              onClick={() => {
+                                setShowModal((prevShowModal) => !prevShowModal); // Toggle the state
+                              }}
+                            />
+                            <div className="w-40 h-40 group hover:bg-gray-200 opacity-60 rounded-full absolute flex justify-center items-center cursor-pointer transition duration-500">
+                              {/* <img
+                                className="hidden group-hover:block w-12"
+                                src="https://www.svgrepo.com/show/33565/upload.svg"
+                                alt=""
+                              /> */}
+                              <p
+                                className="underline"
+                                onClick={() => {
+                                  setShowModal(
+                                    (prevShowModal) => !prevShowModal
+                                  ); // Toggle the state
+                                }}
+                              >
+                                Edit
+                              </p>
+                            </div>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
@@ -150,17 +226,25 @@ const Profile = () => {
 
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 ">
-                    {profile.firstName} {profile.lastName}
+                    {currentprofile && (
+                      <>
+                        {currentprofile.firstName} {currentprofile.lastName}{" "}
+                      </>
+                    )}
                   </h3>
-                  <div className="mb-2 text-blueGray-600 flex flex-row justify-center py-2">
-                    <div className="flex flex-col justify-center align-bottom">
-                      <AiOutlineMail
-                        size={15}
-                        className="mr-2 text-lg text-blueGray-400 "
-                      />
+
+                  {isMain && (
+                    <div className="mb-2 text-blueGray-600 flex flex-row justify-center py-2">
+                      <div className="flex flex-col justify-center align-bottom">
+                        <AiOutlineMail
+                          size={15}
+                          className="mr-2 text-lg text-blueGray-400 "
+                        />
+                      </div>
+                      {currentprofile?.email}
                     </div>
-                    {profile.email}
-                  </div>
+                  )}
+
                   <div className="mb-2 text-blueGray-600 flex flex-row justify-center">
                     <div className="flex flex-col justify-center align-bottom">
                       <FaBirthdayCake
@@ -172,24 +256,26 @@ const Profile = () => {
                   </div>
                 </div>
 
-                <div className="mt-10 flex justify-center ">
-                  <button
-                    className={`${
-                      activeTab === "profile" ? "bg-blue-500" : "bg-gray-300"
-                    } text-white hover:bg-blue-600 py-2 px-4 rounded-t-lg`}
-                    onClick={() => handleTabChange("profile")}
-                  >
-                    Profile
-                  </button>
-                  <button
-                    className={`${
-                      activeTab === "password" ? "bg-blue-500" : "bg-gray-300"
-                    } text-white hover:bg-blue-600 py-2 px-4 rounded-t-lg`}
-                    onClick={() => handleTabChange("password")}
-                  >
-                    Change Password
-                  </button>
-                </div>
+                {isMain && (
+                  <div className="mt-10 flex justify-center ">
+                    <button
+                      className={`${
+                        activeTab === "profile" ? "bg-blue-500" : "bg-gray-300"
+                      } text-white hover:bg-blue-600 py-2 px-4 rounded-t-lg`}
+                      onClick={() => handleTabChange("profile")}
+                    >
+                      Profile
+                    </button>
+                    <button
+                      className={`${
+                        activeTab === "password" ? "bg-blue-500" : "bg-gray-300"
+                      } text-white hover:bg-blue-600 py-2 px-4 rounded-t-lg`}
+                      onClick={() => handleTabChange("password")}
+                    >
+                      Change Password
+                    </button>
+                  </div>
+                )}
 
                 <div className="py-10 border-t border-purple-300 text-center h-96 pb-10">
                   <div className="flex flex-wrap justify-center flex-col px-56">
@@ -224,23 +310,25 @@ const Profile = () => {
                               required
                             />
                           </div>
-                          <div className="mb-6">
-                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                              Email
-                            </label>
-                            <input
-                              type="email"
-                              name="email"
-                              value={profile.email}
-                              onChange={handleChange}
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                              placeholder="First Name"
-                              required
-                            />
-                          </div>
+                          {isMain && (
+                            <div className="mb-6">
+                              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Email
+                              </label>
+                              <input
+                                type="email"
+                                name="email"
+                                value={profile.email}
+                                onChange={handleChange}
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="First Name"
+                                required
+                              />
+                            </div>
+                          )}
                         </>
                       )}
-                      {profile && activeTab === "password" && (
+                      {isMain && profile && activeTab === "password" && (
                         <>
                           <div className="mb-6">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -288,8 +376,14 @@ const Profile = () => {
                         </>
                       )}
                     </div>
+
                     <button
-                      onClick={handleUpdateProfile}
+                      disabled={changePasswordLoading || updateProfileLoading}
+                      onClick={
+                        activeTab === "profile"
+                          ? handleUpdateProfile
+                          : handleChangePassword
+                      }
                       className="bg-blue-500 text-white hover:bg-blue-600 py-2 px-4 rounded-lg"
                     >
                       Update {activeTab === "profile" ? "Profile" : "Password"}
