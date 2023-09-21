@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSignIn, useSignUp } from "../../app/hooks/useCognitoAuth";
 import { useNavigate } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 type Form = {
   firstname: string;
   lastname: string;
@@ -66,19 +66,21 @@ const LoginForm: React.FC = () => {
       confirmPassword,
     } = formValue;
     if (password !== confirmPassword) {
+      toast.error("Password does not match");
       return;
     }
 
     if (!firstname || !lastname || !email || !dateOfBirth || !username) {
+      toast.error("Please fill in the nessasary informations");
       return;
     }
     // password restriction
     signUp({
       username: username,
       password: password,
+      email: email,
       profiles: [
         {
-          email: email,
           dateOfBirth: dateOfBirth,
           firstName: firstname,
           lastName: lastname,

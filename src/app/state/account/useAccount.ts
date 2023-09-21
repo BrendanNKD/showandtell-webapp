@@ -6,3 +6,8 @@ export const UseAccount = () => {
 
   return { profiles, username };
 };
+
+export const UseEmail = () => {
+  const { email } = useAppSelector(selectAccount);
+  return email;
+};

@@ -18,19 +18,24 @@ import { useUpdateProfile } from "app/hooks/useAccount";
 import { defaultPics } from "utils/profilePic";
 import { useChangePassword } from "app/hooks/useCognitoAuth";
 import toast, { Toaster } from "react-hot-toast";
+import { UseEmail } from "app/state/account/useAccount";
 
 const Profile = () => {
   const currentprofile = UseProfile();
+  const currentemail = UseEmail();
   const profileIndex = UseProfileIndex();
   const isMain = UseIsMain();
   const [profile, setProfile] = useState<ProfileResponseModel>({
     firstName: "",
     lastName: "",
-    email: "",
     dateOfBirth: "",
     profilePic: 0,
   });
+
+  const [email, setEmail] = useState("");
+
   const [showEditButton, setShowEditButton] = useState(false);
+
   const [passwords, setPasswords] = useState({
     oldPassword: "",
     newPassword: "",
@@ -100,10 +105,11 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (currentprofile) {
+    if (currentprofile && currentemail) {
       setProfile(currentprofile);
+      setEmail(currentemail);
     }
-  }, [currentprofile]);
+  }, [currentprofile, currentemail]);
 
   useEffect(() => {
     if (isupdateProfileSuccess) {
@@ -241,7 +247,7 @@ const Profile = () => {
                           className="mr-2 text-lg text-blueGray-400 "
                         />
                       </div>
-                      {currentprofile?.email}
+                      {email}
                     </div>
                   )}
 
@@ -318,11 +324,12 @@ const Profile = () => {
                               <input
                                 type="email"
                                 name="email"
-                                value={profile.email}
+                                value={email}
                                 onChange={handleChange}
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="First Name"
                                 required
+                                disabled={true}
                               />
                             </div>
                           )}

@@ -8,10 +8,10 @@ export const accountinitialState: AccountResponseModel = {
       firstName: "",
       lastName: "",
       dateOfBirth: "",
-      email: "",
       profilePic: 1,
     },
   ],
+  email: "",
   username: "",
 };
 
@@ -22,6 +22,7 @@ export const accountSlice = createSlice({
     setAccount: (state: AccountResponseModel, action) => {
       state.profiles = action.payload.profiles;
       state.username = action.payload.username;
+      state.email = action.payload.email;
     },
   },
 });

@@ -23,7 +23,6 @@ export const ErrorHandler = (error: any, dispatch: Dispatch) => {
 
 export const AwsErrorHandler = (error: any) => {
   if (error.data.err === "NotAuthorizedException") {
-    console.log("here");
     toast.error("Incorrect Username or Password");
   }
 };
