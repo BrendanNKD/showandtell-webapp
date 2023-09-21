@@ -5,7 +5,7 @@ import {
   setTokenExpiry,
 } from "features/authSlice";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie"; // Import js-cookie library
 import { useDispatch } from "react-redux";
 import { accountinitialState, setAccount } from "features/accountSlice";
@@ -20,6 +20,7 @@ export const UseAuthenticatedRoute = () => {
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/login");
+      window.location.reload();
     }
     if (isAuthenticated && profile === null) {
       navigate("/profiles");

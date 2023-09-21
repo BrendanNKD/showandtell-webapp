@@ -128,19 +128,20 @@ export const useSignOut = () => {
 
   useEffect(() => {
     if (logutData) {
+      dispatch(setAccount(accountinitialState));
       dispatch(
         // set token expiry to 1 day - 10 min
         setTokenExpiry(0)
       );
-      dispatch(setAccount(accountinitialState));
       dispatch(setProfile(null));
       dispatch(resetCollection([]));
 
       dispatch(setIsAuthenticated(false));
+
       // todo show toast
       //showToast({ message: 'Successfuly sign in', type: 'success' })
     }
-  }, [dispatch, logutData, isLogoutSuccess]);
+  }, [dispatch, logutData]);
 
   return { signOut, logutData };
 };

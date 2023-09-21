@@ -89,10 +89,12 @@ const LoginForm: React.FC = () => {
   };
 
   useEffect(() => {
-    if (signUpData && !signUpLoading) {
+    if (signUpData) {
+      console.log(signUpData);
+      console.log("OI IM HERE ALREADY WHY");
       navigate(`/registration/confirmOtp?username=${formValue.username}`);
     }
-  }, [signUpData, navigate, formValue.username, signUpLoading]);
+  }, [signUpData, navigate, formValue]);
 
   return (
     <>
