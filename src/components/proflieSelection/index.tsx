@@ -36,11 +36,12 @@ export const ProfilePicSelectionCard: React.FC = () => {
   return (
     <>
       {defaultPics.map((item, index) => (
-        <div className="relative">
+        <div className="relative" key={index}>
           <img
             className="w-20 h-20 rounded-full"
             src={item.url}
             alt={item.label}
+            key={index}
           />
         </div>
       ))}

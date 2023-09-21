@@ -41,6 +41,7 @@ const ConfirmOtp = () => {
     if (username) {
       const combinedOTP = otpValues.join("");
       const data: TUserConfirmOtp = { username: username, otp: combinedOTP };
+      confirmOtp(data);
     } else {
     }
   };
