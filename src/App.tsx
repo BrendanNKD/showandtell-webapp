@@ -7,6 +7,7 @@ import Generate from "views/Generation";
 import Collection from "views/Collection";
 import Playground from "views/Playground/indext";
 import Profile from "views/Profile";
+import { Game } from "views/Game";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/collection" element={<Collection />} />
         <Route path="/playground" element={<Playground />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/gaming" element={<Game />} />
       </Routes>
     </Router>
   );

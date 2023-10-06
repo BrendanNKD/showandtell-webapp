@@ -11,3 +11,8 @@ export const UseEmail = () => {
   const { email } = useAppSelector(selectAccount);
   return email;
 };
+
+export const UseUsername = () => {
+  const { username } = useAppSelector(selectAccount);
+  return username;
+};
