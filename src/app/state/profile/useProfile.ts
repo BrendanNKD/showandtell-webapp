@@ -20,3 +20,15 @@ export const UseIsMain = () => {
   const { isMain } = useAppSelector(selectProfile);
   return isMain;
 };
+
+export const UseProfileName = () => {
+  const { profile, isMain } = useAppSelector(selectProfile);
+  const { profiles } = useAppSelector(selectAccount);
+  if (profile !== null) {
+    const fullname =
+      profiles[profile].firstName + " " + profiles[profile].lastName;
+    return fullname;
+  }
+
+  return null;
+};

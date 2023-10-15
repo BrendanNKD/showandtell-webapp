@@ -140,6 +140,8 @@ export const useSignOut = () => {
 
       // todo show toast
       //showToast({ message: 'Successfuly sign in', type: 'success' })
+    } else if (logutData === "expired") {
+      
     }
   }, [dispatch, logutData]);
 
