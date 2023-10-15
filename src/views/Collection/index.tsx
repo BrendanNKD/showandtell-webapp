@@ -1,21 +1,18 @@
 import {
   UseAuthenticatedRoute,
-  UseNonAuthenticatedRoute,
 } from "utils/authRoute";
 // import { UseProfile } from "app/state/profile/useProfile";
-import { useSignOut } from "app/hooks/useCognitoAuth";
 import Navbar from "components/navBar";
-import { useNavigate } from "react-router-dom";
 import { CollectionCard } from "components/collection";
 import Footer from "components/footer";
 // import { useGetCollection } from "app/hooks/useCollection";
 import { useEffect, useState } from "react";
 import { UseCollection } from "app/state/collection";
-import { Landing } from "components/landing";
+
 
 const Collection = () => {
   UseAuthenticatedRoute();
-  const navigate = useNavigate();
+
   const collectionData = UseCollection();
 
   const [collections, setCollections] = useState<[] | null>(null);

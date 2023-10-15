@@ -1,26 +1,21 @@
 // import { useAppDispatch } from "../../app/useHooks";
-import { setIsAuthenticated } from "features/authSlice";
-import { useAppDispatch } from "app/hooks/useHooks";
 import { useSignOut } from "app/hooks/useCognitoAuth";
 import { UseAuthenticatedRoute } from "utils/authRoute";
 import { UseAccount } from "../../app/state/account/useAccount";
 import { useEffect, useState } from "react";
 import {
-  ProfilePicSelectionCard,
   ProfileSelectionCard,
 } from "../../components/proflieSelection";
-import { useDispatch } from "react-redux";
-import { setProfile } from "features/profileSlice";
+
 import { useNavigate } from "react-router-dom";
-import { UseProfile } from "app/state/profile/useProfile";
 import { useAddProfile, useSetProfile } from "app/hooks/useAccount";
 import { ProfileResponseModel } from "domain/types/profile/Profile";
-import { useGetCollectionQuery } from "services/collection";
+
 // import { useGetCollection } from "app/hooks/useCollection";
 import { Landing } from "components/landing";
 import { Modal } from "components/modal";
 import AddProfileForm from "components/form/addProfile";
-import { useGetAccountQuery } from "services/account/accountApi";
+
 
 const initialState: ProfileResponseModel = {
   firstName: "",

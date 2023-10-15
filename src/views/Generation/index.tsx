@@ -1,21 +1,16 @@
 import {
   UseAuthenticatedRoute,
-  UseNonAuthenticatedRoute,
 } from "utils/authRoute";
 // import { UseProfile } from "app/state/profile/useProfile";
-import { useSignOut } from "app/hooks/useCognitoAuth";
 import Navbar from "components/navBar";
 import { useEffect, useState } from "react";
 import DragDrop from "components/dragAndDrop";
-import { Link } from "react-router-dom";
-import Collections from "components/slider";
 import Footer from "components/footer";
 import { useGenerateCaption } from "app/hooks/useGenerate";
 import { useOpenAiCompletion } from "app/hooks/useOpenAiCompletion";
 import TextToSpeech from "components/textToSpeech";
 import { useSaveCollection } from "app/hooks/useCollection";
 import { UseProfile, UseProfileIndex } from "app/state/profile/useProfile";
-import { resetCollection } from "features/collectionSlice";
 
 const Generate = () => {
   // Redirect user to profile if they are authenticate
@@ -27,8 +22,8 @@ const Generate = () => {
   const profile = UseProfile();
   const profileIndex = UseProfileIndex();
   const { generate, caption, captionloading } = useGenerateCaption();
-  const { update, updateData, updateDataloading } = useSaveCollection();
-  const { completion, description, descriptionSuccess, descriptionloading } =
+  const { update, updateDataloading } = useSaveCollection();
+  const { completion, description, descriptionloading } =
     useOpenAiCompletion();
 
   const handleGenerateCaption = async () => {

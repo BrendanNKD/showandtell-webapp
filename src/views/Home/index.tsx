@@ -1,12 +1,6 @@
-import {
-  UseAuthenticatedRoute,
-  UseNonAuthenticatedRoute,
-} from "utils/authRoute";
+
 // import { UseProfile } from "app/state/profile/useProfile";
-import { useSignOut } from "app/hooks/useCognitoAuth";
 import Navbar from "components/navBar";
-import { useState } from "react";
-import DragDrop from "components/dragAndDrop";
 import { Link, useNavigate } from "react-router-dom";
 import Slider from "components/slider";
 import Footer from "components/footer";
@@ -40,7 +34,7 @@ const Home = () => {
                         </h1>
                       </div>
                     </h4>
-                    <p className="text-lg max-w-xl text-black">
+                    <p className="text-lg max-w-xl text-black font-lapsus">
                       We are a huge marketplace dedicated to connecting great
                       artists of all Giglink with their fans and unique token
                       collectors!

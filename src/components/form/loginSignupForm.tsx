@@ -28,16 +28,12 @@ const LoginForm: React.FC = () => {
   const [showRegister, setShowRegister] = useState(false);
   const {
     signIn,
-    loginData,
-    isLoginSuccess,
-    loginisErr,
-    loginErr,
     authloading,
     accountData,
     collectionData,
   } = useSignIn();
 
-  const { signUp, signUpData, signUpLoading } = useSignUp();
+  const { signUp, signUpData } = useSignUp();
 
   const handleOnInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();

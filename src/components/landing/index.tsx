@@ -1,4 +1,3 @@
-import { UseProfile } from "app/state/profile/useProfile";
 import "./index.css";
 import { UseAccount } from "app/state/account/useAccount";
 export const Landing = () => {

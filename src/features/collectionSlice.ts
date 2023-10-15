@@ -1,10 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../app/store/store";
-import { AccountResponseModel } from "domain/types/account/UserAccount";
-import {
-  CollectionProp,
-  CollectionState,
-} from "domain/types/collection/collection";
+
 
 // todo for profile
 

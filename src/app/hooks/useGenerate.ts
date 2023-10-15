@@ -3,21 +3,16 @@ import {
   generateImageRequest,
 } from "domain/types/generate";
 import { useCallback } from "react";
-import { useDispatch } from "react-redux";
 import {
   useGenCaptionMutation,
   useGenImageMutation,
 } from "services/replicate/inference";
 
 export const useGenerateCaption = () => {
-  const dispatch = useDispatch();
   const [
     genCaption,
     {
       data: caption,
-      isSuccess: isCaptionSuccess,
-      isError: captionisErr,
-      error: captionErr,
       isLoading: captionloading,
     },
   ] = useGenCaptionMutation();
@@ -36,14 +31,10 @@ export const useGenerateCaption = () => {
 };
 
 export const useGenerateImage = () => {
-  const dispatch = useDispatch();
   const [
     genImage,
     {
       data: images,
-      isSuccess: isImagesSuccess,
-      isError: imagesisErr,
-      error: imagesErr,
       isLoading: imagesloading,
     },
   ] = useGenImageMutation();

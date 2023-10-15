@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import TinySlider from "tiny-slider-react";
 import "tiny-slider/dist/tiny-slider.css";
@@ -7,17 +7,12 @@ import { sliderSettings } from "config/config";
 import image from "../../assets/avatar/1.jpg";
 import image1 from "../../assets/avatar/2.jpg";
 import image2 from "../../assets/items/3.gif";
-import image3 from "../../assets/avatar/3.jpg";
-import image4 from "../../assets/avatar/4.jpg";
 import image5 from "../../assets/avatar/5.jpg";
 import image6 from "../../assets/avatar/6.jpg";
-import image7 from "../../assets/items/5.gif";
-import image8 from "../../assets/avatar/7.jpg";
 
 import item1 from "../../assets/items/1.jpg";
 import item2 from "../../assets/items/2.gif";
 import item3 from "../../assets/items/3.jpg";
-import item4 from "../../assets/items/4.jpg";
 import item5 from "../../assets/items/5.jpg";
 import item6 from "../../assets/items/6.jpg";
 

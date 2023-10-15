@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { TUserConfirmOtp } from "domain/types/auth/UserRegistration";
 import { useConfirmSignUp } from "app/hooks/useCognitoAuth";
@@ -7,8 +7,7 @@ const ConfirmOtp = () => {
   const [searchParams] = useSearchParams();
   const username = searchParams.get("username");
 
-  const { confirmOtp, confirmSignUpData, isconfirmSignUpSuccess } =
-    useConfirmSignUp();
+  const { confirmOtp } = useConfirmSignUp();
 
   const [otpValues, setOtpValues] = useState<string[]>([
     "",

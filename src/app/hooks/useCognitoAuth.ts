@@ -23,7 +23,6 @@ import {
 import { resetCollection, setCollection } from "features/collectionSlice";
 import { useGetAccountQuery } from "services/account/accountApi";
 import { useGetCollectionQuery } from "services/collection";
-import { skipToken } from "@reduxjs/toolkit/query";
 import { AwsErrorHandler } from "utils/errorHandler";
 
 export const useSignIn = () => {
@@ -107,10 +106,6 @@ export const useSignOut = () => {
     unauthUser,
     {
       data: logutData,
-      isSuccess: isLogoutSuccess,
-      isError: isLogoutErr,
-      error: logoutErr,
-      isLoading: logoutLoading,
     },
   ] = useUnauthUserMutation();
 
@@ -153,9 +148,6 @@ export const useSignUp = () => {
     signUpUser,
     {
       data: signUpData,
-      isSuccess: isSignUpSuccess,
-      isError: isSignUpErr,
-      error: signUpErr,
       isLoading: signUpLoading,
     },
   ] = useSignUpUserMutation();
@@ -181,9 +173,6 @@ export const useConfirmSignUp = () => {
     {
       data: confirmSignUpData,
       isSuccess: isconfirmSignUpSuccess,
-      isError: isconfirmSignUpErr,
-      error: confirmSignUpErr,
-      isLoading: confirmSignUpLoading,
     },
   ] = useConfirmSignUpMutation();
 
@@ -218,9 +207,6 @@ export const useResendConfirmSignUp = () => {
     {
       data: confirmSignUpData,
       isSuccess: isconfirmSignUpSuccess,
-      isError: isconfirmSignUpErr,
-      error: confirmSignUpErr,
-      isLoading: confirmSignUpLoading,
     },
   ] = useConfirmSignUpMutation();
 
@@ -249,15 +235,11 @@ export const useResendConfirmSignUp = () => {
 };
 
 export const useChangePassword = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [
     changePassword,
     {
       data: changePasswordData,
       isSuccess: ischangePasswordSuccess,
-      isError: ischangePasswordUpErr,
-      error: changePasswordUpErr,
       isLoading: changePasswordLoading,
     },
   ] = useChangePasswordMutation();

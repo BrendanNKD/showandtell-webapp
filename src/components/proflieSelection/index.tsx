@@ -1,11 +1,5 @@
-import { ProfileResponseModel } from "domain/types/profile/Profile";
 import ProfileSelectionProps from "domain/types/profileSelection";
 import { defaultPics } from "utils/profilePic";
-
-import item1 from "../../assets/avatar/1.jpg";
-import item2 from "../../assets/avatar/2.jpg";
-import item3 from "../../assets/avatar/3.jpg";
-import item4 from "../../assets/avatar/4.jpg";
 
 export const ProfileSelectionCard = ({
   object,

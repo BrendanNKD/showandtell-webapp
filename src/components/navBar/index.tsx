@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSignOut } from "app/hooks/useCognitoAuth";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { UseIsAuthenticated } from "app/state/account/useAuthenticated";
 import { UseProfile } from "app/state/profile/useProfile";
 import { defaultPics } from "utils/profilePic";

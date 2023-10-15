@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
 
 export const Game = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [score, setScore] = useState();
   const username = UseUsername();
   const { unityProvider, sendMessage, addEventListener, removeEventListener } =

@@ -1,14 +1,6 @@
-import { useAppSelector } from "../app/hooks/useHooks";
-import {
-  selectAuth,
-  setIsAuthenticated,
-  setTokenExpiry,
-} from "features/authSlice";
+
 import { useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import Cookies from "js-cookie"; // Import js-cookie library
-import { useDispatch } from "react-redux";
-import { accountinitialState, setAccount } from "features/accountSlice";
+import { useNavigate } from "react-router-dom";
 import { UseIsAuthenticated } from "app/state/account/useAuthenticated";
 import { UseProfile } from "app/state/profile/useProfile";
 

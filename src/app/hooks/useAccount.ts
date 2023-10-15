@@ -1,52 +1,16 @@
-import { accountinitialState, setAccount } from "features/accountSlice";
-
+import {  setAccount } from "features/accountSlice";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import {
   useAddProfileMutation,
-  useGetAccountQuery,
   useUpdateProfileMutation,
 } from "services/account/accountApi";
-import { useAppSelector } from "./useHooks";
-import { setIsAuthenticated, setTokenExpiry } from "features/authSlice";
 import { setProfile } from "features/profileSlice";
-import { resetState } from "utils/resetState";
-import { ErrorHandler } from "utils/errorHandler";
 import { useCallback, useEffect } from "react";
 // import { useGetCollection } from "./useCollection";
-import { setCollection } from "features/collectionSlice";
-import { useGetCollectionQuery } from "services/collection";
 import {
   ProfileResponseModel,
   UpdateProfileRequestModel,
 } from "domain/types/profile/Profile";
-
-// export const useGetAccount = () => {
-//   const dispatch = useDispatch();
-//   const { data: accountData, isLoading, isError, error } = useGetAccountQuery();
-
-//   const setProfileState = useCallback(
-//     async (index: number) => {
-//       await dispatch(setProfile(index));
-//     },
-//     [dispatch]
-//   );
-
-//   useEffect(() => {
-//     if (accountData) {
-//       dispatch(setAccount(accountData));
-//     }
-//   }, [accountData, dispatch]);
-
-//   useEffect(() => {
-//     ErrorHandler(error, dispatch);
-//   }, [error, dispatch]);
-
-//   return {
-//     setProfileState,
-//     accountData,
-//   };
-// };
 
 export const useAddProfile = () => {
   const dispatch = useDispatch();
@@ -55,8 +19,6 @@ export const useAddProfile = () => {
     {
       data: newAccountData,
       isSuccess: isaddProfileSuccess,
-      isError: isaddProfileErr,
-      error: addProfileErr,
       isLoading: addProfileLoading,
     },
   ] = useAddProfileMutation();
@@ -102,8 +64,6 @@ export const useUpdateProfile = () => {
     {
       data: newAccountData,
       isSuccess: isupdateProfileSuccess,
-      isError: isupdateProfileErr,
-      error: updateProfileErr,
       isLoading: updateProfileLoading,
     },
   ] = useUpdateProfileMutation();

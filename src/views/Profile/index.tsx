@@ -8,7 +8,6 @@ import { Modal } from "components/modal";
 import Navbar from "components/navBar";
 import {
   ProfilePicSelectionCard,
-  ProfileSelectionCard,
 } from "../../components/proflieSelection";
 import { useEffect, useState } from "react";
 import { AiOutlineMail } from "react-icons/ai";
@@ -34,7 +33,6 @@ const Profile = () => {
 
   const [email, setEmail] = useState("");
 
-  const [showEditButton, setShowEditButton] = useState(false);
 
   const [passwords, setPasswords] = useState({
     oldPassword: "",
@@ -45,13 +43,12 @@ const Profile = () => {
   const {
     update,
     updateProfileLoading,
-    newAccountData,
+
     isupdateProfileSuccess,
   } = useUpdateProfile();
 
   const {
     updatePassword,
-    changePasswordData,
     changePasswordLoading,
     ischangePasswordSuccess,
   } = useChangePassword();
@@ -100,9 +97,9 @@ const Profile = () => {
     }
   };
 
-  const handleEditClick = () => {
-    // Handle the edit button click event
-  };
+  // const handleEditClick = () => {
+  //   // Handle the edit button click event
+  // };
 
   useEffect(() => {
     if (currentprofile && currentemail) {

@@ -1,17 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-import item1 from "../../assets/items/1.jpg";
-import item2 from "../../assets/items/2.gif";
-import item3 from "../../assets/items/3.jpg";
-import item4 from "../../assets/items/8.jpg";
-import item5 from "../../assets/items/5.jpg";
-import item6 from "../../assets/items/6.jpg";
-import image from "../../assets/blog/01.jpg";
-import image1 from "../../assets/blog/03.jpg";
-import image2 from "../../assets/blog/05.jpg";
-import image5 from "../../assets/blog/11.jpg";
-import { UseProfile } from "app/state/profile/useProfile";
 import { CollectionProp } from "domain/types/collection/collection";
 import { defaultPics } from "utils/profilePic";
 interface IProps {

@@ -1,9 +1,7 @@
 // get account might not be needed
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { AccountResponseModel } from "domain/types/account/UserAccount";
 import {
   CollectionProp,
-  CollectionsResponseModel,
 } from "domain/types/collection/collection";
 
 export const collectionApi = createApi({

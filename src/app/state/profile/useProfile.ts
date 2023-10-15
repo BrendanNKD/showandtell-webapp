@@ -3,7 +3,7 @@ import { selectProfile } from "features/profileSlice";
 import { selectAccount } from "features/accountSlice";
 
 export const UseProfile = () => {
-  const { profile, isMain } = useAppSelector(selectProfile);
+  const { profile } = useAppSelector(selectProfile);
   const { profiles } = useAppSelector(selectAccount);
   if (profile !== null) {
     return profiles[profile];
@@ -22,7 +22,7 @@ export const UseIsMain = () => {
 };
 
 export const UseProfileName = () => {
-  const { profile, isMain } = useAppSelector(selectProfile);
+  const { profile } = useAppSelector(selectProfile);
   const { profiles } = useAppSelector(selectAccount);
   if (profile !== null) {
     const fullname =

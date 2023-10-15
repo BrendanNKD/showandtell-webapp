@@ -1,5 +1,4 @@
 import { ProfileResponseModel } from "domain/types/profile/Profile";
-import { useState } from "react";
 
 interface IProps {
   formValue: ProfileResponseModel;

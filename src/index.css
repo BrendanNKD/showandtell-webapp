@@ -5,3 +5,13 @@
 #root {
   background-color: white;
 }
+
+@font-face {
+  font-family: "lapsus";
+  src: local("lapsus"), url("../public/fonts/Lapsus_Pro_Bold.ttf");
+}
+@font-face {
+  font-family: "gillsans";
+  src: local("gillsans"),
+    url("../public/fonts/Gill_Sans_Infant_Std_Regular.ttf");
+}

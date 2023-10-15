@@ -1,10 +1,9 @@
 import { DragDropProps } from "domain/types/dragDrop/dragDrop";
-import { useState } from "react";
 
 const DragDrop: React.FC<DragDropProps> = (props) => {
   const { setSelectedImage } = props;
-  const [inputwidth, setInputWidth] = useState(0);
-  const [inputheight, setInputheight] = useState(0);
+  // const [inputwidth, setInputWidth] = useState(0);
+  // const [inputheight, setInputheight] = useState(0);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -17,10 +16,10 @@ const DragDrop: React.FC<DragDropProps> = (props) => {
         const img = document.createElement("img");
         img.src = base64Image;
         img.onload = () => {
-          const width = img.width;
-          const height = img.height;
-          setInputWidth(width);
-          setInputheight(height);
+          // const width = img.width;
+          // const height = img.height;
+          // setInputWidth(width);
+          // setInputheight(height);
           setSelectedImage(base64Image);
         };
       };

@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ConfirmOtp from "views/ConfirmOtp";
 import Generate from "views/Generation";
 import Collection from "views/Collection";
-import Playground from "views/Playground/indext";
+import Playground from "views/Playground";
 import Profile from "views/Profile";
 import { Game } from "views/Game";
 import Quest from "views/Quest";

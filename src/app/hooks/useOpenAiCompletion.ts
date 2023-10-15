@@ -1,9 +1,7 @@
-import { generateCaptionRequest } from "domain/types/generate";
+
 import { promptRequest } from "domain/types/openAi/completion";
 import { useCallback } from "react";
-import { useDispatch } from "react-redux";
 import { useOpenAiCompletionMutation } from "services/openAi/completion";
-import { useGenCaptionMutation } from "services/replicate/inference";
 
 export const useOpenAiCompletion = () => {
   const [
@@ -11,8 +9,7 @@ export const useOpenAiCompletion = () => {
     {
       data: description,
       isSuccess: descriptionSuccess,
-      isError: descriptionisErr,
-      error: descriptionErr,
+
       isLoading: descriptionloading,
     },
   ] = useOpenAiCompletionMutation();

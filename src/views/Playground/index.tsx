@@ -1,21 +1,12 @@
 import {
   UseAuthenticatedRoute,
-  UseNonAuthenticatedRoute,
 } from "utils/authRoute";
 // import { UseProfile } from "app/state/profile/useProfile";
-import { useSignOut } from "app/hooks/useCognitoAuth";
 import Navbar from "components/navBar";
-import { useNavigate } from "react-router-dom";
-import { CollectionCard } from "components/collection";
 import Footer from "components/footer";
 import { useEffect, useState } from "react";
 import DragDrop from "components/dragAndDrop";
 import { useGenerateImage } from "app/hooks/useGenerate";
-
-import {
-  generateCaptionRequest,
-  generateImageRequest,
-} from "domain/types/generate";
 import { Input } from "domain/types/magicPrompt";
 
 const Playground = () => {
@@ -23,10 +14,9 @@ const Playground = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [generatedOutput, setGeneratedOutput] = useState<string[]>([]);
   const [text, setText] = useState<string>(""); // Initialize with an empty string
-  const { generate, images, imagesloading } = useGenerateImage();
+  const { generate, images } = useGenerateImage();
 
   const [selectedImageId, setSelectedImageId] = useState<number | null>(null);
-  const navigate = useNavigate();
   // Define a function to handle textarea input changes
   const handleTextareaChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>

@@ -1,8 +1,7 @@
 import { resetState } from "./resetState";
 import { RTKFetchBaseQueryError } from "domain/types/errors/rtkErrors";
 import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 export const ErrorHandler = (error: any, dispatch: Dispatch) => {
   if (error instanceof RTKFetchBaseQueryError) {
