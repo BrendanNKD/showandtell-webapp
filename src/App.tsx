@@ -9,12 +9,14 @@ import Playground from "views/Playground";
 import Profile from "views/Profile";
 import { Game } from "views/Game";
 import Quest from "views/Quest";
+import Register from "views/Register";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/profiles" element={<Profiles />} />
         <Route path="/" element={<Home />} />
         <Route path="/generation" element={<Generate />} />
