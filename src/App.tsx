@@ -5,18 +5,18 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ConfirmOtp from "views/ConfirmOtp";
 import Generate from "views/Generation";
 import Collection from "views/Collection";
-import Playground from "views/Playground";
+import Playground from "views/Playground/index";
 import Profile from "views/Profile";
 import { Game } from "views/Game";
 import Quest from "views/Quest";
-import Register from "views/Register";
+import { GenerateChoose } from "views/Generation-choose";
+import { GenerateChoose2 } from "views/Generation-choose2";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/profiles" element={<Profiles />} />
         <Route path="/" element={<Home />} />
         <Route path="/generation" element={<Generate />} />
@@ -26,6 +26,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/gaming" element={<Game />} />
         <Route path="/quest" element={<Quest />} />
+        <Route path="/generateChoose" element={<GenerateChoose />} />
+        <Route path="/generateChoose2" element={<GenerateChoose2 />} />
       </Routes>
     </Router>
   );
