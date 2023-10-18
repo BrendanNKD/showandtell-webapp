@@ -79,11 +79,13 @@ export const GenerateChoose = (): JSX.Element => {
                         Learn about the world of animals and the creatures around you! This educational and entertaining game is
                         designed to help children learn about animals from all around the world while having loads of fun.
                       </p>
+                      <button onClick = {() => {navigate("/temp");}}>
                       <img
                         className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
                         alt="Frame"
                         src="https://c.animaapp.com/YStE9pzZ/img/frame-9.svg"
                       />
+                      </button>
                     </div>
                     <div className="absolute w-[353px] h-[181px] top-0 left-0">
                       <div className="relative w-[351px] h-[181px]">

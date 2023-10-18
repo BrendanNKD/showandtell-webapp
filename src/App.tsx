@@ -11,6 +11,7 @@ import { Game } from "views/Game";
 import Quest from "views/Quest";
 import Register from "views/Register";
 import { GenerateChoose } from "views/Generation-choose";
+import { GenerateEmpty } from "views/temp";
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/gaming" element={<Game />} />
         <Route path="/quest" element={<Quest />} />
+        <Route path="/temp" element={<GenerateEmpty />} />
+
       </Routes>
     </Router>
   );
