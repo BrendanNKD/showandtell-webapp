@@ -79,7 +79,7 @@ const Navbar = () => {
               <div className="flex flex-shrink-0 items-center">
                 <img
                   className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                  src="https://c.animaapp.com/eyIjESUi/img/frame-4.svg"
                   alt="Your Company"
                 />
               </div>
@@ -90,7 +90,7 @@ const Navbar = () => {
                     onClick={() => {
                       navigate("/dashboard");
                     }}
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    className="bg-[#84c455] hover:bg-[#66ae45] text-black text-sm font-bold rounded-full px-3 py-2"
                     aria-current="page"
                   >
                     Dashboard
@@ -99,7 +99,7 @@ const Navbar = () => {
                     onClick={() => {
                       navigate("/generation");
                     }}
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    className="bg-[#9cdcf9] hover:bg-[#53c2ef] text-black text-sm font-bold rounded-full px-3 py-2"
                   >
                     Generate
                   </button>
@@ -107,7 +107,7 @@ const Navbar = () => {
                     onClick={() => {
                       navigate("/collection");
                     }}
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    className="bg-[#fae55a] hover:bg-[#facd0a] text-black text-sm font-bold rounded-full px-3 py-2"
                   >
                     Collection
                   </button>
@@ -115,7 +115,7 @@ const Navbar = () => {
                     onClick={() => {
                       navigate("/playground");
                     }}
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    className="bg-[#fcb315] hover:bg-[#e78324] text-black text-sm font-bold rounded-full px-3 py-2"
                   >
                     Playground
                   </button>

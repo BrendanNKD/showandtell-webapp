@@ -26,7 +26,7 @@ const ScoreBoard = () => {
               <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                 <div className="flex justify-end">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    200
+                    Level 2
                   </h5>
                   <svg
                     className="w-8 h-8 text-yellow-300 mr-1"
@@ -59,7 +59,7 @@ const ScoreBoard = () => {
               <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                 <div className="flex justify-end">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    200
+                    Level 1
                   </h5>
                   <svg
                     className="w-8 h-8 text-yellow-300 mr-1"
@@ -92,7 +92,7 @@ const ScoreBoard = () => {
               <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                 <div className="flex justify-end">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    200
+                    Level 1
                   </h5>
                   <svg
                     className="w-8 h-8 text-yellow-300 mr-1"
@@ -121,7 +121,7 @@ const ScoreBoard = () => {
               <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                 <div className="flex justify-end">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    200
+                    Level 1
                   </h5>
                   <svg
                     className="w-8 h-8 text-yellow-300 mr-1"
@@ -154,7 +154,7 @@ const ScoreBoard = () => {
               <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                 <div className="flex justify-end">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    200
+                    level 1
                   </h5>
                   <svg
                     className="w-8 h-8 text-yellow-300 mr-1"
