@@ -7,12 +7,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
-import 'swiper/css/navigation';
+//import 'swiper/css/navigation';
 
 //import './styles.css';
 
 // import required modules
-import { Navigation } from 'swiper/modules';
+import { Navigation, Pagination} from 'swiper/modules';
 
 
 
@@ -38,20 +38,41 @@ export const GenerateChoose = (): JSX.Element => {
     objectFit: 'cover',
   };
 
+
+
   const navigate = useNavigate();
 
   return (
     <div className="h-fit flex-col justify-center align-middle">
       <Navbar />
-      <div className="bg-transparent flex flex-row justify-center w-full">
+      <div className="bg-transparent flex flex-row justify-center w-full ">
         <div className="overflow-hidden bg-[url(https://c.animaapp.com/YStE9pzZ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
           <div className="absolute w-[259px] top-[161px] left-[486px] [font-family:'lapsus',Helvetica] font-bold text-black text-[71px] tracking-[0.71px] leading-[normal] whitespace-nowrap">
             Generate
           </div>
-          <Swiper navigation={true} modules={[Navigation]} style={swiperStyle} className="mySwiper">
-            <div>
-              <SwiperSlide style={swiperSlideStyle}>
+          <Swiper navigation={{
+                  prevEl: '.prev',
+                  nextEl: '.next',
+                  }} 
+                  pagination={{clickable: true,
+                               el: `swiper-container swiper-container-testClass`,
+                               bulletClass: `swiper-pagination-bullet swiper-pagination-testClass`}}
+                  modules={[Navigation, Pagination]} 
+                  style={swiperStyle} 
+                  className="mySwiper" 
+                  preventClicks = {false}
+                  preventClicksPropagation = {false}
+                  touchStartPreventDefault={false}
+                  watchSlidesProgress = {true}>
+            <div> 
+              <SwiperSlide style={swiperSlideStyle} >
                 <div>
+                <button className="next">
+                <img src="https://c.animaapp.com/YStE9pzZ/img/frame-5.svg"
+                 alt="Frame"
+                 className="absolute w-[77px] h-[83px] top-[527px] left-[1468px]"
+                 />
+                 </button>
                   <div className="absolute w-[922px] h-[181px] top-[259px] left-[475px]">
                     <div className="absolute w-[652px] h-[168px] top-[7px] left-[270px] bg-[url(https://c.animaapp.com/YStE9pzZ/img/vector-2.svg)] bg-[100%_100%]">
                       <p className="absolute w-[411px] top-[25px] left-[111px] [font-family:'gillsans',Helvetica] font-normal text-black text-[21px] tracking-[0.21px] leading-[normal]">
@@ -68,11 +89,13 @@ export const GenerateChoose = (): JSX.Element => {
                       <div className="relative w-[351px] h-[181px]">
                         <div className="w-[351px] h-[163px] top-[18px] bg-[#ef59a1] rounded-[20px] absolute left-0" />
                         <div className="w-[351px] h-[163px] top-0 bg-[#f177ae] rounded-[17px] absolute left-0" />
+
                         <img
                           className="absolute w-[105px] h-[92px] top-[44px] left-[23px]"
                           alt="Frame"
                           src="https://c.animaapp.com/YStE9pzZ/img/frame-2.svg"
                         />
+                        
                         <div className="absolute w-[157px] top-[69px] left-[151px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
                           Animals
                         </div>
@@ -140,8 +163,16 @@ export const GenerateChoose = (): JSX.Element => {
                   </div>
                 </div>
               </SwiperSlide>
+
               <SwiperSlide style={swiperSlideStyle}>
                 <div>
+                <button className="prev">
+                <img src="https://c.animaapp.com/qxMy52EW/img/frame-3.svg"
+                 alt="Frame"
+                 className="absolute w-[77px] h-[83px] top-[527px] left-[349px]"
+                />
+                </button>
+
                   <div className="absolute w-[911px] h-[181px] top-[259px] left-[486px]">
                     <div className="absolute w-[652px] h-[168px] top-[7px] left-[259px] bg-[url(https://c.animaapp.com/NIGs1Y1e/img/vector-2.svg)] bg-[100%_100%]">
                       <p className="absolute w-[411px] top-[25px] left-[111px] [font-family:'gillsans',Helvetica] font-normal text-black text-[21px] tracking-[0.21px] leading-[normal]">
@@ -153,6 +184,7 @@ export const GenerateChoose = (): JSX.Element => {
                         alt="Frame"
                         src="https://c.animaapp.com/NIGs1Y1e/img/frame.svg"
                       />
+
                     </div>
                     <div className="absolute w-[353px] h-[181px] top-0 left-0">
                       <div className="relative w-[351px] h-[181px]">
@@ -229,17 +261,11 @@ export const GenerateChoose = (): JSX.Element => {
               </SwiperSlide>
             </div>
           </Swiper>
-          <img
-            className="absolute w-[77px] h-[33px] top-[893px] left-[946px]"
-            alt="Frame"
-            src="https://c.animaapp.com/YStE9pzZ/img/frame-6.svg"
-          />
-          <button onClick={() => { navigate("/GenerateChoose2"); }}>
-            <img src="https://c.animaapp.com/YStE9pzZ/img/frame-5.svg"
-              alt="Frame"
-              className="absolute w-[77px] h-[83px] top-[527px] left-[1468px]"
-            />
-          </button>
+          <div className= "absolute w-[77px] h-[33px] top-[893px] left-[946px]">
+            {/*alt="Frame"
+                  src="https://c.animaapp.com/YStE9pzZ/img/frame-6.svg"*/}
+          </div>
+        
           {/*<img 
           className="absolute w-[77px] h-[83px] top-[527px] left-[1468px]"
           alt="Frame"

@@ -10,6 +10,7 @@ import Profile from "views/Profile";
 import { Game } from "views/Game";
 import Quest from "views/Quest";
 import Register from "views/Register";
+import { GenerateChoose } from "views/Generation-choose";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/profiles" element={<Profiles />} />
         <Route path="/" element={<Home />} />
+        <Route path="/GenerateChoose" element={<GenerateChoose />} />
         <Route path="/generation" element={<Generate />} />
         <Route path="/registration/confirmOtp" element={<ConfirmOtp />} />
         <Route path="/collection" element={<Collection />} />
