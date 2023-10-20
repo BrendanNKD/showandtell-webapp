@@ -79,7 +79,7 @@ export const GenerateEmpty = () => {
         </button>
         {/*left side image square*/}
         <div className="absolute w-[1034px] h-[821px] top-[145px] left-[166px] bg-[url(https://c.animaapp.com/xYMQ48TT/img/vector-4.svg)] bg-[100%_100%]">
-          <div className="absolute w-[1034px] h-[92px] top-0 left-0 bg-[url(https://c.animaapp.com/xYMQ48TT/img/vector-3.svg)] bg-[100%_100%]">
+          <div className="absolute w-[1034px] h-[92px] top-0 left-0 bg-[#F078AE] p-3 rounded-t-3xl">
             <div className="absolute w-[162px] top-[19px] left-[436px] [font-family:'lapsus',Helvetica] font-bold text-black text-[49px] tracking-[1.23px] leading-[normal] whitespace-nowrap">
               Animals
             </div>
@@ -180,7 +180,18 @@ export const GenerateEmpty = () => {
               </div>
             </div>
           </button>
+          {/*report problem button*/}
 
+          <button> 
+          <img
+            className="absolute w-[51px] h-[48px] top-[134px] left-[907px]"
+            alt="Frame"
+            src="https://c.animaapp.com/NcdooYZJ/img/frame-4.svg"
+          />
+          </button>
+          <div className="absolute w-[93px] top-[184px] left-[886px] [font-family:'Inter',Helvetica] font-normal text-black text-[16px] text-center tracking-[0] leading-[normal]">
+            Report problem
+          </div>
         </div>
 
 

@@ -69,7 +69,7 @@ const Generate = () => {
         <h1 className="font-extrabold leading-none tracking-tigh md:text-3xl lg:text-4xl dark:text-black text-gray-700">
           Captioning
         </h1>
-        <div className="flex justify-center gap-10 pb-20 pt-10">
+        <div className="flex justify-center gap-6 pb-20 pt-10">
           <div className="flex-initial w-full h-full overflow-hidden">
             {selectedImage ? (
               <img
