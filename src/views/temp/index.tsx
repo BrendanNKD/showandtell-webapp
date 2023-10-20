@@ -12,6 +12,8 @@ import TextToSpeech from "components/textToSpeech";
 import { useSaveCollection } from "app/hooks/useCollection";
 import { UseProfile, UseProfileIndex } from "app/state/profile/useProfile";
 import { useNavigate } from "react-router-dom";
+import { Modal } from "components/modal";
+import { useAddProfile, useSetProfile } from "app/hooks/useAccount";
 
 export const GenerateEmpty = () => {
   // Redirect user to profile if they are authenticate
@@ -28,6 +30,9 @@ export const GenerateEmpty = () => {
     useOpenAiCompletion();
   
   const navigate = useNavigate();
+
+  const { addNewProfile, addProfileLoading, isaddProfileSuccess } =
+    useAddProfile();
 
   const handleGenerateCaption = async () => {
     if (selectedImage) {
@@ -64,6 +69,17 @@ export const GenerateEmpty = () => {
   useEffect(() => {
     setImageDescription(description);
   }, [description]);
+
+  const emptyClick = () => {
+    // console.log(index);
+    // dispatch(setProfile(index));
+  };
+
+
+
+  //report function stuf
+  const [showModal, setShowModal] = useState(false);
+  
 
   return (
     <div className="bg-transparent flex flex-row justify-center w-full">
@@ -181,8 +197,116 @@ export const GenerateEmpty = () => {
             </div>
           </button>
           {/*report problem button*/}
+          <Modal 
+            title ="Report problem"
+            setShowModal={setShowModal}
+            showModal={showModal}
+            buttonFn={emptyClick}
+            loading={addProfileLoading}
+            element={
+             <>
+                  
+                  <div className="flex flex-col py-2">
+                  <form>
+                   <label style={{ fontSize: 32, letterSpacing:0.2}} className = "[font-family:'gillsans',Helvetica]">
+                   <span> Check all that apply: </span>
+                   <br />
+                   </label>
 
-          <button> 
+                    <label style={{ fontSize: 32, letterSpacing:0.2}} className = "[font-family:'gillsans',Helvetica]">
+                      <input type="checkbox"
+                       className="
+                       peer relative appearance-none shrink-0 w-6 h-6 border-2 border-blue-200 rounded-sm mt-1 bg-white
+                       focus:outline-none focus:ring-offset-0 focus:ring-1 focus:ring-blue-100
+                       checked:bg-blue-500 checked:border-0
+                       disabled:border-steel-400 disabled:bg-steel-400
+                       [font-family:'gillsans',Helvetica]"
+                       
+                       name="inaccurate captions" />
+                       <span> Inaccurate captions </span>
+                    <br />
+                    </label>
+                    <label style={{ fontSize: 32, letterSpacing:0.2 }} className = "[font-family:'gillsans',Helvetica]">
+                      <input type="checkbox"
+                       className="
+                       peer relative appearance-none shrink-0 w-6 h-6 border-2 border-blue-200 rounded-sm mt-1 bg-white
+                       focus:outline-none focus:ring-offset-0 focus:ring-1 focus:ring-blue-100
+                       checked:bg-blue-500 checked:border-0
+                       disabled:border-steel-400 disabled:bg-steel-400
+                       [font-family:'gillsans',Helvetica]"
+                       name="sound problem" />
+                        <span> Sound problem </span> 
+                       <br />
+                    </label>
+                    <label style={{ fontSize: 32, letterSpacing:0.2 }} className = "[font-family:'gillsans',Helvetica]">
+                      <input type="checkbox"
+                       className="
+                       peer relative appearance-none shrink-0 w-6 h-6 border-2 border-blue-200 rounded-sm mt-1 bg-white
+                       focus:outline-none focus:ring-offset-0 focus:ring-1 focus:ring-blue-100
+                       checked:bg-blue-500 checked:border-0
+                       disabled:border-steel-400 disabled:bg-steel-400
+                       [font-family:'gillsans',Helvetica]"
+                       name="sound problem" />
+                       <span> Something else: </span>
+                       <br />
+                    </label>
+                    
+                    <textarea 
+                      className="
+                      appearance-none shrink-0 w-150 h-70 border-2 border-blue-200 rounded-sm mt-1 bg-white
+                      disabled:border-steel-400 disabled:bg-steel-400
+                      [font-family:'gillsans',Helvetica] "
+                      rows={5} 
+                      cols={35}
+                      placeholder={"Let us know what's wrong"}
+                    />
+                      
+                  </form>
+                  </div>
+                  {/*
+
+                  <div className="flex flex-col py-2">
+                    <div className="relative w-[222px] h-[86px]">
+                      <div className="absolute w-[222px] h-[78px] top-[7px] left-0 bg-[#67ac44] rounded-[30px]" />
+                      <div className="absolute w-[222px] h-[78px] top-0 left-0 bg-[#84c455] rounded-[30px]" />
+                      <div className="absolute w-[142px] top-[15px] left-[39px] [font-family:'Lapsus_Pro-Bold',Helvetica] font-bold text-black text-[48px] tracking-[1.68px] leading-[normal] whitespace-nowrap">
+                        Submit
+                      </div>
+                    </div>
+                  </div>
+
+                    <div className="absolute w-[344px] top-[5px] left-[78px] [font-family:'Gill_Sans_Infant_Std-Regular',Helvetica] font-normal text-black text-[40px] tracking-[0.40px] leading-[normal] whitespace-nowrap">
+                      Inaccurate captions
+                    </div>
+                  </div>
+                  <div className="flex flex-col py-2">
+                    <div className="absolute w-[50px] h-[50px] top-0 left-0 bg-[#d9d9d9]" />
+                    <div className="absolute w-[344px] top-[5px] left-[78px] [font-family:'Gill_Sans_Infant_Std-Regular',Helvetica] font-normal text-black text-[40px] tracking-[0.40px] leading-[normal] whitespace-nowrap">
+                      Sound problem
+                    </div>
+                  </div>
+                  <div className="flex flex-col py-2">
+                    <div className="absolute w-[50px] h-[50px] top-0 left-0 bg-[#d9d9d9]" />
+                    <div className="absolute w-[344px] top-[5px] left-[78px] [font-family:'Gill_Sans_Infant_Std-Regular',Helvetica] font-normal text-black text-[40px] tracking-[0.40px] leading-[normal] whitespace-nowrap">
+                      Something else:
+                    </div>
+                  </div>
+                  <div className="flex flex-col py-2">
+                    Check all that apply
+                  </div>
+                  <div className="flex flex-col bg-[#e2e3e4]" />
+                  <p className="absolute w-[384px] top-[662px] left-[759px] [font-family:'Inter',Helvetica] font-normal text-black text-[21px] tracking-[0] leading-[normal]">
+                    Let us know what’s going on
+                  </p>
+                  
+                */}
+                  </>
+          } ></Modal>           
+          < button 
+              className="rounded-lg p-4 cursor-pointer flex flex-col align-middle justify-center mb-10"
+              onClick={() => {
+                setShowModal((prevShowModal) => !prevShowModal); // Toggle the state
+              }}> 
           <img
             className="absolute w-[51px] h-[48px] top-[134px] left-[907px]"
             alt="Frame"
@@ -193,8 +317,8 @@ export const GenerateEmpty = () => {
             Report problem
           </div>
         </div>
-
-
+              
+        
         {/*right side image square*/}
         <div className="absolute w-[460px] h-[337px] top-[431px] left-[1374px]">
           <div className="absolute w-[460px] h-[337px] top-0 left-0 bg-[#ffffff] rounded-[15px] bg-[100%_100%]">

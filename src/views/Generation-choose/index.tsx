@@ -15,7 +15,6 @@ import 'swiper/css';
 import { Navigation, Pagination} from 'swiper/modules';
 
 
-
 export const GenerateChoose = (): JSX.Element => {
 
   const swiperStyle = {
