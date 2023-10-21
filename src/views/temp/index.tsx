@@ -11,7 +11,7 @@ import { useOpenAiCompletion } from "app/hooks/useOpenAiCompletion";
 import TextToSpeech from "components/textToSpeech";
 import { useSaveCollection } from "app/hooks/useCollection";
 import { UseProfile, UseProfileIndex } from "app/state/profile/useProfile";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useSearchParams} from "react-router-dom";
 import { Modal } from "components/modal";
 import { useAddProfile, useSetProfile } from "app/hooks/useAccount";
 
@@ -28,7 +28,9 @@ export const GenerateEmpty = () => {
   const { update, updateDataloading } = useSaveCollection();
   const { completion, description, descriptionloading } =
     useOpenAiCompletion();
-  
+
+  const [searchParams] = useSearchParams();
+
   const navigate = useNavigate();
 
   const { addNewProfile, addProfileLoading, isaddProfileSuccess } =
@@ -76,7 +78,6 @@ export const GenerateEmpty = () => {
   };
 
 
-
   //report function stuf
   const [showModal, setShowModal] = useState(false);
   
@@ -95,14 +96,14 @@ export const GenerateEmpty = () => {
         </button>
         {/*left side image square*/}
         <div className="absolute w-[1034px] h-[821px] top-[145px] left-[166px] bg-[url(https://c.animaapp.com/xYMQ48TT/img/vector-4.svg)] bg-[100%_100%]">
-          <div className="absolute w-[1034px] h-[92px] top-0 left-0 bg-[#F078AE] p-3 rounded-t-3xl">
-            <div className="absolute w-[162px] top-[19px] left-[436px] [font-family:'lapsus',Helvetica] font-bold text-black text-[49px] tracking-[1.23px] leading-[normal] whitespace-nowrap">
-              Animals
+          <div className="absolute w-[1034px] h-[92px] top-0 left-0 p-5 rounded-t-3xl" style = {{backgroundColor: searchParams.get("color")!}}>
+            <div className=" flex justify-center items-center  [font-family:'lapsus',Helvetica] font-bold text-black text-[49px] tracking-[1.23px] leading-[normal] whitespace-nowrap">
+              {searchParams.get("title")}
             </div>
             <img
               className="absolute w-[64px] h-[56px] top-[20px] left-[35px]"
               alt="Frame"
-              src="https://c.animaapp.com/xYMQ48TT/img/frame-4.svg"
+              src= {searchParams.get("image")!}
             />
           </div>
           {/*Caption box*/}

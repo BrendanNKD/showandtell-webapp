@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "components/navBar";
 import Footer from "components/footer";
 import { Link } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, createSearchParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -37,9 +37,16 @@ export const GenerateChoose = (): JSX.Element => {
     objectFit: 'cover',
   };
 
-
-
   const navigate = useNavigate();
+  
+  const passParams = (titleid:string, imageid:string, color:string) =>
+  {
+    navigate({
+      pathname: "/temp",
+      search: createSearchParams({title: titleid, image:imageid, color:color}).toString()
+    }
+    )
+  }
 
   return (
     <div className="h-fit flex-col justify-center align-middle">
@@ -78,7 +85,7 @@ export const GenerateChoose = (): JSX.Element => {
                         Learn about the world of animals and the creatures around you! This educational and entertaining game is
                         designed to help children learn about animals from all around the world while having loads of fun.
                       </p>
-                      <button onClick = {() => {navigate("/temp");}}>
+                      <button onClick = {() => passParams("Animals", "https://c.animaapp.com/YStE9pzZ/img/frame-2.svg", "#F177AE")}>
                       <img
                         className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
                         alt="Frame"
@@ -110,14 +117,16 @@ export const GenerateChoose = (): JSX.Element => {
                   <div className="absolute w-[922px] h-[181px] top-[466px] left-[475px]">
                     <div className="absolute w-[652px] h-[168px] top-[9px] left-[270px] bg-[url(https://c.animaapp.com/YStE9pzZ/img/vector-2.svg)] bg-[100%_100%]">
                       <p className="absolute w-[411px] top-[25px] left-[111px] [font-family:'gillsans',Helvetica] font-normal text-black text-[21px] tracking-[0.21px] leading-[normal]">
-                        Learn about the world of animals and the creatures around you! This educational and entertaining game is
-                        designed to help children learn about animals from all around the world while having loads of fun.
+                      Dive into the fascinating realm of shapes and colors! This engaging show & tell is tailored 
+                      to help children explore the exciting world of geometric forms and vibrant hues.
                       </p>
+                      <button onClick = {() => passParams("Shapes", "https://c.animaapp.com/YStE9pzZ/img/frame.svg", "#FAE55A")}>
                       <img
                         className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
                         alt="Frame"
                         src="https://c.animaapp.com/YStE9pzZ/img/frame-8.svg"
                       />
+                      </button>
                     </div>
                     <div className="absolute w-[353px] h-[181px] top-0 left-0">
                       <div className="relative w-[351px] h-[181px]">
@@ -138,14 +147,16 @@ export const GenerateChoose = (): JSX.Element => {
                   <div className="absolute w-[922px] h-[181px] top-[678px] left-[475px]">
                     <div className="absolute w-[652px] h-[168px] top-[6px] left-[270px] bg-[url(https://c.animaapp.com/YStE9pzZ/img/vector-2.svg)] bg-[100%_100%]">
                       <p className="absolute w-[411px] top-[25px] left-[111px] [font-family:'gillsans',Helvetica] font-normal text-black text-[21px] tracking-[0.21px] leading-[normal]">
-                        Learn about the world of animals and the creatures around you! This educational and entertaining game is
-                        designed to help children learn about animals from all around the world while having loads of fun.
+                      Embark on a thrilling journey through the universe of vehicles! This informative 
+                      game is designed to introduce children to a wide array of transportation. 
                       </p>
+                      <button onClick = {() => passParams("Vehicles", "https://c.animaapp.com/YStE9pzZ/img/frame-1.svg", "#885FA8")}>
                       <img
                         className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
                         alt="Frame"
                         src="https://c.animaapp.com/YStE9pzZ/img/frame-7.svg"
                       />
+                      </button>
                     </div>
                     <div className="absolute w-[353px] h-[181px] top-0 left-0">
                       <div className="relative w-[351px] h-[181px]">
@@ -177,15 +188,16 @@ export const GenerateChoose = (): JSX.Element => {
                   <div className="absolute w-[911px] h-[181px] top-[259px] left-[486px]">
                     <div className="absolute w-[652px] h-[168px] top-[7px] left-[259px] bg-[url(https://c.animaapp.com/NIGs1Y1e/img/vector-2.svg)] bg-[100%_100%]">
                       <p className="absolute w-[411px] top-[25px] left-[111px] [font-family:'gillsans',Helvetica] font-normal text-black text-[21px] tracking-[0.21px] leading-[normal]">
-                        Learn about the world of animals and the creatures around you! This educational and entertaining game is
-                        designed to help children learn about animals from all around the world while having loads of fun.
+                      Step into the enchanting world of flowers! This interactive and enlightening game is created to nurture 
+                      children's curiosity about the diverse and beautiful blooms that grace our planet.
                       </p>
+                      <button onClick = {() => passParams("Flowers", "https://c.animaapp.com/NIGs1Y1e/img/frame-5.svg", "#FCB315")}>
                       <img
                         className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
                         alt="Frame"
                         src="https://c.animaapp.com/NIGs1Y1e/img/frame.svg"
                       />
-
+                      </button>
                     </div>
                     <div className="absolute w-[353px] h-[181px] top-0 left-0">
                       <div className="relative w-[351px] h-[181px]">
@@ -205,14 +217,16 @@ export const GenerateChoose = (): JSX.Element => {
                   <div className="absolute w-[911px] h-[181px] top-[466px] left-[486px]">
                     <div className="absolute w-[652px] h-[168px] top-[9px] left-[259px] bg-[url(https://c.animaapp.com/NIGs1Y1e/img/vector-2.svg)] bg-[100%_100%]">
                       <p className="absolute w-[411px] top-[25px] left-[111px] [font-family:'gillsans',Helvetica] font-normal text-black text-[21px] tracking-[0.21px] leading-[normal]">
-                        Learn about the world of animals and the creatures around you! This educational and entertaining game is
-                        designed to help children learn about animals from all around the world while having loads of fun.
+                      Delve into the delectable realm of fruits and vegetables! This fun and educational game is crafted to 
+                      help children discover the wide variety of fresh and nutritious produce available
                       </p>
+                      <button onClick = {() => passParams("Fruits and Vegetables", "https://c.animaapp.com/NIGs1Y1e/img/frame-7.svg", "#9784D6")}>
                       <img
                         className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
                         alt="Frame"
                         src="https://c.animaapp.com/NIGs1Y1e/img/frame-1.svg"
                       />
+                      </button>
                     </div>
                     <div className="absolute w-[353px] h-[181px] top-0 left-0">
                       <div className="relative w-[351px] h-[181px]">
@@ -234,14 +248,16 @@ export const GenerateChoose = (): JSX.Element => {
                   <div className="absolute w-[911px] h-[181px] top-[678px] left-[486px]">
                     <div className="absolute w-[652px] h-[168px] top-[6px] left-[259px] bg-[url(https://c.animaapp.com/NIGs1Y1e/img/vector-2.svg)] bg-[100%_100%]">
                       <p className="absolute w-[411px] top-[25px] left-[111px] [font-family:'gillsans',Helvetica] font-normal text-black text-[21px] tracking-[0.21px] leading-[normal]">
-                        Learn about the world of animals and the creatures around you! This educational and entertaining game is
-                        designed to help children learn about animals from all around the world while having loads of fun.
+                      Savor the delightful world of food! This engaging and mouthwatering game is designed to introduce 
+                      children to the different array of food categories, all while having a great time.
                       </p>
+                      <button onClick = {() => passParams("Food", "https://c.animaapp.com/NIGs1Y1e/img/frame-6.svg", "#80C342")}>
                       <img
                         className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
                         alt="Frame"
                         src="https://c.animaapp.com/NIGs1Y1e/img/frame-2.svg"
                       />
+                      </button>
                     </div>
                     <div className="absolute w-[353px] h-[181px] top-0 left-0">
                       <div className="relative w-[351px] h-[181px]">

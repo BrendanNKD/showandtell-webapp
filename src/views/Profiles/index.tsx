@@ -118,18 +118,23 @@ const Profiles = () => {
                 setShowModal((prevShowModal) => !prevShowModal); // Toggle the state
               }}
             >
-              <svg
+              {/*<svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-[80px] w-[80px] group-hover:bg-gray-300 border-2 border-transparent"
                 viewBox="0 0 20 20"
                 fill="#6b7280"
-              >
+            >*/}
+                <img
+                className="flex h-[80px] w-[80px]"
+                alt="Group"
+                src="https://c.animaapp.com/nxB4xB9Q/img/group-1@2x.png"
+                />
                 <path
                   fillRule="evenodd"
                   d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
                   clipRule="evenodd"
                 />
-              </svg>
+              {/*</svg>*/}
               {/* <p className="text-gray-500 group-hover:text-gray-300">Sign Out</p> */}
             </button>
           </div>
