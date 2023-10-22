@@ -93,9 +93,11 @@ const Profiles = () => {
       {landing ? (
         <Landing></Landing>
       ) : (
-        <div className="bg-black h-screen flex flex-col items-center justify-center">
+        <div className="bg-transparent h-screen flex items-center justify-center alignItems-center">
+          <div className="bg-[url(https://c.animaapp.com/JG9iazHt/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] flex flex-col items-center justify-center">
           {/* Title */}
-          <h1 className="text-gray-200 text-3xl">Select Profile</h1>
+          <h1 className="[font-family:'lapsus',Helvetica] font-bold text-black text-[60px] tracking-[1.85px] leading-[normal] whitespace-nowrap text-3xl">
+            Select Profile</h1>
 
           {/* Profiles */}
           <div className="flex flex-row flex-wrap gap-5 mt-8">
@@ -104,7 +106,7 @@ const Profiles = () => {
               return (
                 <div
                   key={index}
-                  className={`rounded-lg p-4 cursor-pointer`}
+                  className={`rounded-full p-4 cursor-pointer`}
                   onClick={() => handleProfileClick(index)}
                 >
                   {ProfileSelectionCard({ object, index })}
@@ -113,7 +115,7 @@ const Profiles = () => {
             })}
             {/* Add Profile */}
             <button
-              className="rounded-lg p-4 cursor-pointer flex flex-col align-middle justify-center mb-10"
+              className="rounded-lg p-4 cursor-pointer flex flex-col align-middle justify-center alignItems-center"
               onClick={() => {
                 setShowModal((prevShowModal) => !prevShowModal); // Toggle the state
               }}
@@ -140,19 +142,39 @@ const Profiles = () => {
           </div>
 
           {/* Manage Profiles */}
-          <div className="flex gap-6">
+          <div className="flex gap-10">
             <button
-              className="border-2 border-gray-600 text-gray-600 px-4 py-1 mt-20 hover:border-gray-400 hover:text-gray-400"
+              //className="border-2 border-gray-600 text-gray-600 px-4 py-1 mt-20 hover:border-gray-400 hover:text-gray-400"
+              className = "mt-20"
               onClick={handleLogout}
             >
-              Sign out
+              <div className="flex">
+                
+                <div className="group relative w-[200px] h-[100px]">
+                  <div className="flex top-[10px] bg-[#67ac44] relative w-[200px] h-[80px] left-0 rounded-[30px] " />
+                  <div className="flex top-0 bg-[#84c455] absolute w-[200px] h-[80px] left-0 rounded-[30px] group-hover:bg-[#67ac44]" />
+                  <div className="justify-center align-middle alignItems-center absolute w-[192px] top-[20px] left-[5px] [font-family:'lapsus',Helvetica] font-bold text-black text-[41px] tracking-[1.85px] leading-[normal] whitespace-nowrap group-hover:text-[#000000]">
+                  Sign Out
+                  </div>
+                </div>
+              </div>
             </button>
             <button
-              className="border-2 border-gray-600 text-gray-600 px-4 py-1 mt-20 hover:border-gray-400 hover:text-gray-400"
+              //className="border-2 border-gray-600 text-gray-600 px-4 py-1 mt-20 hover:border-gray-400 hover:text-gray-400"
+              className = "mt-20"
               onClick={handleLogout}
             >
-              Manage Profiles
+               <div className="flex">
+                <div className="group relative w-[200px] h-[100px]">
+                  <div className="flex relative w-[320px] h-[80px] top-[10px] left-0 bg-[#67ac44] rounded-[30px]" />
+                  <div className="flex absolute w-[320px] h-[80px] top-0 left-0 bg-[#84c455] rounded-[30px] group-hover:bg-[#67ac44]" />
+                  <div className="justify-center align-middle alignItems-center absolute w-[324px] top-[20px] [font-family:'lapsus',Helvetica] font-bold text-black text-[41px] tracking-[1.85px] leading-[normal] whitespace-nowrap group-hover:text-[#000000]">
+                    Manage Profiles
+                  </div>
+                </div>
+              </div>
             </button>
+          </div>
           </div>
         </div>
       )}
