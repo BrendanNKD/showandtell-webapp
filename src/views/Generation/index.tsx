@@ -1,6 +1,4 @@
-import {
-  UseAuthenticatedRoute,
-} from "utils/authRoute";
+import { UseAuthenticatedRoute } from "utils/authRoute";
 // import { UseProfile } from "app/state/profile/useProfile";
 import Navbar from "components/navBar";
 import { useEffect, useState } from "react";
@@ -11,10 +9,12 @@ import { useOpenAiCompletion } from "app/hooks/useOpenAiCompletion";
 import TextToSpeech from "components/textToSpeech";
 import { useSaveCollection } from "app/hooks/useCollection";
 import { UseProfile, UseProfileIndex } from "app/state/profile/useProfile";
-
+import { useSearchParams } from "react-router-dom";
 const Generate = () => {
   // Redirect user to profile if they are authenticate
   // const profile = UseProfile();
+  const [searchparams] = useSearchParams();
+  console.log(searchparams.get("category"));
   UseAuthenticatedRoute();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [imageCaption, setImageCaption] = useState<string | null>(null);
@@ -23,8 +23,7 @@ const Generate = () => {
   const profileIndex = UseProfileIndex();
   const { generate, caption, captionloading } = useGenerateCaption();
   const { update, updateDataloading } = useSaveCollection();
-  const { completion, description, descriptionloading } =
-    useOpenAiCompletion();
+  const { completion, description, descriptionloading } = useOpenAiCompletion();
 
   const handleGenerateCaption = async () => {
     if (selectedImage) {

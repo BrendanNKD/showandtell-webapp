@@ -24,6 +24,7 @@ import { resetCollection, setCollection } from "features/collectionSlice";
 import { useGetAccountQuery } from "services/account/accountApi";
 import { useGetCollectionQuery } from "services/collection";
 import { AwsErrorHandler } from "utils/errorHandler";
+import { useCreateQuestMutation } from "services/quest";
 
 export const useSignIn = () => {
   const dispatch = useDispatch();
@@ -102,12 +103,7 @@ export const useSignIn = () => {
 export const useSignOut = () => {
   const dispatch = useDispatch();
 
-  const [
-    unauthUser,
-    {
-      data: logutData,
-    },
-  ] = useUnauthUserMutation();
+  const [unauthUser, { data: logutData }] = useUnauthUserMutation();
 
   const signOut = useCallback(async () => {
     try {
@@ -136,7 +132,6 @@ export const useSignOut = () => {
       // todo show toast
       //showToast({ message: 'Successfuly sign in', type: 'success' })
     } else if (logutData === "expired") {
-      
     }
   }, [dispatch, logutData]);
 
@@ -144,13 +139,17 @@ export const useSignOut = () => {
 };
 
 export const useSignUp = () => {
-  const [
-    signUpUser,
-    {
-      data: signUpData,
-      isLoading: signUpLoading,
-    },
-  ] = useSignUpUserMutation();
+  const [signUpUser, { data: signUpData, isLoading: signUpLoading }] =
+    useSignUpUserMutation();
+
+  // const [
+  //   createQuest,
+  //   {
+  //     data: createData,
+  //     isSuccess: isCreateDataSuccess,
+  //     isLoading: createDataloading,
+  //   },
+  // ] = useCreateQuestMutation();
 
   const signUp = useCallback(
     async (data: TUserRegistration) => {
@@ -163,6 +162,13 @@ export const useSignUp = () => {
     [signUpUser]
   );
 
+  // useEffect(() => {
+  //   if (signUpData) {
+
+  //     createQuest({});
+  //   }
+  // }, [signUpData, createQuest]);
+
   return { signUp, signUpData, signUpLoading };
 };
 
@@ -170,10 +176,7 @@ export const useConfirmSignUp = () => {
   const navigate = useNavigate();
   const [
     confirmSignUp,
-    {
-      data: confirmSignUpData,
-      isSuccess: isconfirmSignUpSuccess,
-    },
+    { data: confirmSignUpData, isSuccess: isconfirmSignUpSuccess },
   ] = useConfirmSignUpMutation();
 
   const confirmOtp = useCallback(
@@ -204,10 +207,7 @@ export const useResendConfirmSignUp = () => {
   const navigate = useNavigate();
   const [
     confirmSignUp,
-    {
-      data: confirmSignUpData,
-      isSuccess: isconfirmSignUpSuccess,
-    },
+    { data: confirmSignUpData, isSuccess: isconfirmSignUpSuccess },
   ] = useConfirmSignUpMutation();
 
   const confirmOtp = useCallback(

@@ -25,6 +25,7 @@ import {
 import storage from "redux-persist/lib/storage";
 import { openAiCompletionApi } from "services/openAi/completion";
 import { collectionApi } from "services/collection";
+import { questApi } from "services/quest";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -50,6 +51,7 @@ export const store = configureStore({
     [generateApi.reducerPath]: generateApi.reducer,
     [openAiCompletionApi.reducerPath]: openAiCompletionApi.reducer,
     [collectionApi.reducerPath]: collectionApi.reducer,
+    [questApi.reducerPath]: questApi.reducer,
   },
   devTools: process.env.NODE_ENV !== "production",
 
@@ -66,6 +68,7 @@ export const store = configureStore({
       generateApi.middleware,
       openAiCompletionApi.middleware,
       collectionApi.middleware,
+      questApi.middleware,
     ]),
 });
 

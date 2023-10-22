@@ -67,6 +67,9 @@ const Register = () => {
           firstName: firstname,
           lastName: lastname,
           profilePic: Math.floor(Math.random() * 4),
+          stars: 0,
+          level: 1,
+          totalStars: 0,
         },
       ],
     });
