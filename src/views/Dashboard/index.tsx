@@ -10,16 +10,15 @@ import {
 import { useGetProfileQuestQuery } from "services/quest";
 import { defaultPics } from "utils/profilePic";
 import ConfirmOtp from "views/ConfirmOtp";
-
+import { useNavigate, createSearchParams } from "react-router-dom";
 const Dashboard = () => {
   const { data: levelData } = useGetLevelQuery();
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [nextLimit, setNextLimit] = useState<number | null>(null);
   const [quests, setQuests] = useState<any>(null);
   const currentprofile: any = UseProfile();
 
-  console.log(String(currentprofile._id));
   const { data: quest } = useGetProfileQuestQuery(String(currentprofile._id));
 
   useEffect(() => {
@@ -92,7 +91,18 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="absolute w-[925px] h-[142px] top-[532px] left-[150px]">
+          <div
+            className="absolute w-[925px] h-[142px] top-[532px] left-[150px]"
+            onClick={() => {
+              navigate({
+                pathname: "/generate",
+                search: createSearchParams({
+                  category: "animals",
+                  caption: String(quests.caption),
+                }).toString(),
+              });
+            }}
+          >
             <div className="relative w-[929px] h-[142px]">
               <div className="absolute w-[929px] h-[142px] top-0 left-0">
                 <div className="relative w-[925px] h-[142px]">

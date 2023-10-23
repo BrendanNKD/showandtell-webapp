@@ -17,7 +17,18 @@ export const openAiCompletionApi = createApi({
         };
       },
     }),
+    check: builder.mutation({
+      query: (body: any) => {
+        return {
+          url: "/api/v1/openai/check",
+          method: "post",
+          credentials: "include",
+          body,
+        };
+      },
+    }),
   }),
 });
 
-export const { useOpenAiCompletionMutation } = openAiCompletionApi;
+export const { useOpenAiCompletionMutation, useCheckMutation } =
+  openAiCompletionApi;

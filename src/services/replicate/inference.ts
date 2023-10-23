@@ -11,7 +11,7 @@ export const generateApi = createApi({
   }),
   endpoints: (builder) => ({
     genCaption: builder.mutation({
-      query: (body: generateCaptionRequest) => {
+      query: (body: any) => {
         return {
           url: "/api/v1/generate/gencaption",
           method: "post",

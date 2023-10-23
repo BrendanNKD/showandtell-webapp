@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useAddProfile, useSetProfile } from "app/hooks/useAccount";
 import { ProfileResponseModel } from "domain/types/profile/Profile";
 
+
 // import { useGetCollection } from "app/hooks/useCollection";
 import { Landing } from "components/landing";
 import { Modal } from "components/modal";
@@ -57,6 +58,7 @@ const Profiles = () => {
 
   const handleNewProfile = async (event: any) => {
     event.preventDefault();
+    console.log(formValue);
     await addNewProfile(formValue);
   };
 

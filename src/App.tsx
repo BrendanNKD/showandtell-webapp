@@ -33,6 +33,7 @@ function App() {
         <Route path="/generateChoose" element={<GenerateChoose />} />
         <Route path="/generateChoose2" element={<GenerateChoose2 />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/createArt" element={<Dashboard />} />
       </Routes>
     </Router>
   );

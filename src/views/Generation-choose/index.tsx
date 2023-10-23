@@ -103,7 +103,7 @@ export const GenerateChoose = (): JSX.Element => {
               navigate({
                 pathname: "/generate",
                 search: createSearchParams({
-                  category: "vehicles",
+                  category: "cars",
                 }).toString(),
               });
             }}
