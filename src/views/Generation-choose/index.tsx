@@ -1,52 +1,58 @@
 import React from "react";
 import Navbar from "components/navBar";
 import Footer from "components/footer";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { useNavigate, createSearchParams } from "react-router-dom";
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import 'swiper/css';
+import "swiper/css";
 //import 'swiper/css/navigation';
 
 //import './styles.css';
 
 // import required modules
-import { Navigation, Pagination} from 'swiper/modules';
-
+import { Navigation, Pagination } from "swiper/modules";
 
 export const GenerateChoose = (): JSX.Element => {
-
   const swiperStyle = {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   };
 
   const swiperSlideStyle = {
     //textAlign: 'center',
-    fontSize: '18px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    fontSize: "18px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   };
 
   const swiperSlideImgStyle = {
-    display: 'block',
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
+    display: "block",
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
   };
 
   const navigate = useNavigate();
-  
-  const passParams = (titleid:string, imageid:string, color:string) =>
-  {
+
+  const passParams = (
+    titleid: string,
+    imageid: string,
+    color: string,
+    category: string
+  ) => {
     navigate({
-      pathname: "/temp",
-      search: createSearchParams({title: titleid, image:imageid, color:color}).toString()
-    }
-    )
-  }
+      pathname: "/generate",
+      search: createSearchParams({
+        title: titleid,
+        image: imageid,
+        color: color,
+        category: category,
+      }).toString(),
+    });
+  };
 
   return (
     <div className="h-fit flex-col justify-center align-middle">
@@ -56,41 +62,57 @@ export const GenerateChoose = (): JSX.Element => {
           <div className="absolute w-[259px] top-[161px] left-[486px] [font-family:'lapsus',Helvetica] font-bold text-black text-[71px] tracking-[0.71px] leading-[normal] whitespace-nowrap">
             Generate
           </div>
-          <Swiper navigation={{
-                  prevEl: '.prev',
-                  nextEl: '.next',
-                  }} 
-                  pagination={{clickable: true,
-                               el: `swiper-container swiper-container-testClass`,
-                               bulletClass: `swiper-pagination-bullet swiper-pagination-testClass`}}
-                  modules={[Navigation, Pagination]} 
-                  style={swiperStyle} 
-                  className="mySwiper" 
-                  preventClicks = {false}
-                  preventClicksPropagation = {false}
-                  touchStartPreventDefault={false}
-                  watchSlidesProgress = {true}>
-            <div> 
-              <SwiperSlide style={swiperSlideStyle} >
+          <Swiper
+            navigation={{
+              prevEl: ".prev",
+              nextEl: ".next",
+            }}
+            pagination={{
+              clickable: true,
+              el: `swiper-container swiper-container-testClass`,
+              bulletClass: `swiper-pagination-bullet swiper-pagination-testClass`,
+            }}
+            modules={[Navigation, Pagination]}
+            style={swiperStyle}
+            className="mySwiper"
+            preventClicks={false}
+            preventClicksPropagation={false}
+            touchStartPreventDefault={false}
+            watchSlidesProgress={true}
+          >
+            <div>
+              <SwiperSlide style={swiperSlideStyle}>
                 <div>
-                <button className="next">
-                <img src="https://c.animaapp.com/YStE9pzZ/img/frame-5.svg"
-                 alt="Frame"
-                 className="absolute w-[77px] h-[83px] top-[527px] left-[1468px]"
-                 />
-                 </button>
+                  <button className="next">
+                    <img
+                      src="https://c.animaapp.com/YStE9pzZ/img/frame-5.svg"
+                      alt="Frame"
+                      className="absolute w-[77px] h-[83px] top-[527px] left-[1468px]"
+                    />
+                  </button>
                   <div className="absolute w-[922px] h-[181px] top-[259px] left-[475px]">
                     <div className="absolute w-[652px] h-[168px] top-[7px] left-[270px] bg-[url(https://c.animaapp.com/YStE9pzZ/img/vector-2.svg)] bg-[100%_100%]">
                       <p className="absolute w-[411px] top-[25px] left-[111px] [font-family:'gillsans',Helvetica] font-normal text-black text-[21px] tracking-[0.21px] leading-[normal]">
-                        Learn about the world of animals and the creatures around you! This educational and entertaining game is
-                        designed to help children learn about animals from all around the world while having loads of fun.
+                        Learn about the world of animals and the creatures
+                        around you! This educational and entertaining game is
+                        designed to help children learn about animals from all
+                        around the world while having loads of fun.
                       </p>
-                      <button onClick = {() => passParams("Animals", "https://c.animaapp.com/YStE9pzZ/img/frame-2.svg", "#F177AE")}>
-                      <img
-                        className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
-                        alt="Frame"
-                        src="https://c.animaapp.com/YStE9pzZ/img/frame-9.svg"
-                      />
+                      <button
+                        onClick={() =>
+                          passParams(
+                            "Animals",
+                            "https://c.animaapp.com/YStE9pzZ/img/frame-2.svg",
+                            "#F177AE",
+                            "animals"
+                          )
+                        }
+                      >
+                        <img
+                          className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
+                          alt="Frame"
+                          src="https://c.animaapp.com/YStE9pzZ/img/frame-9.svg"
+                        />
                       </button>
                     </div>
                     <div className="absolute w-[353px] h-[181px] top-0 left-0">
@@ -103,29 +125,37 @@ export const GenerateChoose = (): JSX.Element => {
                           alt="Frame"
                           src="https://c.animaapp.com/YStE9pzZ/img/frame-2.svg"
                         />
-                        
+
                         <div className="absolute w-[157px] top-[69px] left-[151px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
                           Animals
                         </div>
                       </div>
                     </div>
-
                   </div>
-
-
 
                   <div className="absolute w-[922px] h-[181px] top-[466px] left-[475px]">
                     <div className="absolute w-[652px] h-[168px] top-[9px] left-[270px] bg-[url(https://c.animaapp.com/YStE9pzZ/img/vector-2.svg)] bg-[100%_100%]">
                       <p className="absolute w-[411px] top-[25px] left-[111px] [font-family:'gillsans',Helvetica] font-normal text-black text-[21px] tracking-[0.21px] leading-[normal]">
-                      Dive into the fascinating realm of shapes and colors! This engaging show & tell is tailored 
-                      to help children explore the exciting world of geometric forms and vibrant hues.
+                        Dive into the fascinating realm of shapes and colors!
+                        This engaging show & tell is tailored to help children
+                        explore the exciting world of geometric forms and
+                        vibrant hues.
                       </p>
-                      <button onClick = {() => passParams("Shapes", "https://c.animaapp.com/YStE9pzZ/img/frame.svg", "#FAE55A")}>
-                      <img
-                        className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
-                        alt="Frame"
-                        src="https://c.animaapp.com/YStE9pzZ/img/frame-8.svg"
-                      />
+                      <button
+                        onClick={() =>
+                          passParams(
+                            "Shapes",
+                            "https://c.animaapp.com/YStE9pzZ/img/frame.svg",
+                            "#FAE55A",
+                            "shapes"
+                          )
+                        }
+                      >
+                        <img
+                          className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
+                          alt="Frame"
+                          src="https://c.animaapp.com/YStE9pzZ/img/frame-8.svg"
+                        />
                       </button>
                     </div>
                     <div className="absolute w-[353px] h-[181px] top-0 left-0">
@@ -147,15 +177,25 @@ export const GenerateChoose = (): JSX.Element => {
                   <div className="absolute w-[922px] h-[181px] top-[678px] left-[475px]">
                     <div className="absolute w-[652px] h-[168px] top-[6px] left-[270px] bg-[url(https://c.animaapp.com/YStE9pzZ/img/vector-2.svg)] bg-[100%_100%]">
                       <p className="absolute w-[411px] top-[25px] left-[111px] [font-family:'gillsans',Helvetica] font-normal text-black text-[21px] tracking-[0.21px] leading-[normal]">
-                      Embark on a thrilling journey through the universe of vehicles! This informative 
-                      game is designed to introduce children to a wide array of transportation. 
+                        Embark on a thrilling journey through the universe of
+                        vehicles! This informative game is designed to introduce
+                        children to a wide array of transportation.
                       </p>
-                      <button onClick = {() => passParams("Vehicles", "https://c.animaapp.com/YStE9pzZ/img/frame-1.svg", "#885FA8")}>
-                      <img
-                        className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
-                        alt="Frame"
-                        src="https://c.animaapp.com/YStE9pzZ/img/frame-7.svg"
-                      />
+                      <button
+                        onClick={() =>
+                          passParams(
+                            "Vehicles",
+                            "https://c.animaapp.com/YStE9pzZ/img/frame-1.svg",
+                            "#885FA8",
+                            "cars"
+                          )
+                        }
+                      >
+                        <img
+                          className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
+                          alt="Frame"
+                          src="https://c.animaapp.com/YStE9pzZ/img/frame-7.svg"
+                        />
                       </button>
                     </div>
                     <div className="absolute w-[353px] h-[181px] top-0 left-0">
@@ -178,25 +218,37 @@ export const GenerateChoose = (): JSX.Element => {
 
               <SwiperSlide style={swiperSlideStyle}>
                 <div>
-                <button className="prev">
-                <img src="https://c.animaapp.com/qxMy52EW/img/frame-3.svg"
-                 alt="Frame"
-                 className="absolute w-[77px] h-[83px] top-[527px] left-[349px]"
-                />
-                </button>
+                  <button className="prev">
+                    <img
+                      src="https://c.animaapp.com/qxMy52EW/img/frame-3.svg"
+                      alt="Frame"
+                      className="absolute w-[77px] h-[83px] top-[527px] left-[349px]"
+                    />
+                  </button>
 
                   <div className="absolute w-[911px] h-[181px] top-[259px] left-[486px]">
                     <div className="absolute w-[652px] h-[168px] top-[7px] left-[259px] bg-[url(https://c.animaapp.com/NIGs1Y1e/img/vector-2.svg)] bg-[100%_100%]">
                       <p className="absolute w-[411px] top-[25px] left-[111px] [font-family:'gillsans',Helvetica] font-normal text-black text-[21px] tracking-[0.21px] leading-[normal]">
-                      Step into the enchanting world of flowers! This interactive and enlightening game is created to nurture 
-                      children's curiosity about the diverse and beautiful blooms that grace our planet.
+                        Step into the enchanting world of flowers! This
+                        interactive and enlightening game is created to nurture
+                        children's curiosity about the diverse and beautiful
+                        blooms that grace our planet.
                       </p>
-                      <button onClick = {() => passParams("Flowers", "https://c.animaapp.com/NIGs1Y1e/img/frame-5.svg", "#FCB315")}>
-                      <img
-                        className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
-                        alt="Frame"
-                        src="https://c.animaapp.com/NIGs1Y1e/img/frame.svg"
-                      />
+                      <button
+                        onClick={() =>
+                          passParams(
+                            "Flowers",
+                            "https://c.animaapp.com/NIGs1Y1e/img/frame-5.svg",
+                            "#FCB315",
+                            "flowers"
+                          )
+                        }
+                      >
+                        <img
+                          className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
+                          alt="Frame"
+                          src="https://c.animaapp.com/NIGs1Y1e/img/frame.svg"
+                        />
                       </button>
                     </div>
                     <div className="absolute w-[353px] h-[181px] top-0 left-0">
@@ -217,15 +269,26 @@ export const GenerateChoose = (): JSX.Element => {
                   <div className="absolute w-[911px] h-[181px] top-[466px] left-[486px]">
                     <div className="absolute w-[652px] h-[168px] top-[9px] left-[259px] bg-[url(https://c.animaapp.com/NIGs1Y1e/img/vector-2.svg)] bg-[100%_100%]">
                       <p className="absolute w-[411px] top-[25px] left-[111px] [font-family:'gillsans',Helvetica] font-normal text-black text-[21px] tracking-[0.21px] leading-[normal]">
-                      Delve into the delectable realm of fruits and vegetables! This fun and educational game is crafted to 
-                      help children discover the wide variety of fresh and nutritious produce available
+                        Delve into the delectable realm of fruits and
+                        vegetables! This fun and educational game is crafted to
+                        help children discover the wide variety of fresh and
+                        nutritious produce available
                       </p>
-                      <button onClick = {() => passParams("Fruits and Vegetables", "https://c.animaapp.com/NIGs1Y1e/img/frame-7.svg", "#9784D6")}>
-                      <img
-                        className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
-                        alt="Frame"
-                        src="https://c.animaapp.com/NIGs1Y1e/img/frame-1.svg"
-                      />
+                      <button
+                        onClick={() =>
+                          passParams(
+                            "Fruits and Vegetables",
+                            "https://c.animaapp.com/NIGs1Y1e/img/frame-7.svg",
+                            "#9784D6",
+                            "vege"
+                          )
+                        }
+                      >
+                        <img
+                          className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
+                          alt="Frame"
+                          src="https://c.animaapp.com/NIGs1Y1e/img/frame-1.svg"
+                        />
                       </button>
                     </div>
                     <div className="absolute w-[353px] h-[181px] top-0 left-0">
@@ -248,15 +311,26 @@ export const GenerateChoose = (): JSX.Element => {
                   <div className="absolute w-[911px] h-[181px] top-[678px] left-[486px]">
                     <div className="absolute w-[652px] h-[168px] top-[6px] left-[259px] bg-[url(https://c.animaapp.com/NIGs1Y1e/img/vector-2.svg)] bg-[100%_100%]">
                       <p className="absolute w-[411px] top-[25px] left-[111px] [font-family:'gillsans',Helvetica] font-normal text-black text-[21px] tracking-[0.21px] leading-[normal]">
-                      Savor the delightful world of food! This engaging and mouthwatering game is designed to introduce 
-                      children to the different array of food categories, all while having a great time.
+                        Savor the delightful world of food! This engaging and
+                        mouthwatering game is designed to introduce children to
+                        the different array of food categories, all while having
+                        a great time.
                       </p>
-                      <button onClick = {() => passParams("Food", "https://c.animaapp.com/NIGs1Y1e/img/frame-6.svg", "#80C342")}>
-                      <img
-                        className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
-                        alt="Frame"
-                        src="https://c.animaapp.com/NIGs1Y1e/img/frame-2.svg"
-                      />
+                      <button
+                        onClick={() =>
+                          passParams(
+                            "Food",
+                            "https://c.animaapp.com/NIGs1Y1e/img/frame-6.svg",
+                            "#80C342",
+                            "food"
+                          )
+                        }
+                      >
+                        <img
+                          className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
+                          alt="Frame"
+                          src="https://c.animaapp.com/NIGs1Y1e/img/frame-2.svg"
+                        />
                       </button>
                     </div>
                     <div className="absolute w-[353px] h-[181px] top-0 left-0">
@@ -278,11 +352,11 @@ export const GenerateChoose = (): JSX.Element => {
               </SwiperSlide>
             </div>
           </Swiper>
-          <div className= "absolute w-[77px] h-[33px] top-[893px] left-[946px]">
+          <div className="absolute w-[77px] h-[33px] top-[893px] left-[946px]">
             {/*alt="Frame"
                   src="https://c.animaapp.com/YStE9pzZ/img/frame-6.svg"*/}
           </div>
-        
+
           {/*<img 
           className="absolute w-[77px] h-[83px] top-[527px] left-[1468px]"
           alt="Frame"
@@ -342,7 +416,6 @@ export const GenerateChoose = (): JSX.Element => {
             src="https://c.animaapp.com/YStE9pzZ/img/frame-3.svg"
           />
         </div>*/}
-
         </div>
       </div>
       <Footer />

@@ -3,16 +3,16 @@ import Login from "./views/Auth";
 import Profiles from "./views/Profiles";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ConfirmOtp from "views/ConfirmOtp";
-import Generate from "views/Generation";
+
 import Collection from "views/Collection";
 import Playground from "views/Playground/index";
 import Profile from "views/Profile";
 import { Game } from "views/Game";
 import Quest from "views/Quest";
-// import Dashboard from "views/Dashboard";
+import Dashboard from "views/Dashboard";
 import Register from "views/Register";
 import { GenerateChoose } from "views/Generation-choose";
-import { GenerateEmpty } from "views/temp";
+import { GenerateEmpty } from "views/Generation";
 
 function App() {
   return (
@@ -22,7 +22,6 @@ function App() {
         <Route path="/profiles" element={<Profiles />} />
         <Route path="/" element={<Home />} />
         <Route path="/GenerateChoose" element={<GenerateChoose />} />
-        <Route path="/generation" element={<Generate />} />
         <Route path="/registration/confirmOtp" element={<ConfirmOtp />} />
         <Route path="/register" element={<Register />} />
         <Route path="/collection" element={<Collection />} />
@@ -30,6 +29,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/gaming" element={<Game />} />
         <Route path="/quest" element={<Quest />} />
+        <Route path="/generate" element={<GenerateEmpty />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );
