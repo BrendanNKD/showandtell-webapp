@@ -21,7 +21,16 @@ export const accountApi = createApi({
         };
       },
     }),
-
+    getLevel: builder.query<any, void>({
+      query: () => {
+        return {
+          url: "/api/v1/profile/levelrules",
+          method: "get",
+          credentials: "include",
+        };
+      },
+    }),
+    
     addProfile: builder.mutation({
       query: (body: ProfileResponseModel) => {
         return {
@@ -50,4 +59,6 @@ export const {
   useGetAccountQuery,
   useAddProfileMutation,
   useUpdateProfileMutation,
+  useGetLevelQuery,
+  
 } = accountApi;

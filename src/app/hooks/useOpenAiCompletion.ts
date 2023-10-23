@@ -1,7 +1,9 @@
-
 import { promptRequest } from "domain/types/openAi/completion";
 import { useCallback } from "react";
-import { useOpenAiCompletionMutation } from "services/openAi/completion";
+import {
+  useCheckMutation,
+  useOpenAiCompletionMutation,
+} from "services/openAi/completion";
 
 export const useOpenAiCompletion = () => {
   const [
@@ -25,5 +27,30 @@ export const useOpenAiCompletion = () => {
     description,
     descriptionSuccess,
     descriptionloading,
+  };
+};
+
+export const useCheck = () => {
+  const [
+    check,
+    {
+      data: answer,
+      isSuccess: answerSuccess,
+
+      isLoading: answerloading,
+    },
+  ] = useCheckMutation();
+
+  const checkAnswer = useCallback(
+    async (data: any) => {
+      await check(data).unwrap();
+    },
+    [check]
+  );
+  return {
+    checkAnswer,
+    answer,
+    answerSuccess,
+    answerloading,
   };
 };

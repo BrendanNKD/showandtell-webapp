@@ -3,6 +3,10 @@ export interface ProfileResponseModel {
   lastName: string;
   dateOfBirth: string;
   profilePic: number;
+  stars: number;
+  level: number;
+  totalStars: number;
+
 }
 
 export interface ProfileState {

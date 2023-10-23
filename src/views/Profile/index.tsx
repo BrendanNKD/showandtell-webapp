@@ -6,9 +6,7 @@ import {
 import Footer from "components/footer";
 import { Modal } from "components/modal";
 import Navbar from "components/navBar";
-import {
-  ProfilePicSelectionCard,
-} from "../../components/proflieSelection";
+import { ProfilePicSelectionCard } from "../../components/proflieSelection";
 import { useEffect, useState } from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import { FaBirthdayCake } from "react-icons/fa";
@@ -29,10 +27,12 @@ const Profile = () => {
     lastName: "",
     dateOfBirth: "",
     profilePic: 0,
+    stars: 0,
+    level: 1,
+    totalStars: 0,
   });
 
   const [email, setEmail] = useState("");
-
 
   const [passwords, setPasswords] = useState({
     oldPassword: "",
@@ -47,11 +47,8 @@ const Profile = () => {
     isupdateProfileSuccess,
   } = useUpdateProfile();
 
-  const {
-    updatePassword,
-    changePasswordLoading,
-    ischangePasswordSuccess,
-  } = useChangePassword();
+  const { updatePassword, changePasswordLoading, ischangePasswordSuccess } =
+    useChangePassword();
 
   const [showModal, setShowModal] = useState(false);
 

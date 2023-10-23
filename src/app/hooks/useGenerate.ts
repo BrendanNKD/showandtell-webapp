@@ -9,16 +9,11 @@ import {
 } from "services/replicate/inference";
 
 export const useGenerateCaption = () => {
-  const [
-    genCaption,
-    {
-      data: caption,
-      isLoading: captionloading,
-    },
-  ] = useGenCaptionMutation();
+  const [genCaption, { data: caption, isLoading: captionloading }] =
+    useGenCaptionMutation();
 
   const generate = useCallback(
-    async (image: generateCaptionRequest) => {
+    async (image: any) => {
       await genCaption(image).unwrap();
     },
     [genCaption]
@@ -31,13 +26,8 @@ export const useGenerateCaption = () => {
 };
 
 export const useGenerateImage = () => {
-  const [
-    genImage,
-    {
-      data: images,
-      isLoading: imagesloading,
-    },
-  ] = useGenImageMutation();
+  const [genImage, { data: images, isLoading: imagesloading }] =
+    useGenImageMutation();
 
   const generate = useCallback(
     async (prompt: generateImageRequest) => {

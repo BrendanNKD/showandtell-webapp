@@ -3,25 +3,26 @@ import { useSignOut } from "app/hooks/useCognitoAuth";
 import { UseAuthenticatedRoute } from "utils/authRoute";
 import { UseAccount } from "../../app/state/account/useAccount";
 import { useEffect, useState } from "react";
-import {
-  ProfileSelectionCard,
-} from "../../components/proflieSelection";
+import { ProfileSelectionCard } from "../../components/proflieSelection";
 
 import { useNavigate } from "react-router-dom";
 import { useAddProfile, useSetProfile } from "app/hooks/useAccount";
 import { ProfileResponseModel } from "domain/types/profile/Profile";
+
 
 // import { useGetCollection } from "app/hooks/useCollection";
 import { Landing } from "components/landing";
 import { Modal } from "components/modal";
 import AddProfileForm from "components/form/addProfile";
 
-
 const initialState: ProfileResponseModel = {
   firstName: "",
   lastName: "",
   dateOfBirth: "",
   profilePic: Math.floor(Math.random() * 4),
+  stars: 0,
+  level: 1,
+  totalStars: 0,
 };
 
 const Profiles = () => {
@@ -57,6 +58,7 @@ const Profiles = () => {
 
   const handleNewProfile = async (event: any) => {
     event.preventDefault();
+    console.log(formValue);
     await addNewProfile(formValue);
   };
 

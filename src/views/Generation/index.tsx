@@ -1,20 +1,21 @@
-import {
-  UseAuthenticatedRoute,
-} from "utils/authRoute";
+import { UseAuthenticatedRoute } from "utils/authRoute";
 // import { UseProfile } from "app/state/profile/useProfile";
 import Navbar from "components/navBar";
 import { useEffect, useState } from "react";
 import DragDrop from "components/dragAndDrop";
 import Footer from "components/footer";
 import { useGenerateCaption } from "app/hooks/useGenerate";
-import { useOpenAiCompletion } from "app/hooks/useOpenAiCompletion";
+import { useCheck, useOpenAiCompletion } from "app/hooks/useOpenAiCompletion";
 import TextToSpeech from "components/textToSpeech";
 import { useSaveCollection } from "app/hooks/useCollection";
 import { UseProfile, UseProfileIndex } from "app/state/profile/useProfile";
-
+import { useSearchParams } from "react-router-dom";
+import ConfirmOtp from "views/ConfirmOtp";
 const Generate = () => {
   // Redirect user to profile if they are authenticate
   // const profile = UseProfile();
+  const [searchparams] = useSearchParams();
+
   UseAuthenticatedRoute();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [imageCaption, setImageCaption] = useState<string | null>(null);
@@ -23,12 +24,15 @@ const Generate = () => {
   const profileIndex = UseProfileIndex();
   const { generate, caption, captionloading } = useGenerateCaption();
   const { update, updateDataloading } = useSaveCollection();
-  const { completion, description, descriptionloading } =
-    useOpenAiCompletion();
+  const { completion, description, descriptionloading } = useOpenAiCompletion();
+  const { checkAnswer, answer, answerSuccess, answerloading } = useCheck();
 
   const handleGenerateCaption = async () => {
     if (selectedImage) {
-      await generate({ image: selectedImage });
+      await generate({
+        image: selectedImage,
+        category: String(searchparams.get("category")),
+      });
     }
   };
 
@@ -60,7 +64,15 @@ const Generate = () => {
 
   useEffect(() => {
     setImageDescription(description);
-  }, [description]);
+    checkAnswer({ caption: imageCaption, sentence: description });
+  }, [description, checkAnswer, imageCaption]);
+
+  useEffect(() => {
+    console.log(answer);
+    if (String(answer).includes("True")) {
+      console.log("You are correct!");
+    }
+  }, [answer]);
 
   return (
     <div className="h-fit flex-col justify-center align-middle">
