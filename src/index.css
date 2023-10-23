@@ -15,3 +15,9 @@
   src: local("gillsans"),
     url("../public/fonts/Gill_Sans_Infant_Std_Regular.ttf");
 }
+
+@layer components {
+  .all-\[unset\] {
+    all: unset;
+  }
+}

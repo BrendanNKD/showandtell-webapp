@@ -26,12 +26,7 @@ const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const [formValue, setFormValue] = useState(initialState);
   const [showRegister, setShowRegister] = useState(false);
-  const {
-    signIn,
-    authloading,
-    accountData,
-    collectionData,
-  } = useSignIn();
+  const { signIn, authloading, accountData, collectionData } = useSignIn();
 
   const { signUp, signUpData } = useSignUp();
 
@@ -81,6 +76,9 @@ const LoginForm: React.FC = () => {
           firstName: firstname,
           lastName: lastname,
           profilePic: Math.floor(Math.random() * 4),
+          stars: 0,
+          level: 1,
+          totalStars: 0,
         },
       ],
     });
@@ -88,8 +86,6 @@ const LoginForm: React.FC = () => {
 
   useEffect(() => {
     if (signUpData) {
-      console.log(signUpData);
-      console.log("OI IM HERE ALREADY WHY");
       navigate(`/registration/confirmOtp?username=${formValue.username}`);
     }
   }, [signUpData, navigate, formValue]);
