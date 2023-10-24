@@ -20,6 +20,29 @@ const Dashboard = () => {
   const currentprofile: any = UseProfile();
 
   const { data: quest } = useGetProfileQuestQuery(String(currentprofile._id));
+  
+ 
+  const passQuestParams = (
+    category: string,
+    caption: string
+    ) => {
+    
+    var categoryValues = {
+        'animals': {title: category , image:"https://c.animaapp.com/YStE9pzZ/img/frame-2.svg", color:"#F177AE"},
+        'shapes': {title: category , image:"https://c.animaapp.com/YStE9pzZ/img/frame.svg", color:"#FAE55A"},
+        'vege': {title: "Fruits and Vegetables" , image:"https://c.animaapp.com/NIGs1Y1e/img/frame-7.svg", color:"#9784D6"},
+    }
+    
+    navigate({
+      pathname: "/generate",
+      search: createSearchParams({
+      title: categoryValues[category as keyof typeof categoryValues].title,
+      image: categoryValues[category as keyof typeof categoryValues].image,
+      color: categoryValues[category as keyof typeof categoryValues].color,
+      category: category,
+      }).toString(),
+    });
+  };
 
   useEffect(() => {
     if (levelData && currentprofile && quest) {
@@ -40,7 +63,8 @@ const Dashboard = () => {
       }
     }
   }, [levelData, currentprofile, quest, dispatch]);
-
+  
+  
   return (
     <div className="bg-transparent flex flex-row justify-center w-full">
       <div className="overflow-hidden bg-[url(https://c.animaapp.com/keKAQgUJ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
@@ -93,15 +117,7 @@ const Dashboard = () => {
           </div>
           <div
             className="absolute w-[925px] h-[142px] top-[532px] left-[150px]"
-            onClick={() => {
-              navigate({
-                pathname: "/generate",
-                search: createSearchParams({
-                  category: "animals",
-                  caption: String(quests.caption),
-                }).toString(),
-              });
-            }}
+            onClick={() => passQuestParams(quests.category, quests.caption)}
           >
             <div className="relative w-[929px] h-[142px]">
               <div className="absolute w-[929px] h-[142px] top-0 left-0">
