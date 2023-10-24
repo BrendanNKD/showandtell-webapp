@@ -32,6 +32,7 @@ export const GenerateEmpty = () => {
   const { checkAnswer, answer, answerSuccess, answerloading } = useCheck();
 
   const handleGenerateCaption = async () => {
+    console.log(String(searchParams.get("category")));
     if (selectedImage) {
       await generate({
         image: selectedImage,
@@ -68,8 +69,11 @@ export const GenerateEmpty = () => {
 
   useEffect(() => {
     setImageDescription(description);
-    checkAnswer({ caption: imageCaption, sentence: description });
-  }, [description, checkAnswer, imageCaption]);
+    checkAnswer({
+      caption: imageCaption,
+      sentence: String(searchParams.get("caption")),
+    });
+  }, [description, searchParams, checkAnswer, imageCaption]);
 
   const emptyClick = () => {
     // console.log(index);
