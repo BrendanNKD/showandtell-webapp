@@ -40,6 +40,7 @@ const Dashboard = () => {
       image: categoryValues[category as keyof typeof categoryValues].image,
       color: categoryValues[category as keyof typeof categoryValues].color,
       category: category,
+      caption: caption
       }).toString(),
     });
   };
