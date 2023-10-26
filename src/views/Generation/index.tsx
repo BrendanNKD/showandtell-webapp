@@ -135,7 +135,7 @@ export const GenerateEmpty = () => {
               )}
             </div>
             {/*Description box*/}
-            <div className="absolute w-[674px] h-[130px] top-[571px] left-[180px] bg-[#e2e3e4] p-3 rounded-[10px]">
+            <div className="absolute w-[674px] top-[571px] left-[180px] bg-[#e2e3e4] p-3 rounded-[10px] min-h-fit max-h-225px">
               {imageDescription ? (
                 <>
                   <div className="flex flex-col">
@@ -156,7 +156,7 @@ export const GenerateEmpty = () => {
               <div className="absolute w-[674px] h-[382px] top-0 left-0 bg-[#e2e3e4]">
                 {selectedImage ? (
                   <img
-                    className="w-full h-full object-cover transition-all duration-300 rounded-lg cursor-pointer filter"
+                    className="w-full h-full object-contain transition-all duration-300 rounded-lg cursor-pointer filter"
                     src={selectedImage}
                     alt="description"
                   />
@@ -169,15 +169,10 @@ export const GenerateEmpty = () => {
                 )}
               </div>
             </div>
-            {/*text to speech button*/}
-            <img
-              className="absolute w-[77px] h-[83px] top-[722px] left-[537px]"
-              alt="Group"
-              src="https://c.animaapp.com/xYMQ48TT/img/group-2@2x.png"
-            />
+          
             {/*save button*/}
             <button
-              className="absolute w-[115px] h-[70px] top-[727px] left-[386px]"
+              className="absolute w-[115px] h-[70px] top-[727px] left-[875px]"
               onClick={handleSaveContent}
               disabled={
                 descriptionloading || captionloading || updateDataloading

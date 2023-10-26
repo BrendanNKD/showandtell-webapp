@@ -29,9 +29,12 @@ const Dashboard = () => {
     ) => {
     
     var categoryValues = {
-        'animals': {title: category , image:"https://c.animaapp.com/YStE9pzZ/img/frame-2.svg", color:"#F177AE"},
-        'shapes': {title: category , image:"https://c.animaapp.com/YStE9pzZ/img/frame.svg", color:"#FAE55A"},
-        'vege': {title: "Fruits and Vegetables" , image:"https://c.animaapp.com/NIGs1Y1e/img/frame-7.svg", color:"#9784D6"},
+        'animals': {title: "Animals" , image:"https://c.animaapp.com/YStE9pzZ/img/frame-2.svg", color:"#F177AE"},
+        'shapes': {title: "Shapes & Colors" , image:"https://c.animaapp.com/YStE9pzZ/img/frame.svg", color:"#FAE55A"},
+        'vege': {title: "Fruits & Vegetables" , image:"https://c.animaapp.com/NIGs1Y1e/img/frame-7.svg", color:"#9784D6"},
+        'vehicle': {title: "Vehicle" , image:"https://c.animaapp.com/YStE9pzZ/img/frame-1.svg", color:"#885FA8"},
+        'flowers': {title: "Flowers" , image:"https://c.animaapp.com/NIGs1Y1e/img/frame-5.svg", color:"#FCB315"},
+        'food': {title: "Food" , image:"https://c.animaapp.com/NIGs1Y1e/img/frame-6.svg", color:"#80C342"}
     }
     
     navigate({
@@ -41,6 +44,7 @@ const Dashboard = () => {
       image: categoryValues[category as keyof typeof categoryValues].image,
       color: categoryValues[category as keyof typeof categoryValues].color,
       category: category,
+      caption: caption
       }).toString(),
     });
   };
