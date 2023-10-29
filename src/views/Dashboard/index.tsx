@@ -11,6 +11,7 @@ import { useGetProfileQuestQuery } from "services/quest";
 import { defaultPics } from "utils/profilePic";
 import ConfirmOtp from "views/ConfirmOtp";
 import { useNavigate, createSearchParams } from "react-router-dom";
+import ProgressBar from 'components/progressBar'; 
 const Dashboard = () => {
   const { data: levelData } = useGetLevelQuery();
   const navigate = useNavigate();
@@ -28,9 +29,12 @@ const Dashboard = () => {
     ) => {
     
     var categoryValues = {
-        'animals': {title: category , image:"https://c.animaapp.com/YStE9pzZ/img/frame-2.svg", color:"#F177AE"},
-        'shapes': {title: category , image:"https://c.animaapp.com/YStE9pzZ/img/frame.svg", color:"#FAE55A"},
-        'vege': {title: "Fruits and Vegetables" , image:"https://c.animaapp.com/NIGs1Y1e/img/frame-7.svg", color:"#9784D6"},
+        'animals': {title: "Animals" , image:"https://c.animaapp.com/YStE9pzZ/img/frame-2.svg", color:"#F177AE"},
+        'shapes': {title: "Shapes & Colors" , image:"https://c.animaapp.com/YStE9pzZ/img/frame.svg", color:"#FAE55A"},
+        'vege': {title: "Fruits & Vegetables" , image:"https://c.animaapp.com/NIGs1Y1e/img/frame-7.svg", color:"#9784D6"},
+        'vehicle': {title: "Vehicle" , image:"https://c.animaapp.com/YStE9pzZ/img/frame-1.svg", color:"#885FA8"},
+        'flowers': {title: "Flowers" , image:"https://c.animaapp.com/NIGs1Y1e/img/frame-5.svg", color:"#FCB315"},
+        'food': {title: "Food" , image:"https://c.animaapp.com/NIGs1Y1e/img/frame-6.svg", color:"#80C342"}
     }
     
     navigate({
@@ -40,6 +44,7 @@ const Dashboard = () => {
       image: categoryValues[category as keyof typeof categoryValues].image,
       color: categoryValues[category as keyof typeof categoryValues].color,
       category: category,
+      caption: caption
       }).toString(),
     });
   };
@@ -75,13 +80,8 @@ const Dashboard = () => {
               <div className="absolute w-[523px] top-[58px] left-[72px] font-lapsus font-bold text-black text-[56px] tracking-[0.56px] leading-[normal] whitespace-nowrap">
                 Dashboard
               </div>
-              <div className="absolute w-[1057px] h-[59px] top-[344px] left-[84px]">
-                <div className="relative w-[1055px] h-[59px] bg-[#e2e3e4] rounded-[29.5px]">
-                  <div className="absolute w-[701px] h-[43px] top-[8px] left-[20px] bg-[#84c455] rounded-[29.5px]" />
-                  <div className="absolute w-[217px] top-[5px] left-[403px] font-lapsus font-bold text-black text-[47px] tracking-[0] leading-[normal] whitespace-nowrap">
-                    {currentprofile?.stars} /{nextLimit}
-                  </div>
-                </div>
+              <div className="absolute w-[1000px] h-[59px] top-[330px] left-[84px] bg-transparent justify-center">
+                <ProgressBar bgcolor="#84c455" progress={currentprofile?.stars} max={nextLimit} height={60} />
               </div>
               <div className="absolute w-[749px] h-[147px] top-[170px] left-[86px]">
                 <div className="absolute w-[377px] top-0 left-[160px] font-lapsus font-bold text-black text-[60px] tracking-[0] leading-[normal] whitespace-nowrap">
