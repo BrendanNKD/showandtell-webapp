@@ -1,7 +1,8 @@
-import {  setAccount } from "features/accountSlice";
+import { setAccount } from "features/accountSlice";
 import { useDispatch } from "react-redux";
 import {
   useAddProfileMutation,
+  useGetLevelQuery,
   useUpdateProfileMutation,
 } from "services/account/accountApi";
 import { setProfile } from "features/profileSlice";
@@ -11,7 +12,8 @@ import {
   ProfileResponseModel,
   UpdateProfileRequestModel,
 } from "domain/types/profile/Profile";
-
+import { useAddStarsMutation } from "services/account/accountApi";
+import { UseProfile } from "app/state/profile/useProfile";
 export const useAddProfile = () => {
   const dispatch = useDispatch();
   const [
@@ -78,7 +80,11 @@ export const useUpdateProfile = () => {
   useEffect(() => {
     if (isupdateProfileSuccess) {
       // dispatch(setAccount(newAccountData));
-      dispatch(setAccount(newAccountData));
+      if (newAccountData.leveled) {
+        //DISPLAY LEVEL UP SOMETHING
+        //reset account details
+      }
+      dispatch(setAccount(newAccountData.result));
     } else {
       //toast to show confirm sign up error
       //second layer defense after try catch
@@ -90,5 +96,44 @@ export const useUpdateProfile = () => {
     updateProfileLoading,
     newAccountData,
     isupdateProfileSuccess,
+  };
+};
+
+export const useAddStars = () => {
+  const dispatch = useDispatch();
+  const [
+    addStars,
+    {
+      data: newStarsData,
+      isSuccess: isnewStarsSuccess,
+      isLoading: newStarsLoading,
+    },
+  ] = useAddStarsMutation();
+
+  const updateStars = useCallback(
+    async (data: any) => {
+      await addStars(data);
+    },
+    [addStars]
+  );
+
+  useEffect(() => {
+    if (newStarsData) {
+      // dispatch(setAccount(newAccountData));
+      if (newStarsData.leveled) {
+        console.log("I HAVE LEVELED UP");
+      }
+      dispatch(setAccount(newStarsData.result));
+    } else {
+      //toast to show confirm sign up error
+      //second layer defense after try catch
+    }
+  }, [dispatch, newStarsData]);
+
+  return {
+    updateStars,
+    newStarsData,
+    isnewStarsSuccess,
+    newStarsLoading,
   };
 };
