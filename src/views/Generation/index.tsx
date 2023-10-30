@@ -11,25 +11,31 @@ import { useSaveCollection } from "app/hooks/useCollection";
 import { UseProfile, UseProfileIndex } from "app/state/profile/useProfile";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Modal } from "components/modal";
-import { useAddProfile, useSetProfile } from "app/hooks/useAccount";
+import {
+  useAddProfile,
+  useAddStars,
+  useSetProfile,
+} from "app/hooks/useAccount";
 
 export const GenerateEmpty = () => {
   // Redirect user to profile if they are authenticate
   // const profile = UseProfile();
+  const profile: any = UseProfile();
+  const profileIndex = UseProfileIndex();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   UseAuthenticatedRoute();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [imageCaption, setImageCaption] = useState<string | null>(null);
   const [imageDescription, setImageDescription] = useState<string | null>(null);
-  const profile = UseProfile();
-  const profileIndex = UseProfileIndex();
   const { generate, caption, captionloading } = useGenerateCaption();
   const { update, updateDataloading } = useSaveCollection();
   const { addNewProfile, addProfileLoading, isaddProfileSuccess } =
     useAddProfile();
   const { completion, description, descriptionloading } = useOpenAiCompletion();
   const { checkAnswer, answer, answerSuccess, answerloading } = useCheck();
+  const { updateStars, newStarsData, isnewStarsSuccess, newStarsLoading } =
+    useAddStars();
 
   const handleGenerateCaption = async () => {
     console.log(String(searchParams.get("category")));
@@ -69,10 +75,12 @@ export const GenerateEmpty = () => {
 
   useEffect(() => {
     setImageDescription(description);
-    checkAnswer({
-      caption: imageCaption,
-      sentence: String(searchParams.get("caption")),
-    });
+    if (description) {
+      checkAnswer({
+        caption: imageCaption,
+        sentence: String(searchParams.get("caption")),
+      });
+    }
   }, [description, searchParams, checkAnswer, imageCaption]);
 
   const emptyClick = () => {
@@ -81,12 +89,13 @@ export const GenerateEmpty = () => {
   };
 
   useEffect(() => {
-    if (searchParams.get("caption")) {
-      if (String(answer).includes("True")) {
-        console.log("You are correct!");
-      }
+    if (String(answer).includes("True")) {
+      updateStars({
+        awardStars: 200,
+        profileId: profile._id,
+      });
     }
-  }, [answer, searchParams]);
+  }, [answer, updateStars, profile._id]);
 
   //report function stuf
   const [showModal, setShowModal] = useState(false);
@@ -169,7 +178,7 @@ export const GenerateEmpty = () => {
                 )}
               </div>
             </div>
-          
+
             {/*save button*/}
             <button
               className="absolute w-[115px] h-[70px] top-[727px] left-[875px]"
