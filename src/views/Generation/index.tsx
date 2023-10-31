@@ -1,13 +1,13 @@
 import { UseAuthenticatedRoute } from "utils/authRoute";
 // import { UseProfile } from "app/state/profile/useProfile";
 import Navbar from "components/navBar";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import DragDrop from "components/dragAndDrop";
 import Footer from "components/footer";
 import { useGenerateCaption } from "app/hooks/useGenerate";
 import { useCheck, useOpenAiCompletion } from "app/hooks/useOpenAiCompletion";
 import TextToSpeech from "components/textToSpeech";
-import { useSaveCollection } from "app/hooks/useCollection";
+
 import { UseProfile, UseProfileIndex } from "app/state/profile/useProfile";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Modal } from "components/modal";
@@ -16,6 +16,7 @@ import {
   useAddStars,
   useSetProfile,
 } from "app/hooks/useAccount";
+import { useSaveCollection } from "app/hooks/useCollection";
 
 export const GenerateEmpty = () => {
   // Redirect user to profile if they are authenticate
@@ -37,6 +38,9 @@ export const GenerateEmpty = () => {
   const { updateStars, newStarsData, isnewStarsSuccess, newStarsLoading } =
     useAddStars();
 
+  const [selectedIssues, setSelectedIssues] = useState<string[]>([]);
+  const [otherIssue, setOtherIssue] = useState<string>("");
+
   const handleGenerateCaption = async () => {
     console.log(String(searchParams.get("category")));
     if (selectedImage) {
@@ -45,6 +49,11 @@ export const GenerateEmpty = () => {
         category: String(searchParams.get("category")),
       });
     }
+  };
+
+  const emptyClick = async () => {
+    console.log(selectedIssues);
+    console.log(otherIssue);
   };
 
   const handleSaveContent = async () => {
@@ -83,11 +92,19 @@ export const GenerateEmpty = () => {
     }
   }, [description, searchParams, checkAnswer, imageCaption]);
 
-  const emptyClick = () => {
-    // console.log(index);
-    // dispatch(setProfile(index));
+  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = event.target;
+
+    if (checked) {
+      setSelectedIssues([...selectedIssues, name]);
+    } else {
+      setSelectedIssues(selectedIssues.filter((item) => item !== name));
+    }
   };
 
+  const handleOtherIssueChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setOtherIssue(event.target.value);
+  };
   useEffect(() => {
     if (String(answer).includes("True")) {
       updateStars({
@@ -237,63 +254,37 @@ export const GenerateEmpty = () => {
                         <br />
                       </label>
 
-                      <label
-                        style={{ fontSize: 32, letterSpacing: 0.2 }}
-                        className="[font-family:'gillsans',Helvetica]"
-                      >
+                      <label>
                         <input
                           type="checkbox"
-                          className="
-                       peer relative appearance-none shrink-0 w-6 h-6 border-2 border-blue-200 rounded-sm mt-1 bg-white
-                       focus:outline-none focus:ring-offset-0 focus:ring-1 focus:ring-blue-100
-                       checked:bg-blue-500 checked:border-0
-                       disabled:border-steel-400 disabled:bg-steel-400
-                       [font-family:'gillsans',Helvetica]"
-                          name="inaccurate captions"
+                          name="inaccurateCaptions"
+                          onChange={handleCheckboxChange}
                         />
                         <span> Inaccurate captions </span>
                         <br />
                       </label>
-                      <label
-                        style={{ fontSize: 32, letterSpacing: 0.2 }}
-                        className="[font-family:'gillsans',Helvetica]"
-                      >
+                      <label>
                         <input
                           type="checkbox"
-                          className="
-                       peer relative appearance-none shrink-0 w-6 h-6 border-2 border-blue-200 rounded-sm mt-1 bg-white
-                       focus:outline-none focus:ring-offset-0 focus:ring-1 focus:ring-blue-100
-                       checked:bg-blue-500 checked:border-0
-                       disabled:border-steel-400 disabled:bg-steel-400
-                       [font-family:'gillsans',Helvetica]"
-                          name="sound problem"
+                          name="soundProblem"
+                          onChange={handleCheckboxChange}
                         />
                         <span> Sound problem </span>
                         <br />
                       </label>
-                      <label
-                        style={{ fontSize: 32, letterSpacing: 0.2 }}
-                        className="[font-family:'gillsans',Helvetica]"
-                      >
+                      <label>
                         <input
                           type="checkbox"
-                          className="
-                       peer relative appearance-none shrink-0 w-6 h-6 border-2 border-blue-200 rounded-sm mt-1 bg-white
-                       focus:outline-none focus:ring-offset-0 focus:ring-1 focus:ring-blue-100
-                       checked:bg-blue-500 checked:border-0
-                       disabled:border-steel-400 disabled:bg-steel-400
-                       [font-family:'gillsans',Helvetica]"
-                          name="sound problem"
+                          name="somethingElse"
+                          onChange={handleCheckboxChange}
                         />
                         <span> Something else: </span>
                         <br />
                       </label>
 
                       <textarea
-                        className="
-                      appearance-none shrink-0 w-150 h-70 border-2 border-blue-200 rounded-sm mt-1 bg-white
-                      disabled:border-steel-400 disabled:bg-steel-400
-                      [font-family:'gillsans',Helvetica] "
+                        value={otherIssue}
+                        onChange={handleOtherIssueChange}
                         rows={5}
                         cols={35}
                         placeholder={"Let us know what's wrong"}
