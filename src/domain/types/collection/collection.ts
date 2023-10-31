@@ -5,6 +5,7 @@ export interface CollectionProp {
   profileIndex: number;
   description: string;
   avatar: number;
+  _id?: string;
 }
 
 export interface CollectionState {
