@@ -120,12 +120,13 @@ const Dashboard = () => {
           <div
             className="absolute w-[925px] h-[142px] top-[532px] left-[150px]"
             onClick={() => passQuestParams(quests.category, quests.caption)}
+            //onClick = {() => passQuestParams("vehicle", "Truck.")}
           >
             <div className="relative w-[929px] h-[142px]">
               <div className="absolute w-[929px] h-[142px] top-0 left-0">
                 <div className="relative w-[925px] h-[142px]">
                   <div className="absolute w-[925px] h-[129px] top-[13px] left-0 bg-[#facd0a] rounded-[24px]" />
-                  <div className="absolute w-[925px] h-[129px] top-0 left-0 rounded-[24px]" 
+                   <div className="absolute w-[925px] h-[129px] top-0 left-0 rounded-[24px]" 
                    style={{ backgroundColor: quests && categoryValues[quests.category as keyof typeof categoryValues].color! }}/>
                   {/*model icon*/}
                   <img

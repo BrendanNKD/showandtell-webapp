@@ -59,7 +59,7 @@ const Playground = () => {
 
   return (
     <div className="h-fit flex-col justify-center align-middle ">
-      <Navbar></Navbar>;
+      <Navbar></Navbar>;      
       <div className="flex justify-center align-middle pb-20 pt-10 ">
         <div className="grid grid-rows-3 grid-flow-col gap-6 w-3/5">
           <div className="row-span-3">
