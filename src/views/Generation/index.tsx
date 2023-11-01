@@ -396,7 +396,6 @@ export const GenerateEmpty = () => {
             </div>
           </div>
         </div>
-        <Footer />
       </div>
     </div>
   );
