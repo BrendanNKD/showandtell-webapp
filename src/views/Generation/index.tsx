@@ -107,6 +107,8 @@ export const GenerateEmpty = () => {
   };
   useEffect(() => {
     if (String(answer).includes("True")) {
+      console.log("You are correct!");
+      setShowQuest(true);
       updateStars({
         awardStars: 200,
         profileId: profile._id,
