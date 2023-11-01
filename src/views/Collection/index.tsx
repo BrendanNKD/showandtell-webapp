@@ -103,7 +103,6 @@ const buttonStyles = {
       
       </div>
     </div>
-      <Footer></Footer>
     </div>
   );
 };
