@@ -418,7 +418,6 @@ export const GenerateChoose = (): JSX.Element => {
         </div>*/}
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

@@ -133,8 +133,6 @@ const Home = () => {
             <Slider />
           </div>
         </div>
-
-        <Footer></Footer>
       </div>
     </div>
   );
