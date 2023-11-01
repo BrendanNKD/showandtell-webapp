@@ -153,12 +153,11 @@ const Navbar = () => {
                 </button>
               )}
             </div>
-
-            <div className="w-[238px] left-[492px] absolute h-[59px] top-[25px]">
-              <button className="w-[236px] relative h-[59px]">
-                <div className="top-[6px] bg-[#66ae45] absolute w-[236px] h-[53px] left-0 rounded-[13px]" />
-                <div className="top-0 bg-[#84c455] absolute w-[236px] h-[53px] left-0 rounded-[13px]" />
-                <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+            <div className="absolute w-[238px] h-[59px] top-[25px] left-[378px]">
+            <div className="relative w-[236px] h-[59px]">
+              <div className="absolute w-[236px] h-[53px] top-[6px] left-0 bg-[#66ae45] rounded-[13px]" />
+              <div className="absolute w-[236px] h-[53px] top-0 left-0 bg-[#84c455] rounded-[13px]" />
+              <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
                   <button
                     onClick={() => {
                       navigate("/dashboard");
@@ -166,14 +165,14 @@ const Navbar = () => {
                   >
                     Dashboard
                   </button>
-                </div>
-              </button>
+              </div>
             </div>
-            <div className="w-[238px] left-[1039px] absolute h-[59px] top-[25px]">
-              <button className="w-[236px] relative h-[59px]">
-                <div className="w-[236px] bg-[#facd0a] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
-                <div className="w-[236px] bg-[#fae55a] absolute h-[53px] top-0 left-0 rounded-[13px]" />
-                <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+          </div>
+          <div className="absolute w-[238px] h-[59px] top-[25px] left-[925px]">
+            <div className="relative w-[236px] h-[59px]">
+              <div className="w-[236px] bg-[#facd0a] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
+              <div className="w-[236px] bg-[#fae55a] absolute h-[53px] top-0 left-0 rounded-[13px]" />
+              <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
                   <button
                     onClick={() => {
                       navigate("/collection");
@@ -181,14 +180,14 @@ const Navbar = () => {
                   >
                     Collection
                   </button>
-                </div>
-              </button>
+              </div>
             </div>
-            <div className="w-[238px] left-[1326px] absolute h-[59px] top-[25px]">
-              <button className="w-[236px] relative h-[59px]">
-                <div className="w-[236px] bg-[#e78324] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
-                <div className="w-[236px] bg-[#fcb315] absolute h-[53px] top-0 left-0 rounded-[13px]" />
-                <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+          </div>
+          <div className="absolute w-[238px] h-[59px] top-[25px] left-[1212px]">
+            <div className="relative w-[236px] h-[59px]">
+              <div className="w-[236px] bg-[#e78324] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
+              <div className="w-[236px] bg-[#fcb315] absolute h-[53px] top-0 left-0 rounded-[13px]" />
+              <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
                   <button
                     onClick={() => {
                       navigate("/playground");
@@ -196,14 +195,29 @@ const Navbar = () => {
                   >
                     Playground
                   </button>
-                </div>
-              </button>
+              </div>
             </div>
-            <div className="w-[207px] left-[781px] absolute h-[59px] top-[25px]">
-              <button className="w-[205px] relative h-[59px]">
-                <div className="w-[205px] bg-[#53c2ef] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
-                <div className="w-[205px] bg-[#9cdcf9] absolute h-[53px] top-0 left-0 rounded-[13px]" />
-                <div className="absolute w-[180px] top-[6px] left-[12px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+          </div>
+          <div className="absolute w-[157px] h-[59px] top-[25px] left-[1493px]">
+            <div className="relative w-[155px] h-[59px]">
+              <div className="w-[155px] bg-[#595aa4] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
+              <div className="w-[155px] bg-[#8b8dff] absolute h-[53px] top-0 left-0 rounded-[13px]" />
+              <div className="absolute w-[127px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+                <button
+                    onClick={() => {
+                      navigate("/quest");
+                    }}
+                  >
+                    Quest
+                  </button>
+              </div>
+            </div>
+          </div>
+          <div className="absolute w-[207px] h-[59px] top-[25px] left-[667px]">
+            <div className="relative w-[205px] h-[59px]">
+              <div className="w-[205px] bg-[#53c2ef] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
+              <div className="w-[205px] bg-[#9cdcf9] absolute h-[53px] top-0 left-0 rounded-[13px]" />
+              <div className="absolute w-[180px] top-[6px] left-[12px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
                   <button
                     onClick={() => {
                       navigate("/generateChoose");
@@ -211,9 +225,11 @@ const Navbar = () => {
                   >
                     Generate
                   </button>
-                </div>
-              </button>
+              </div>
             </div>
+          </div>
+            
+            
             <img
               className="absolute w-[219px] h-[37px] top-[41px] left-[70px]"
               alt="Frame"

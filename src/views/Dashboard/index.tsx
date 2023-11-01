@@ -24,40 +24,40 @@ const Dashboard = () => {
     skip: !currentprofile,
   });
 
-  const passQuestParams = (category: string, caption: string) => {
-    var categoryValues = {
-      animals: {
-        title: "Animals",
-        image: "https://c.animaapp.com/YStE9pzZ/img/frame-2.svg",
-        color: "#F177AE",
-      },
-      shapes: {
-        title: "Shapes & Colors",
-        image: "https://c.animaapp.com/YStE9pzZ/img/frame.svg",
-        color: "#FAE55A",
-      },
-      vege: {
-        title: "Fruits & Vegetables",
-        image: "https://c.animaapp.com/NIGs1Y1e/img/frame-7.svg",
-        color: "#9784D6",
-      },
-      vehicle: {
-        title: "Vehicle",
-        image: "https://c.animaapp.com/YStE9pzZ/img/frame-1.svg",
-        color: "#885FA8",
-      },
-      flowers: {
-        title: "Flowers",
-        image: "https://c.animaapp.com/NIGs1Y1e/img/frame-5.svg",
-        color: "#FCB315",
-      },
-      food: {
-        title: "Food",
-        image: "https://c.animaapp.com/NIGs1Y1e/img/frame-6.svg",
-        color: "#80C342",
-      },
-    };
+  const categoryValues = {
+    animals: {
+      title: "Animals",
+      image: "https://c.animaapp.com/YStE9pzZ/img/frame-2.svg",
+      color: "#F177AE",
+    },
+    shapes: {
+      title: "Shapes & Colors",
+      image: "https://c.animaapp.com/YStE9pzZ/img/frame.svg",
+      color: "#FAE55A",
+    },
+    vege: {
+      title: "Fruits & Vegetables",
+      image: "https://c.animaapp.com/NIGs1Y1e/img/frame-7.svg",
+      color: "#9784D6",
+    },
+    vehicle: {
+      title: "Vehicle",
+      image: "https://c.animaapp.com/YStE9pzZ/img/frame-1.svg",
+      color: "#885FA8",
+    },
+    flowers: {
+      title: "Flowers",
+      image: "https://c.animaapp.com/NIGs1Y1e/img/frame-5.svg",
+      color: "#FCB315",
+    },
+    food: {
+      title: "Food",
+      image: "https://c.animaapp.com/NIGs1Y1e/img/frame-6.svg",
+      color: "#80C342",
+    },
+  };
 
+  const passQuestParams = (category: string, caption: string) => {
     navigate({
       pathname: "/generate",
       search: createSearchParams({
@@ -140,19 +140,37 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
+          {/*Quest box*/}
           <div
             className="absolute w-[925px] h-[142px] top-[532px] left-[150px]"
             onClick={() => passQuestParams(quests.category, quests.caption)}
+            //onClick = {() => passQuestParams("vehicle", "Truck.")}
           >
             <div className="relative w-[929px] h-[142px]">
               <div className="absolute w-[929px] h-[142px] top-0 left-0">
                 <div className="relative w-[925px] h-[142px]">
                   <div className="absolute w-[925px] h-[129px] top-[13px] left-0 bg-[#facd0a] rounded-[24px]" />
-                  <div className="absolute w-[925px] h-[129px] top-0 left-0 bg-[#fae55a] rounded-[24px]" />
+                  <div
+                    className="absolute w-[925px] h-[129px] top-0 left-0 rounded-[24px]"
+                    style={{
+                      backgroundColor:
+                        quests &&
+                        categoryValues[
+                          quests.category as keyof typeof categoryValues
+                        ].color!,
+                    }}
+                  />
+                  {/*model icon*/}
                   <img
+                    id="questImage"
                     className="absolute w-[95px] h-[61px] top-[35px] left-[17px]"
                     alt="Frame"
-                    src="https://c.animaapp.com/keKAQgUJ/img/frame.svg"
+                    src={
+                      quests &&
+                      categoryValues[
+                        quests.category as keyof typeof categoryValues
+                      ].image
+                    }
                   />
                   <div className="absolute w-[258px] top-[22px] left-[159px] font-lapsus font-bold text-black text-[31px] tracking-[0] leading-[normal] whitespace-nowrap">
                     {quests && quests.category}
@@ -162,6 +180,7 @@ const Dashboard = () => {
                   </p>
                 </div>
               </div>
+              {/*Quest box star reward*/}
               <div className="absolute w-[142px] h-[62px] top-[43px] left-[772px]">
                 <div className="relative w-[140px] h-[62px] bg-white rounded-[14px]">
                   <img

@@ -58,101 +58,87 @@ const Playground = () => {
   }, [images]);
 
   return (
-    <div className="h-fit flex-col justify-center align-middle ">
-      <Navbar></Navbar>;
-      <div className="flex justify-center align-middle pb-20 pt-10 ">
-        <div className="grid grid-rows-3 grid-flow-col gap-6 w-3/5">
-          <div className="row-span-3">
-            <div className="pt-10">
-              <figure className="relative max-w-lg transition-all duration-300 cursor-pointer filter  ">
-                {selectedImage ? (
-                  <img src={selectedImage} alt="Uploaded" />
-                ) : (
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/800px-No-Image-Placeholder.svg.png"
-                    alt="Uploaded"
-                  />
-                )}
-                {/* <figcaption className="absolute px-4 text-lg text-black bottom-6">
-                  <p>
-                    Do you want to get notified when a new component is added to
-                    Flowbite?
-                  </p>
-                </figcaption> */}
-              </figure>
+    <div className="bg-transparent flex flex-row justify-center w-full">
+      <div className="overflow-hidden bg-[url(https://c.animaapp.com/YjacsXJS/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
+        <Navbar></Navbar>
+        <div className="flex-row justify-center absolute w-[1034px] h-[700px] top-[145px] left-[166px] rounded-3xl bg-white bg-[100%_100%]">
+          <div className="absolute w-[1034px] h-[92px] top-0 left-0 rounded-t-3xl bg-[#F078AE] bg-[100%_100%]">
+            <div className="absolute w-[238px] top-[19px] left-[418px] [font-family:'lapsus',Helvetica] font-bold text-black text-[49px] tracking-[1.23px] leading-[normal] whitespace-nowrap">
+              Create Art
             </div>
           </div>
-          <div className="col-span-2 ">
-            <label className="block mb-2 text-lg font-medium text-white dark:text-white ">
-              Prompt
-            </label>
-            <div className="flex flex-col gap-6">
-              <textarea
-                rows={8}
-                cols={8}
-                className="rounded-lg p-4 text-lg"
+          <div className="flex flex-row w-full py-24 absolute w-[490px] top-[150px] left-[272px] [font-family:'gillsans',Helvetica] font-normal text-black text-[39px] tracking-[0] leading-[normal]">
+                {generatedOutput ? (
+                  generatedOutput.map((imageUrl, index) => (
+                    <div
+                      key={index}
+                      className={`relative w-1/3 box-border transition-opacity duration-300 cursor-pointer ${
+                        selectedImageId === null
+                          ? ""
+                          : selectedImageId === index
+                          ? ""
+                          : "opacity-50"
+                      }`}
+                      onClick={() => handleImageClick(index)}
+                    >
+                      <div
+                        className={`absolute top-2 right-2 w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center ${
+                          selectedImageId === index ? "block" : "hidden"
+                        }`}
+                      >
+                        ✓
+                      </div>
+                      <img
+                        src={imageUrl}
+                        alt={`Generated ${index}`}
+                        className="w-full"
+                      />
+                      {selectedImageId !== null && selectedImageId !== index && (
+                        <div className="absolute inset-0 bg-black opacity-60"></div>
+                      )}
+                    </div>
+                  ))
+                ) : (
+                  <div className="flex justify-center w-full text-black [font-family:'gillsans',Helvetica]">
+                    <p>No recent generated output</p>
+                  </div>
+                )}
+          </div>
+        </div>
+        {/* return button */}
+        <button>
+          <img
+            className="absolute w-[77px] h-[83px] top-[145px] left-[48px]"
+            alt="Frame"
+            src="https://c.animaapp.com/YjacsXJS/img/frame-3.svg"
+          />
+        </button>
+        <div className="absolute w-[530px] h-[600px] top-[250px] left-[1303px] bg-white rounded-[24px] bg-[100%_100%]">
+          <div className="absolute w-[459px] h-[350px] top-[75px] left-[38px] bg-transparent rounded-[24px] ">
+          <textarea
+                rows={10}
+                cols={50}
+                className="rounded-lg p-4 text-lg bg-[#e2e3e4]"
                 value={text} // Bind the 'text' state to the textarea value
                 onChange={handleTextareaChange} // Call the handler function on input change
               ></textarea>
+          </div>
+          <div className="absolute w-[144px] top-[27px] left-[32px] [font-family:'lapsus',Helvetica] font-bold text-black text-[39px] tracking-[0] leading-[normal]">
+            Prompt:
+          </div>
+          <button onClick={handleGenerateImage}>
+          <div className="absolute w-[207px] h-[59px] top-[500px] left-[165px]">
+            <div className="relative w-[205px] h-[59px]">
+              <div className="absolute w-[205px] h-[53px] top-[6px] left-0 bg-[#53c2ef] rounded-[13px]" />
+              <div className="absolute w-[205px] h-[53px] top-0 left-0 bg-[#9cdcf9] rounded-[13px]" />
+              <div className="absolute w-[180px] top-[6px] left-[12px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+                Generate
+              </div>
             </div>
           </div>
-          <div className="row-span-2 col-span-2">
-            <label className="block mb-2 text-lg font-medium text-white dark:text-white ">
-              Prompt
-            </label>
-            <DragDrop
-              selectedImage={selectedImage}
-              setSelectedImage={setSelectedImage}
-            />
-            <div className="mt-8 flex justify-end">
-              <button
-                className="hover:bg-violet-600 border-violet-600 bg-violet-600  text-white font-bold py-2 px-4 rounded-lg"
-                onClick={handleGenerateImage}
-              >
-                Generate image
-              </button>
-            </div>
-          </div>
+          </button> 
         </div>
       </div>
-      <div className="flex flex-row w-full py-24">
-        {generatedOutput ? (
-          generatedOutput.map((imageUrl, index) => (
-            <div
-              key={index}
-              className={`relative w-1/3 box-border transition-opacity duration-300 cursor-pointer ${
-                selectedImageId === null
-                  ? ""
-                  : selectedImageId === index
-                  ? ""
-                  : "opacity-50"
-              }`}
-              onClick={() => handleImageClick(index)}
-            >
-              <div
-                className={`absolute top-2 right-2 w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center ${
-                  selectedImageId === index ? "block" : "hidden"
-                }`}
-              >
-                ✓
-              </div>
-              <img
-                src={imageUrl}
-                alt={`Generated ${index}`}
-                className="w-full"
-              />
-              {selectedImageId !== null && selectedImageId !== index && (
-                <div className="absolute inset-0 bg-black opacity-60"></div>
-              )}
-            </div>
-          ))
-        ) : (
-          <div className="flex justify-center w-full text-white">
-            <p>No recent generated output</p>
-          </div>
-        )}
-      </div>
-      <Footer></Footer>
     </div>
   );
 };
