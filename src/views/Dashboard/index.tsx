@@ -11,7 +11,7 @@ import { useGetProfileQuestQuery } from "services/quest";
 import { defaultPics } from "utils/profilePic";
 import ConfirmOtp from "views/ConfirmOtp";
 import { useNavigate, createSearchParams } from "react-router-dom";
-import ProgressBar from 'components/progressBar'; 
+import ProgressBar from "components/progressBar";
 const Dashboard = () => {
   const { data: levelData } = useGetLevelQuery();
   const navigate = useNavigate();
@@ -20,30 +20,52 @@ const Dashboard = () => {
   const [quests, setQuests] = useState<any>(null);
   const currentprofile: any = UseProfile();
 
-  const { data: quest } = useGetProfileQuestQuery(String(currentprofile._id));
-  
-  const categoryValues = {
-    'animals': {title: "Animals" , image:"https://c.animaapp.com/YStE9pzZ/img/frame-2.svg", color:"#F177AE"},
-    'shapes': {title: "Shapes & Colors" , image:"https://c.animaapp.com/YStE9pzZ/img/frame.svg", color:"#FAE55A"},
-    'vege': {title: "Fruits & Vegetables" , image:"https://c.animaapp.com/NIGs1Y1e/img/frame-7.svg", color:"#9784D6"},
-    'vehicle': {title: "Vehicle" , image:"https://c.animaapp.com/YStE9pzZ/img/frame-1.svg", color:"#885FA8"},
-    'flowers': {title: "Flowers" , image:"https://c.animaapp.com/NIGs1Y1e/img/frame-5.svg", color:"#FCB315"},
-    'food': {title: "Food" , image:"https://c.animaapp.com/NIGs1Y1e/img/frame-6.svg", color:"#80C342"}
-  }
+  const { data: quest } = useGetProfileQuestQuery(String(currentprofile?._id), {
+    skip: !currentprofile,
+  });
 
-  const passQuestParams = (
-    category: string,
-    caption: string
-    ) => {
-  
+  const categoryValues = {
+    animals: {
+      title: "Animals",
+      image: "https://c.animaapp.com/YStE9pzZ/img/frame-2.svg",
+      color: "#F177AE",
+    },
+    shapes: {
+      title: "Shapes & Colors",
+      image: "https://c.animaapp.com/YStE9pzZ/img/frame.svg",
+      color: "#FAE55A",
+    },
+    vege: {
+      title: "Fruits & Vegetables",
+      image: "https://c.animaapp.com/NIGs1Y1e/img/frame-7.svg",
+      color: "#9784D6",
+    },
+    vehicle: {
+      title: "Vehicle",
+      image: "https://c.animaapp.com/YStE9pzZ/img/frame-1.svg",
+      color: "#885FA8",
+    },
+    flowers: {
+      title: "Flowers",
+      image: "https://c.animaapp.com/NIGs1Y1e/img/frame-5.svg",
+      color: "#FCB315",
+    },
+    food: {
+      title: "Food",
+      image: "https://c.animaapp.com/NIGs1Y1e/img/frame-6.svg",
+      color: "#80C342",
+    },
+  };
+
+  const passQuestParams = (category: string, caption: string) => {
     navigate({
       pathname: "/generate",
       search: createSearchParams({
-      title: categoryValues[category as keyof typeof categoryValues].title,
-      image: categoryValues[category as keyof typeof categoryValues].image,
-      color: categoryValues[category as keyof typeof categoryValues].color,
-      category: category,
-      caption: caption
+        title: categoryValues[category as keyof typeof categoryValues].title,
+        image: categoryValues[category as keyof typeof categoryValues].image,
+        color: categoryValues[category as keyof typeof categoryValues].color,
+        category: category,
+        caption: caption,
       }).toString(),
     });
   };
@@ -57,20 +79,17 @@ const Dashboard = () => {
       );
 
       if (index !== -1) {
-        console.log(
-          "Index of the first 'completed' element set to false:",
-          index
-        );
+        // console.log(
+        //   "Index of the first 'completed' element set to false:",
+        //   index
+        // );
         setQuests(quest.quests[index]);
       } else {
-        console.log("No 'completed' element set to false found.");
+        // console.log("No 'completed' element set to false found.");
       }
     }
-  }, [levelData, currentprofile, quest, dispatch]
-  );
+  }, [levelData, currentprofile, quest, dispatch]);
 
-  
-  
   return (
     <div className="bg-transparent flex flex-row justify-center w-full">
       <div className="overflow-hidden bg-[url(https://c.animaapp.com/keKAQgUJ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
@@ -82,14 +101,19 @@ const Dashboard = () => {
                 Dashboard
               </div>
               <div className="absolute w-[1000px] h-[59px] top-[330px] left-[84px] bg-transparent justify-center">
-                <ProgressBar bgcolor="#84c455" progress={currentprofile?.stars} max={nextLimit} height={60} />
+                <ProgressBar
+                  bgcolor="#84c455"
+                  progress={currentprofile?.stars}
+                  max={nextLimit}
+                  height={60}
+                />
               </div>
               <div className="absolute w-[749px] h-[147px] top-[170px] left-[86px]">
                 <div className="absolute w-[377px] top-0 left-[160px] font-lapsus font-bold text-black text-[60px] tracking-[0] leading-[normal] whitespace-nowrap">
                   {currentprofile?.firstName}
                 </div>
                 <div className="absolute w-[167px] top-0 left-[578px] font-lapsus font-bold text-black text-[60px] tracking-[0] leading-[normal] whitespace-nowrap">
-                  Level 1
+                  Level {currentprofile && currentprofile.level}
                 </div>
                 <div className="absolute w-[209px] h-[59px] top-[72px] left-[160px]">
                   <img
@@ -126,14 +150,27 @@ const Dashboard = () => {
               <div className="absolute w-[929px] h-[142px] top-0 left-0">
                 <div className="relative w-[925px] h-[142px]">
                   <div className="absolute w-[925px] h-[129px] top-[13px] left-0 bg-[#facd0a] rounded-[24px]" />
-                   <div className="absolute w-[925px] h-[129px] top-0 left-0 rounded-[24px]" 
-                   style={{ backgroundColor: quests && categoryValues[quests.category as keyof typeof categoryValues].color! }}/>
+                  <div
+                    className="absolute w-[925px] h-[129px] top-0 left-0 rounded-[24px]"
+                    style={{
+                      backgroundColor:
+                        quests &&
+                        categoryValues[
+                          quests.category as keyof typeof categoryValues
+                        ].color!,
+                    }}
+                  />
                   {/*model icon*/}
                   <img
-                    id = "questImage"
+                    id="questImage"
                     className="absolute w-[95px] h-[61px] top-[35px] left-[17px]"
                     alt="Frame"
-                    src= {quests && categoryValues[quests.category as keyof typeof categoryValues].image}
+                    src={
+                      quests &&
+                      categoryValues[
+                        quests.category as keyof typeof categoryValues
+                      ].image
+                    }
                   />
                   <div className="absolute w-[258px] top-[22px] left-[159px] font-lapsus font-bold text-black text-[31px] tracking-[0] leading-[normal] whitespace-nowrap">
                     {quests && quests.category}

@@ -1,35 +1,45 @@
 import { UseAuthenticatedRoute } from "utils/authRoute";
 // import { UseProfile } from "app/state/profile/useProfile";
 import Navbar from "components/navBar";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import DragDrop from "components/dragAndDrop";
 import Footer from "components/footer";
 import { useGenerateCaption } from "app/hooks/useGenerate";
 import { useCheck, useOpenAiCompletion } from "app/hooks/useOpenAiCompletion";
 import TextToSpeech from "components/textToSpeech";
-import { useSaveCollection } from "app/hooks/useCollection";
+
 import { UseProfile, UseProfileIndex } from "app/state/profile/useProfile";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Modal } from "components/modal";
-import { useAddProfile, useSetProfile } from "app/hooks/useAccount";
+import {
+  useAddProfile,
+  useAddStars,
+  useSetProfile,
+} from "app/hooks/useAccount";
+import { useSaveCollection } from "app/hooks/useCollection";
 
 export const GenerateEmpty = () => {
   // Redirect user to profile if they are authenticate
   // const profile = UseProfile();
+  const profile: any = UseProfile();
+  const profileIndex = UseProfileIndex();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   UseAuthenticatedRoute();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [imageCaption, setImageCaption] = useState<string | null>(null);
   const [imageDescription, setImageDescription] = useState<string | null>(null);
-  const profile = UseProfile();
-  const profileIndex = UseProfileIndex();
   const { generate, caption, captionloading } = useGenerateCaption();
   const { update, updateDataloading } = useSaveCollection();
   const { addNewProfile, addProfileLoading, isaddProfileSuccess } =
     useAddProfile();
   const { completion, description, descriptionloading } = useOpenAiCompletion();
   const { checkAnswer, answer, answerSuccess, answerloading } = useCheck();
+  const { updateStars, newStarsData, isnewStarsSuccess, newStarsLoading } =
+    useAddStars();
+
+  const [selectedIssues, setSelectedIssues] = useState<string[]>([]);
+  const [otherIssue, setOtherIssue] = useState<string>("");
 
   const handleGenerateCaption = async () => {
     console.log(String(searchParams.get("category")));
@@ -39,6 +49,11 @@ export const GenerateEmpty = () => {
         category: String(searchParams.get("category")),
       });
     }
+  };
+
+  const emptyClick = async () => {
+    console.log(selectedIssues);
+    console.log(otherIssue);
   };
 
   const handleSaveContent = async () => {
@@ -56,8 +71,7 @@ export const GenerateEmpty = () => {
         profileIndex: profileIndex,
         description: imageDescription,
         avatar: profile.profilePic,
-      }
-      );
+      });
       setShowSuccess((prevShowModal) => !prevShowModal);
     }
   };
@@ -71,26 +85,37 @@ export const GenerateEmpty = () => {
 
   useEffect(() => {
     setImageDescription(description);
-    checkAnswer({
-      caption: imageCaption,
-      sentence: String(searchParams.get("caption")),
-    });
+    if (description) {
+      checkAnswer({
+        caption: imageCaption,
+        sentence: String(searchParams.get("caption")),
+      });
+    }
   }, [description, searchParams, checkAnswer, imageCaption]);
 
-  const emptyClick = () => {
-    // console.log(index);
-    // dispatch(setProfile(index));
+  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = event.target;
+
+    if (checked) {
+      setSelectedIssues([...selectedIssues, name]);
+    } else {
+      setSelectedIssues(selectedIssues.filter((item) => item !== name));
+    }
   };
 
+  const handleOtherIssueChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setOtherIssue(event.target.value);
+  };
   useEffect(() => {
-    if (searchParams.get("caption")) {
-      if (String(answer).includes("True")) {
-        console.log("You are correct!")
-        setShowQuest(true);
-        
-      }
+    if (String(answer).includes("True")) {
+      console.log("You are correct!");
+      setShowQuest(true);
+      updateStars({
+        awardStars: 200,
+        profileId: profile._id,
+      });
     }
-  }, [answer, searchParams]);
+  }, [answer, updateStars, profile._id]);
 
   //report function stuf
   const [showModal, setShowModal] = useState(false);
@@ -191,7 +216,7 @@ export const GenerateEmpty = () => {
                 )}
               </div>
             </div>
-          
+
             {/*save button*/}
             <Modal
               title="Save to Collection"
@@ -209,7 +234,9 @@ export const GenerateEmpty = () => {
             ></Modal>
             <button
               className="absolute w-[115px] h-[70px] top-[727px] left-[875px]"
-              onClick={function(event){handleSaveContent();}}
+              onClick={function (event) {
+                handleSaveContent();
+              }}
               disabled={
                 descriptionloading || captionloading || updateDataloading
               }
@@ -264,63 +291,37 @@ export const GenerateEmpty = () => {
                         <br />
                       </label>
 
-                      <label
-                        style={{ fontSize: 32, letterSpacing: 0.2 }}
-                        className="[font-family:'gillsans',Helvetica]"
-                      >
+                      <label>
                         <input
                           type="checkbox"
-                          className="
-                       peer relative appearance-none shrink-0 w-6 h-6 border-2 border-blue-200 rounded-sm mt-1 bg-white
-                       focus:outline-none focus:ring-offset-0 focus:ring-1 focus:ring-blue-100
-                       checked:bg-blue-500 checked:border-0
-                       disabled:border-steel-400 disabled:bg-steel-400
-                       [font-family:'gillsans',Helvetica]"
-                          name="inaccurate captions"
+                          name="inaccurateCaptions"
+                          onChange={handleCheckboxChange}
                         />
                         <span> Inaccurate captions </span>
                         <br />
                       </label>
-                      <label
-                        style={{ fontSize: 32, letterSpacing: 0.2 }}
-                        className="[font-family:'gillsans',Helvetica]"
-                      >
+                      <label>
                         <input
                           type="checkbox"
-                          className="
-                       peer relative appearance-none shrink-0 w-6 h-6 border-2 border-blue-200 rounded-sm mt-1 bg-white
-                       focus:outline-none focus:ring-offset-0 focus:ring-1 focus:ring-blue-100
-                       checked:bg-blue-500 checked:border-0
-                       disabled:border-steel-400 disabled:bg-steel-400
-                       [font-family:'gillsans',Helvetica]"
-                          name="sound problem"
+                          name="soundProblem"
+                          onChange={handleCheckboxChange}
                         />
                         <span> Sound problem </span>
                         <br />
                       </label>
-                      <label
-                        style={{ fontSize: 32, letterSpacing: 0.2 }}
-                        className="[font-family:'gillsans',Helvetica]"
-                      >
+                      <label>
                         <input
                           type="checkbox"
-                          className="
-                       peer relative appearance-none shrink-0 w-6 h-6 border-2 border-blue-200 rounded-sm mt-1 bg-white
-                       focus:outline-none focus:ring-offset-0 focus:ring-1 focus:ring-blue-100
-                       checked:bg-blue-500 checked:border-0
-                       disabled:border-steel-400 disabled:bg-steel-400
-                       [font-family:'gillsans',Helvetica]"
-                          name="sound problem"
+                          name="somethingElse"
+                          onChange={handleCheckboxChange}
                         />
                         <span> Something else: </span>
                         <br />
                       </label>
 
                       <textarea
-                        className="
-                      appearance-none shrink-0 w-150 h-70 border-2 border-blue-200 rounded-sm mt-1 bg-white
-                      disabled:border-steel-400 disabled:bg-steel-400
-                      [font-family:'gillsans',Helvetica] "
+                        value={otherIssue}
+                        onChange={handleOtherIssueChange}
                         rows={5}
                         cols={35}
                         placeholder={"Let us know what's wrong"}
