@@ -5,6 +5,7 @@ import ScoreBoard from "components/quest/scoreboard";
 import Navbar from "components/navBar";
 import Footer from "components/footer";
 import { useState } from "react"; // Import useState
+import ProgressBar from "components/progressBar";
 
 const Quest = () => {
   const profileName = UseProfileName();
@@ -36,8 +37,6 @@ const Quest = () => {
   };
 
   const tabText = {
-    fontSize: '18px',
-    fontWeight: 'bold',
   };
 
   const containerStyle = {
@@ -54,25 +53,27 @@ const Quest = () => {
     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)', // Add a shadow for depth
   };
 
+
   return (
     <>
-      <div style={backgroundStyle} className="h-fit flex-col justify-center align-middle">
+      <div className="h-fit flex-col justify-center align-middle">
+      <div className="bg-[url(https://c.animaapp.com/FtCx5vJL/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
         <Navbar></Navbar>
-        <div className="container" style={containerStyle}>
-          <div className="flex justify-center">
+        <div className="absolute h-[750px] w-[800px] top-[0px] left-[550px] justifyContent-center alignItems-center">
+          <div className="justify-center">
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col justify-start">
-              <div style={whiteBoxStyle}>
+              <div className="flex flex-col p-7 absolute h-[650px] w-[800px] top-[200px] left-[100px] justifyContent-center alignItems-center bg-white rounded-[27px]">
                 {/* Toggle between "Achievement" and "Leaderboard" tabs */}
                 <div>
                   <button
-                    className={`tab-button ${
+                    className= {`tab-button ${
                       activeTab === "achievement" ? "active" : ""
                     }`}
                     onClick={() => setActiveTab("achievement")}
-                    style={{ ...tabButtonStyle, marginRight: '10px' }}
+                    //style={{ ...tabButtonStyle, marginRight: '10px' }}
                   >
-                    <span style={tabText}>Achievement</span>
+                    <span className ="[font-family:'lapsus',Helvetica] text-[35px] m-4" style={tabText}>Achievement</span>
                   </button>
                   <button
                     className={`tab-button ${
@@ -81,37 +82,43 @@ const Quest = () => {
                     onClick={() => setActiveTab("leaderboard")}
                     
                   >
-                    <span style={tabText}>Leaderboard</span>
+                    <span className ="[font-family:'lapsus',Helvetica] text-[35px]" style={tabText}>Leaderboard</span>
                   </button>
                 </div>
                 {activeTab === "achievement" && (
                   // Render the "Achievement" content when the tab is active
-                  <>
+                  <div className = "space-y-3 overflow-y-scroll">
                     <QuestCard
-                      category="Animal"
+                      category="animals"
                       description="Find an image of an animal and upload to complete the quest"
                       award={100}
                       completed={true}
                     />
                     <QuestCard
-                      category="Shapes & Colors"
+                      category="shapes"
                       description="Find an image of a red square and upload to complete the quest!"
                       award={100}
                       completed={false}
                     />
                     <QuestCard
-                      category="Vehicle"
+                      category="vehicle"
                       description="Find an image of a car and upload to complete the quest!"
                       award={100}
                       completed={false}
                     />
                     <QuestCard
-                      category="Flower"
+                      category="flowers"
                       description="Find an image of a sunflower and upload to complete the quest!"
                       award={100}
                       completed={false}
                     />
-                  </>
+                    <QuestCard
+                      category="flowers"
+                      description="Find an image of a sunflower and upload to complete the quest!"
+                      award={100}
+                      completed={false}
+                    />
+                  </div>
                 )}
                 {activeTab === "leaderboard" && (
                   // Render the "Leaderboard" content when the tab is active
@@ -120,13 +127,15 @@ const Quest = () => {
               </div>
               </div>
 
-              <div className="flex flex-col justify-left gap-6">
+              {/*<div className="flex flex-col justify-left gap-6">
                 <QuestProfile
                   stars={200}
                   percentage={45}
                   name={profileName ? profileName : ""}
                 />
-              </div>
+                {/*<ProgressBar bgcolor="#84c455" progress={currentprofile?.stars} max={nextLimit} height={60} />
+              </div>*/}
+            </div>
             </div>
           </div>
         </div>
