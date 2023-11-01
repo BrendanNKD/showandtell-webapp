@@ -3,13 +3,24 @@ import QuestProfile from "components/quest/profile";
 import { QuestCard } from "components/quest/questCard";
 import ScoreBoard from "components/quest/scoreboard";
 import Navbar from "components/navBar";
-import Footer from "components/footer";
-import { useState } from "react"; // Import useState
 import ProgressBar from "components/progressBar";
+import { useGetProfileQuestQuery } from "services/quest";
+import { UseProfile, UseProfileIndex } from "app/state/profile/useProfile";
+import { useEffect, useState } from "react";
+import {
+  useGetAccountQuery,
+  useGetLevelQuery,
+} from "services/account/accountApi";
+import { useDispatch } from "react-redux";
 
 const Quest = () => {
   const profileName = UseProfileName();
+  const currentprofile: any = UseProfile();
   const [activeTab, setActiveTab] = useState("achievement"); // Initialize the active tab state
+  const [nextLimit, setNextLimit] = useState<number | null>(null);
+  const [quests, setQuests] = useState<any>(null);
+  const dispatch = useDispatch();
+  const { data: levelData } = useGetLevelQuery();
 
   const tabButtonStyle = {
     backgroundColor: '#e4e4e4',
@@ -32,8 +43,10 @@ const Quest = () => {
   };
 
   const activeTabStyle = {
-    backgroundColor: '#3498db',
-    color: 'white',
+    backgroundColor: '#E2E3E4',
+    color: 'black',
+    borderRadius: '5px',
+    padding: '8px',
   };
 
   const tabText = {
@@ -53,6 +66,42 @@ const Quest = () => {
     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)', // Add a shadow for depth
   };
 
+  const { data: quest } = useGetProfileQuestQuery(String(currentprofile._id));
+  
+  
+  useEffect(() => {
+    if (levelData && currentprofile && quest) {
+      const nextLimit = levelData[0].rules[Number(currentprofile?.level) + 1];
+      setNextLimit(nextLimit);
+      const index = quest.quests.findIndex(
+        (quest: any) => quest.completed === false
+      );
+
+      if (index !== -1) {
+        console.log(
+          "Index of the first 'completed' element set to false:",
+          index
+        );
+        setQuests(quest.quests[index]);
+      } else {
+        console.log("No 'completed' element set to false found.");
+      }
+    }
+  }, [levelData, currentprofile, quest, dispatch]
+  );
+  
+  if(quest)
+  {console.log("quest structure")
+   console.log(quest.quests[0].category)}
+
+   function loadQuestCards() {
+  
+    return (
+      <div>
+      
+      </div>
+    );
+  }
 
   return (
     <>
@@ -65,13 +114,14 @@ const Quest = () => {
               <div className="flex flex-col justify-start">
               <div className="flex flex-col p-7 absolute h-[650px] w-[800px] top-[200px] left-[100px] justifyContent-center alignItems-center bg-white rounded-[27px]">
                 {/* Toggle between "Achievement" and "Leaderboard" tabs */}
-                <div>
+                <div className="space-x-3">
                   <button
                     className= {`tab-button ${
                       activeTab === "achievement" ? "active" : ""
                     }`}
                     onClick={() => setActiveTab("achievement")}
                     //style={{ ...tabButtonStyle, marginRight: '10px' }}
+                    style={activeTab === "achievement" ? activeTabStyle : {}}
                   >
                     <span className ="[font-family:'lapsus',Helvetica] text-[35px] m-4" style={tabText}>Achievement</span>
                   </button>
@@ -80,7 +130,7 @@ const Quest = () => {
                       activeTab === "leaderboard" ? "active" : ""
                     }`}
                     onClick={() => setActiveTab("leaderboard")}
-                    
+                    style={activeTab === "leaderboard" ? activeTabStyle : {}}
                   >
                     <span className ="[font-family:'lapsus',Helvetica] text-[35px]" style={tabText}>Leaderboard</span>
                   </button>
@@ -88,6 +138,8 @@ const Quest = () => {
                 {activeTab === "achievement" && (
                   // Render the "Achievement" content when the tab is active
                   <div className = "space-y-3 overflow-y-scroll">
+                    {loadQuestCards()}
+                    {/*
                     <QuestCard
                       category="animals"
                       description="Find an image of an animal and upload to complete the quest"
@@ -118,6 +170,7 @@ const Quest = () => {
                       award={100}
                       completed={false}
                     />
+                */}
                   </div>
                 )}
                 {activeTab === "leaderboard" && (
