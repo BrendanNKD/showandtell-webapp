@@ -85,7 +85,7 @@ export const GenerateEmpty = () => {
 
   useEffect(() => {
     setImageDescription(description);
-    if (description) {
+    if (description && searchParams.get("caption") != null) {    
       checkAnswer({
         caption: imageCaption,
         sentence: String(searchParams.get("caption")),
@@ -168,7 +168,7 @@ export const GenerateEmpty = () => {
               )}
             </div>
             <Modal
-              title="Report problem"
+              title=""
               setShowModal={setShowQuest}
               showModal={showQuest}
               buttonFn={emptyClick}

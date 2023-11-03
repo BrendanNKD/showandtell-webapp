@@ -7,9 +7,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
-//import 'swiper/css/navigation';
-
-//import './styles.css';
 
 // import required modules
 import { Navigation, Pagination } from "swiper/modules";
@@ -353,69 +350,7 @@ export const GenerateChoose = (): JSX.Element => {
             </div>
           </Swiper>
           <div className="absolute w-[77px] h-[33px] top-[893px] left-[946px]">
-            {/*alt="Frame"
-                  src="https://c.animaapp.com/YStE9pzZ/img/frame-6.svg"*/}
           </div>
-
-          {/*<img 
-          className="absolute w-[77px] h-[83px] top-[527px] left-[1468px]"
-          alt="Frame"
-          src="https://c.animaapp.com/YStE9pzZ/img/frame-5.svg"
-        />*/}
-
-          {/*<div className="absolute w-[1920px] h-[96px] -top-px left-px bg-white">
-          <img
-            className="absolute w-[81px] h-[81px] top-[8px] left-[1776px]"
-            alt="Frame"
-            src="https://c.animaapp.com/YStE9pzZ/img/frame-4.svg"
-          />
-          <img
-            className="absolute w-[38px] h-[48px] top-[30px] left-[1701px]"
-            alt="Group"
-            src="https://c.animaapp.com/YStE9pzZ/img/group-1@2x.png"
-          />
-          <div className="absolute w-[238px] h-[59px] top-[25px] left-[492px]">
-            <div className="relative w-[236px] h-[59px]">
-              <div className="w-[236px] h-[53px] top-[6px] bg-[#66ae45] rounded-[13px] absolute left-0" />
-              <div className="w-[236px] h-[53px] top-0 bg-[#84c455] rounded-[13px] absolute left-0" />
-              <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                Dashboard
-              </div>
-            </div>
-          </div>
-          <div className="absolute w-[238px] h-[59px] top-[25px] left-[1039px]">
-            <div className="relative w-[236px] h-[59px]">
-              <div className="w-[236px] bg-[#facd0a] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
-              <div className="w-[236px] bg-[#fae55a] absolute h-[53px] top-0 left-0 rounded-[13px]" />
-              <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                Collection
-              </div>
-            </div>
-          </div>
-          <div className="absolute w-[238px] h-[59px] top-[25px] left-[1326px]">
-            <div className="relative w-[236px] h-[59px]">
-              <div className="w-[236px] bg-[#e78324] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
-              <div className="w-[236px] bg-[#fcb315] absolute h-[53px] top-0 left-0 rounded-[13px]" />
-              <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                Playground
-              </div>
-            </div>
-          </div>
-          <div className="absolute w-[207px] h-[59px] top-[25px] left-[781px]">
-            <div className="relative w-[205px] h-[59px]">
-              <div className="w-[205px] bg-[#53c2ef] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
-              <div className="w-[205px] bg-[#9cdcf9] absolute h-[53px] top-0 left-0 rounded-[13px]" />
-              <div className="absolute w-[180px] top-[6px] left-[12px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                Generate
-              </div>
-            </div>
-        </div>
-          <img
-            className="absolute w-[219px] h-[37px] top-[41px] left-[70px]"
-            alt="Frame"
-            src="https://c.animaapp.com/YStE9pzZ/img/frame-3.svg"
-          />
-        </div>*/}
         </div>
       </div>
     </div>

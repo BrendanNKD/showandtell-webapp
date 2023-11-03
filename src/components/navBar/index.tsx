@@ -100,7 +100,7 @@ const Navbar = () => {
                                 />
                               )}
 
-                              <span className="font-semibold text-[15px] ms-1">
+                              <span className="font-semibold [font-family:'lapsus',Helvetica] text-[22px] ms-1 tracking-[1px]">
                                 {profile?.firstName} {profile?.lastName}
                               </span>
                             </div>
@@ -114,14 +114,14 @@ const Navbar = () => {
                                 onClick={() => {
                                   navigate("/profile");
                                 }}
-                                className="block text-[14px] font-semibold py-1.5 px-4 hover:text-violet-600"
+                                className="block text-[18px] font-semibold py-1.5 px-4 hover:text-violet-600 [font-family:'gillsans',Helvetica]"
                               >
                                 <i className="uil uil-user text-[16px] align-middle me-1"></i>{" "}
                                 Profile
                               </button>
                             </li>
                             <li>
-                              <button className="block text-[14px] font-semibold py-1.5 px-4 hover:text-violet-600">
+                              <button className="block text-[18px] font-semibold py-1.5 px-4 hover:text-violet-600 [font-family:'gillsans',Helvetica]">
                                 <i className="uil uil-setting text-[16px] align-middle me-1"></i>{" "}
                                 Settings
                               </button>
@@ -129,7 +129,7 @@ const Navbar = () => {
                             <li className="border-t border-gray-100 dark:border-gray-800 my-2"></li>
                             <li>
                               <button
-                                className="block text-[14px] font-semibold py-1.5 px-4 hover:text-violet-600"
+                                className="block text-[18px] font-semibold py-1.5 px-4 hover:text-violet-600 [font-family:'gillsans',Helvetica]"
                                 onClick={handleSignOut}
                               >
                                 <i className="uil uil-sign-out-alt text-[16px] align-middle me-1"></i>{" "}
@@ -190,7 +190,7 @@ const Navbar = () => {
               <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
                   <button
                     onClick={() => {
-                      navigate("/playground");
+                      navigate("/PlaygroundChoose");
                     }}
                   >
                     Playground

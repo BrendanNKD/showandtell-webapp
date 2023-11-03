@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import DragDrop from "components/dragAndDrop";
 import { useGenerateImage } from "app/hooks/useGenerate";
 import { Input } from "domain/types/magicPrompt";
+import { useNavigate, createSearchParams } from "react-router-dom";
 
 const Playground = () => {
   UseAuthenticatedRoute();
@@ -52,6 +53,8 @@ const Playground = () => {
       prevSelectedImageId === index ? null : index
     );
   };
+  
+  const navigate = useNavigate();
 
   useEffect(() => {
     setGeneratedOutput(images);
@@ -67,7 +70,7 @@ const Playground = () => {
               Create Art
             </div>
           </div>
-          <div className="flex flex-row w-full py-24 absolute w-[490px] top-[150px] left-[272px] [font-family:'gillsans',Helvetica] font-normal text-black text-[39px] tracking-[0] leading-[normal]">
+          <div className="flex flex-row justify-center w-full py-24 absolute w-[490px] top-[150px] left-[0px] [font-family:'gillsans',Helvetica] font-normal text-black text-[39px] tracking-[0] leading-[normal]">
                 {generatedOutput ? (
                   generatedOutput.map((imageUrl, index) => (
                     <div
@@ -99,14 +102,14 @@ const Playground = () => {
                     </div>
                   ))
                 ) : (
-                  <div className="flex justify-center w-full text-black [font-family:'gillsans',Helvetica]">
+                  <div className="text-black [font-family:'gillsans',Helvetica]">
                     <p>No recent generated output</p>
                   </div>
                 )}
           </div>
         </div>
         {/* return button */}
-        <button>
+        <button onClick={()=> navigate('/PlaygroundChoose')}>
           <img
             className="absolute w-[77px] h-[83px] top-[145px] left-[48px]"
             alt="Frame"
@@ -114,7 +117,7 @@ const Playground = () => {
           />
         </button>
         <div className="absolute w-[530px] h-[600px] top-[250px] left-[1303px] bg-white rounded-[24px] bg-[100%_100%]">
-          <div className="absolute w-[459px] h-[350px] top-[75px] left-[38px] bg-transparent rounded-[24px] ">
+          <div className="absolute w-[459px] h-[350px] top-[75px] left-[38px] rounded-[24px] ">
           <textarea
                 rows={10}
                 cols={50}

@@ -1,16 +1,8 @@
 import item1 from "../../../assets/items/1.jpg";
 import { FaCheckCircle } from "react-icons/fa";
+import categoryVal from "components/quest/categoryValues";
 
-const categoryValues = {
-  'animals': {title: "Animals" , image:"https://c.animaapp.com/YStE9pzZ/img/frame-2.svg", color:"#F177AE"},
-  'shapes': {title: "Shapes & Colors" , image:"https://c.animaapp.com/YStE9pzZ/img/frame.svg", color:"#FAE55A"},
-  'vege': {title: "Fruits & Vegetables" , image:"https://c.animaapp.com/NIGs1Y1e/img/frame-7.svg", color:"#9784D6"},
-  'vehicle': {title: "Vehicle" , image:"https://c.animaapp.com/YStE9pzZ/img/frame-1.svg", color:"#885FA8"},
-  'flowers': {title: "Flowers" , image:"https://c.animaapp.com/NIGs1Y1e/img/frame-5.svg", color:"#FCB315"},
-  'food': {title: "Food" , image:"https://c.animaapp.com/NIGs1Y1e/img/frame-6.svg", color:"#80C342"}
-} 
-
-
+const categoryValues = categoryVal;
 
 export const QuestCard = ({
   category,

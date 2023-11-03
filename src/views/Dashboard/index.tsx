@@ -12,6 +12,8 @@ import { defaultPics } from "utils/profilePic";
 import ConfirmOtp from "views/ConfirmOtp";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import ProgressBar from "components/progressBar";
+import categoryVal from "components/quest/categoryValues";
+
 const Dashboard = () => {
   const { data: levelData } = useGetLevelQuery();
   const navigate = useNavigate();
@@ -19,52 +21,24 @@ const Dashboard = () => {
   const [nextLimit, setNextLimit] = useState<number | null>(null);
   const [quests, setQuests] = useState<any>(null);
   const currentprofile: any = UseProfile();
+  const categoryValues = categoryVal
 
   const { data: quest } = useGetProfileQuestQuery(String(currentprofile?._id), {
     skip: !currentprofile,
   });
 
-  const categoryValues = {
-    animals: {
-      title: "Animals",
-      image: "https://c.animaapp.com/YStE9pzZ/img/frame-2.svg",
-      color: "#F177AE",
-    },
-    shapes: {
-      title: "Shapes & Colors",
-      image: "https://c.animaapp.com/YStE9pzZ/img/frame.svg",
-      color: "#FAE55A",
-    },
-    vege: {
-      title: "Fruits & Vegetables",
-      image: "https://c.animaapp.com/NIGs1Y1e/img/frame-7.svg",
-      color: "#9784D6",
-    },
-    vehicle: {
-      title: "Vehicle",
-      image: "https://c.animaapp.com/YStE9pzZ/img/frame-1.svg",
-      color: "#885FA8",
-    },
-    flowers: {
-      title: "Flowers",
-      image: "https://c.animaapp.com/NIGs1Y1e/img/frame-5.svg",
-      color: "#FCB315",
-    },
-    food: {
-      title: "Food",
-      image: "https://c.animaapp.com/NIGs1Y1e/img/frame-6.svg",
-      color: "#80C342",
-    },
-  };
-
   const passQuestParams = (category: string, caption: string) => {
+    var catVal = category
+    {/*terrible fix to fix the flower value, need to change some variable names in the backend*/}
+    if(category = "flower")
+    {catVal = "flowers"}
     navigate({
       pathname: "/generate",
       search: createSearchParams({
         title: categoryValues[category as keyof typeof categoryValues].title,
         image: categoryValues[category as keyof typeof categoryValues].image,
         color: categoryValues[category as keyof typeof categoryValues].color,
-        category: category,
+        category: catVal,
         caption: caption,
       }).toString(),
     });
@@ -144,12 +118,18 @@ const Dashboard = () => {
           <div
             className="absolute w-[925px] h-[142px] top-[532px] left-[150px]"
             onClick={() => passQuestParams(quests.category, quests.caption)}
-            //onClick = {() => passQuestParams("vehicle", "Truck.")}
           >
             <div className="relative w-[929px] h-[142px]">
               <div className="absolute w-[929px] h-[142px] top-0 left-0">
                 <div className="relative w-[925px] h-[142px]">
-                  <div className="absolute w-[925px] h-[129px] top-[13px] left-0 bg-[#facd0a] rounded-[24px]" />
+                  <div className="absolute w-[925px] h-[129px] top-[13px] left-0 bg-[#facd0a] rounded-[24px]"
+                   style={{
+                      backgroundColor:
+                        quests &&
+                        categoryValues[
+                          quests.category as keyof typeof categoryValues
+                        ].darkcolor!,
+                    }}/>
                   <div
                     className="absolute w-[925px] h-[129px] top-0 left-0 rounded-[24px]"
                     style={{
