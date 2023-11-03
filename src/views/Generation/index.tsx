@@ -168,7 +168,7 @@ export const GenerateEmpty = () => {
               )}
             </div>
             <Modal
-              title="Report problem"
+              title=""
               setShowModal={setShowQuest}
               showModal={showQuest}
               buttonFn={emptyClick}
