@@ -7,7 +7,6 @@ import Footer from "components/footer";
 import { useGenerateCaption } from "app/hooks/useGenerate";
 import { useCheck, useOpenAiCompletion } from "app/hooks/useOpenAiCompletion";
 import TextToSpeech from "components/textToSpeech";
-
 import { UseProfile, UseProfileIndex } from "app/state/profile/useProfile";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Modal } from "components/modal";
@@ -17,6 +16,7 @@ import {
   useSetProfile,
 } from "app/hooks/useAccount";
 import { useSaveCollection } from "app/hooks/useCollection";
+import { useCompleteQuestMutation } from "services/quest";
 
 export const GenerateEmpty = () => {
   // Redirect user to profile if they are authenticate
@@ -37,9 +37,18 @@ export const GenerateEmpty = () => {
   const { checkAnswer, answer, answerSuccess, answerloading } = useCheck();
   const { updateStars, newStarsData, isnewStarsSuccess, newStarsLoading } =
     useAddStars();
-
+  const [completeQuest, { data: result, isLoading: completeQuestloading }] =
+    useCompleteQuestMutation();
   const [selectedIssues, setSelectedIssues] = useState<string[]>([]);
   const [otherIssue, setOtherIssue] = useState<string>("");
+
+  const handleNavigationAndRefresh = () => {
+    // Navigate to a different route
+    navigate("/dashboard");
+
+    // Refresh the page after navigation
+    window.location.reload();
+  };
 
   const handleGenerateCaption = async () => {
     console.log(String(searchParams.get("category")));
@@ -85,7 +94,7 @@ export const GenerateEmpty = () => {
 
   useEffect(() => {
     setImageDescription(description);
-    if (description && searchParams.get("caption") != null) {    
+    if (description && searchParams.get("caption") != null) {
       checkAnswer({
         caption: imageCaption,
         sentence: String(searchParams.get("caption")),
@@ -117,7 +126,16 @@ export const GenerateEmpty = () => {
     }
   }, [answer, updateStars, profile._id]);
 
-  //report function stuf
+  useEffect(() => {
+    if (newStarsData) {
+      completeQuest({
+        profileId: profile._id,
+        questIndex: String(searchParams.get("index")),
+      });
+    }
+  }, [newStarsData, completeQuest, profile._id, searchParams]);
+
+  //report function stuff
   const [showModal, setShowModal] = useState(false);
   //success pop-up
   const [showSuccess, setShowSuccess] = useState(false);
@@ -171,7 +189,7 @@ export const GenerateEmpty = () => {
               title=""
               setShowModal={setShowQuest}
               showModal={showQuest}
-              buttonFn={emptyClick}
+              buttonFn={handleNavigationAndRefresh}
               loading={addProfileLoading}
               element={
                 <>

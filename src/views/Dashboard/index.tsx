@@ -7,7 +7,10 @@ import {
   useGetAccountQuery,
   useGetLevelQuery,
 } from "services/account/accountApi";
-import { useGetProfileQuestQuery } from "services/quest";
+import {
+  useGetProfileQuestQuery,
+  useRefreshQuestsMutation,
+} from "services/quest";
 import { defaultPics } from "utils/profilePic";
 import ConfirmOtp from "views/ConfirmOtp";
 import { useNavigate, createSearchParams } from "react-router-dom";
@@ -20,26 +23,29 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const [nextLimit, setNextLimit] = useState<number | null>(null);
   const [quests, setQuests] = useState<any>(null);
+  const [questIndex, setQuestIndex] = useState<any>(null);
   const currentprofile: any = UseProfile();
-  const categoryValues = categoryVal
+  // const categoryValues = categoryVal
 
   const { data: quest } = useGetProfileQuestQuery(String(currentprofile?._id), {
     skip: !currentprofile,
   });
-
+  const [refreshQuests, { data: result, isLoading: refreshLoading }] =
+    useRefreshQuestsMutation();
   const passQuestParams = (category: string, caption: string) => {
-    var catVal = category
-    {/*terrible fix to fix the flower value, need to change some variable names in the backend*/}
-    if(category = "flower")
-    {catVal = "flowers"}
+    // var catVal = category;
+    // {/*terrible fix to fix the flower value, need to change some variable names in the backend*/}
+    // if(category = "flower")
+    // {catVal = "flowers"}
     navigate({
       pathname: "/generate",
       search: createSearchParams({
-        title: categoryValues[category as keyof typeof categoryValues].title,
-        image: categoryValues[category as keyof typeof categoryValues].image,
-        color: categoryValues[category as keyof typeof categoryValues].color,
-        category: catVal,
+        title: categoryVal[category as keyof typeof categoryVal].title,
+        image: categoryVal[category as keyof typeof categoryVal].image,
+        color: categoryVal[category as keyof typeof categoryVal].color,
+        category: category,
         caption: caption,
+        index: questIndex,
       }).toString(),
     });
   };
@@ -58,11 +64,19 @@ const Dashboard = () => {
         //   index
         // );
         setQuests(quest.quests[index]);
+        setQuestIndex(index);
       } else {
-        // console.log("No 'completed' element set to false found.");
+        //do here
+        refreshQuests({ profileId: currentprofile._id });
       }
     }
-  }, [levelData, currentprofile, quest, dispatch]);
+  }, [levelData, currentprofile, quest, dispatch, refreshQuests]);
+
+  useEffect(() => {
+    if (result) {
+      navigate(0);
+    }
+  }, [result, navigate]);
 
   return (
     <div className="bg-transparent flex flex-row justify-center w-full">
@@ -122,22 +136,22 @@ const Dashboard = () => {
             <div className="relative w-[929px] h-[142px]">
               <div className="absolute w-[929px] h-[142px] top-0 left-0">
                 <div className="relative w-[925px] h-[142px]">
-                  <div className="absolute w-[925px] h-[129px] top-[13px] left-0 bg-[#facd0a] rounded-[24px]"
-                   style={{
+                  <div
+                    className="absolute w-[925px] h-[129px] top-[13px] left-0 bg-[#facd0a] rounded-[24px]"
+                    style={{
                       backgroundColor:
                         quests &&
-                        categoryValues[
-                          quests.category as keyof typeof categoryValues
-                        ].darkcolor!,
-                    }}/>
+                        categoryVal[quests.category as keyof typeof categoryVal]
+                          .darkcolor!,
+                    }}
+                  />
                   <div
                     className="absolute w-[925px] h-[129px] top-0 left-0 rounded-[24px]"
                     style={{
                       backgroundColor:
                         quests &&
-                        categoryValues[
-                          quests.category as keyof typeof categoryValues
-                        ].color!,
+                        categoryVal[quests.category as keyof typeof categoryVal]
+                          .color!,
                     }}
                   />
                   {/*model icon*/}
@@ -147,9 +161,8 @@ const Dashboard = () => {
                     alt="Frame"
                     src={
                       quests &&
-                      categoryValues[
-                        quests.category as keyof typeof categoryValues
-                      ].image
+                      categoryVal[quests.category as keyof typeof categoryVal]
+                        .image
                     }
                   />
                   <div className="absolute w-[258px] top-[22px] left-[159px] font-lapsus font-bold text-black text-[31px] tracking-[0] leading-[normal] whitespace-nowrap">
