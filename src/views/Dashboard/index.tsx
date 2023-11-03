@@ -28,13 +28,17 @@ const Dashboard = () => {
   });
 
   const passQuestParams = (category: string, caption: string) => {
+    var catVal = category
+    {/*terrible fix to fix the flower value, need to change some variable names in the backend*/}
+    if(category = "flower")
+    {catVal = "flowers"}
     navigate({
       pathname: "/generate",
       search: createSearchParams({
         title: categoryValues[category as keyof typeof categoryValues].title,
         image: categoryValues[category as keyof typeof categoryValues].image,
         color: categoryValues[category as keyof typeof categoryValues].color,
-        category: category,
+        category: catVal,
         caption: caption,
       }).toString(),
     });
