@@ -80,11 +80,7 @@ export const useUpdateProfile = () => {
   useEffect(() => {
     if (isupdateProfileSuccess) {
       // dispatch(setAccount(newAccountData));
-      if (newAccountData.leveled) {
-        //DISPLAY LEVEL UP SOMETHING
-        //reset account details
-      }
-      dispatch(setAccount(newAccountData.result));
+      dispatch(setAccount(newAccountData));
     } else {
       //toast to show confirm sign up error
       //second layer defense after try catch

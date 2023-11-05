@@ -40,12 +40,8 @@ const Profile = () => {
     confirmPassword: "",
   });
 
-  const {
-    update,
-    updateProfileLoading,
-
-    isupdateProfileSuccess,
-  } = useUpdateProfile();
+  const { update, updateProfileLoading, isupdateProfileSuccess } =
+    useUpdateProfile();
 
   const { updatePassword, changePasswordLoading, ischangePasswordSuccess } =
     useChangePassword();

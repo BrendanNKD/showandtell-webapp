@@ -124,7 +124,7 @@ export const GenerateEmpty = () => {
         profileId: profile._id,
       });
     }
-  }, [answer, updateStars, profile._id]);
+  }, [answer, updateStars, profile]);
 
   useEffect(() => {
     if (newStarsData) {
