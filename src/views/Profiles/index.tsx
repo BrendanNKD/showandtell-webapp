@@ -13,6 +13,7 @@ import { ProfileResponseModel } from "domain/types/profile/Profile";
 import { Landing } from "components/landing";
 import { Modal } from "components/modal";
 import AddProfileForm from "components/form/addProfile";
+import { FaTrash } from "react-icons/fa";
 
 const initialState: ProfileResponseModel = {
   firstName: "",
@@ -112,6 +113,23 @@ const Profiles = () => {
                       className={`rounded-full p-4 cursor-pointer`}
                       onClick={() => handleProfileClick(index)}
                     >
+                      <div className = "flex flex-col w-full justify-content bg-black h-[50px]">
+                        <button 
+                            className = ""
+                            onClick={(event) => {event.stopPropagation();
+                                                    console.log("deletion here!");}}
+                            style={{//this section allows for button hiding
+                                    display: "inline", 
+                                    pointerEvents: "auto", 
+                                  }}>
+                            <FaTrash
+                              style={{ color: "red", cursor: "pointer" }}
+                              className = "w-[30px] h-[18px]"
+                              // onClick={() => handleDeleteItem(item._id)} 
+                            />
+
+                        </button>
+                      </div>
                       {ProfileSelectionCard({ object, index })}
                     </div>
                   );
@@ -144,7 +162,7 @@ const Profiles = () => {
               </button>
             </div>
 
-            {/* Manage Profiles */}
+            {/* Sign out */}
             <div className="flex gap-10">
               <button
                 //className="border-2 border-gray-600 text-gray-600 px-4 py-1 mt-20 hover:border-gray-400 hover:text-gray-400"
@@ -161,6 +179,7 @@ const Profiles = () => {
                   </div>
                 </div>
               </button>
+              {/* Manage profiles */}
               <button
                 //className="border-2 border-gray-600 text-gray-600 px-4 py-1 mt-20 hover:border-gray-400 hover:text-gray-400"
                 className="mt-20"
