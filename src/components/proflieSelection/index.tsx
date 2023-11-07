@@ -13,11 +13,11 @@ export const ProfileSelectionCard = ({
           // onClick={handleProfileClick}
         >
           <img
-            className="rounded border-2 border-transparent group-hover:border-2 group-hover:border-gray-300  "
+            className="rounded border-2 border-transparent group-hover:border-2 group-hover:border-gray-300"
             src={defaultPics[object.profilePic].url}
             alt={`Profile ${index + 1}`}
           />
-          <p className="text-gray-500 group-hover:text-gray-300">
+          <p className="text-black group-hover:text-gray-300">
             {object.firstName}
           </p>
         </button>

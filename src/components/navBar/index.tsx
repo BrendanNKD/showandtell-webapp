@@ -121,9 +121,13 @@ const Navbar = () => {
                               </button>
                             </li>
                             <li>
-                              <button className="block text-[18px] font-semibold py-1.5 px-4 hover:text-violet-600 [font-family:'gillsans',Helvetica]">
+                              <button 
+                                onClick={() => {
+                                  navigate("/profiles");
+                                }}
+                                className="block text-[18px] font-semibold py-1.5 px-4 hover:text-violet-600 [font-family:'gillsans',Helvetica]">
                                 <i className="uil uil-setting text-[16px] align-middle me-1"></i>{" "}
-                                Settings
+                                Switch Profiles
                               </button>
                             </li>
                             <li className="border-t border-gray-100 dark:border-gray-800 my-2"></li>
