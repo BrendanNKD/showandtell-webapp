@@ -79,7 +79,7 @@ export const GenerateChoose = (): JSX.Element => {
           >
             <div>
               <SwiperSlide style={swiperSlideStyle}>
-                <div>
+                <div className="bg-transparent flex flex-col items-center justify-center w-full">
                   <button className="next">
                     <img
                       src="https://c.animaapp.com/YStE9pzZ/img/frame-5.svg"
@@ -349,8 +349,6 @@ export const GenerateChoose = (): JSX.Element => {
               </SwiperSlide>
             </div>
           </Swiper>
-          <div className="absolute w-[77px] h-[33px] top-[893px] left-[946px]">
-          </div>
         </div>
       </div>
     </div>

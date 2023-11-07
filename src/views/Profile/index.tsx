@@ -122,6 +122,9 @@ const Profile = () => {
         setShowModal={setShowModal}
         showModal={showModal}
         buttonFn={handleProfilePicChange}
+        cbuttonFn={() => {
+          setShowModal(false);
+        }}
         loading={false}
         element={<ProfilePicSelectionCard />}
       />

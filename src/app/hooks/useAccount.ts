@@ -1,7 +1,12 @@
-import { setAccount } from "features/accountSlice";
+import {
+  accountinitialState,
+  resetAccount,
+  setAccount,
+} from "features/accountSlice";
 import { useDispatch } from "react-redux";
 import {
   useAddProfileMutation,
+  useDeleteProfileMutation,
   useGetLevelQuery,
   useUpdateProfileMutation,
 } from "services/account/accountApi";
@@ -14,6 +19,7 @@ import {
 } from "domain/types/profile/Profile";
 import { useAddStarsMutation } from "services/account/accountApi";
 import { UseProfile } from "app/state/profile/useProfile";
+
 export const useAddProfile = () => {
   const dispatch = useDispatch();
   const [
@@ -34,6 +40,7 @@ export const useAddProfile = () => {
 
   useEffect(() => {
     if (isaddProfileSuccess) {
+      dispatch(resetAccount(accountinitialState));
       dispatch(setAccount(newAccountData));
     } else {
       //toast to show confirm sign up error
@@ -41,7 +48,12 @@ export const useAddProfile = () => {
     }
   }, [dispatch, isaddProfileSuccess, newAccountData]);
 
-  return { addNewProfile, addProfileLoading, isaddProfileSuccess };
+  return {
+    addNewProfile,
+    newAccountData,
+    addProfileLoading,
+    isaddProfileSuccess,
+  };
 };
 
 export const useSetProfile = () => {
@@ -131,5 +143,41 @@ export const useAddStars = () => {
     newStarsData,
     isnewStarsSuccess,
     newStarsLoading,
+  };
+};
+
+export const useDeleteProfile = () => {
+  const dispatch = useDispatch();
+  const [
+    deleteProfile,
+    {
+      data: newdeleteAccountData,
+      isSuccess: newdeleteAccountSuccess,
+      isLoading: newdeleteAccountLoading,
+    },
+  ] = useDeleteProfileMutation();
+
+  const deleteOneProfile = useCallback(
+    async (id: any) => {
+      await deleteProfile({ profileId: id });
+    },
+    [deleteProfile]
+  );
+
+  useEffect(() => {
+    if (newdeleteAccountSuccess) {
+      dispatch(resetAccount(accountinitialState));
+      dispatch(setAccount(newdeleteAccountData));
+    } else {
+      //toast to show confirm sign up error
+      //second layer defense after try catch
+    }
+  }, [dispatch, newdeleteAccountSuccess, newdeleteAccountData]);
+
+  return {
+    deleteOneProfile,
+    newdeleteAccountData,
+    newdeleteAccountLoading,
+    newdeleteAccountSuccess,
   };
 };

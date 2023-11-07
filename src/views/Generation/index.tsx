@@ -42,12 +42,12 @@ export const GenerateEmpty = () => {
   const [selectedIssues, setSelectedIssues] = useState<string[]>([]);
   const [otherIssue, setOtherIssue] = useState<string>("");
 
-  const handleNavigationAndRefresh = () => {
+  const handleCancelModal = () => {
+    setShowQuest(false);
     // Navigate to a different route
     navigate("/dashboard");
-
     // Refresh the page after navigation
-    window.location.reload();
+    navigate(0);
   };
 
   const handleGenerateCaption = async () => {
@@ -124,7 +124,7 @@ export const GenerateEmpty = () => {
         profileId: profile._id,
       });
     }
-  }, [answer, updateStars, profile]);
+  }, [answer]);
 
   useEffect(() => {
     if (newStarsData) {
@@ -186,11 +186,13 @@ export const GenerateEmpty = () => {
               )}
             </div>
             <Modal
-              title=""
+              title="Congrats"
               setShowModal={setShowQuest}
               showModal={showQuest}
-              buttonFn={handleNavigationAndRefresh}
+              buttonFn={() => {}}
+              cbuttonFn={handleCancelModal}
               loading={addProfileLoading}
+              cancelBnt={true}
               element={
                 <>
                   <div className="flex flex-col py-2 [font-family:'lapsus',Helvetica] text-[75px] tracking-[0.82px]">
@@ -241,7 +243,13 @@ export const GenerateEmpty = () => {
               setShowModal={setShowSuccess}
               showModal={showSuccess}
               buttonFn={emptyClick}
+              cbuttonFn={() => {
+                setShowQuest(false);
+                // Navigate to a different route
+                navigate("/collection");
+              }}
               loading={addProfileLoading}
+              cancelBnt={true}
               element={
                 <>
                   <div className="flex flex-col py-2 [font-family:'lapsus',Helvetica] text-[75px] tracking-[0.82px]">
@@ -296,6 +304,10 @@ export const GenerateEmpty = () => {
               setShowModal={setShowModal}
               showModal={showModal}
               buttonFn={emptyClick}
+              cbuttonFn={() => {
+                setShowModal(false);
+              }}
+              cancelBnt={true}
               loading={addProfileLoading}
               element={
                 <>

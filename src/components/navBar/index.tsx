@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { UseIsAuthenticated } from "app/state/account/useAuthenticated";
 import { UseProfile } from "app/state/profile/useProfile";
 import { defaultPics } from "utils/profilePic";
-
+import { useEffect, useRef } from "react";
+import useSound from "use-sound";
 const Navbar = () => {
+  const [dashboardplay, { stop }] = useSound("/assets/Homepage1.mp3");
   const { signOut } = useSignOut();
   const [isOpen, setIsOpen] = useState(false);
   const isAuthenticated = UseIsAuthenticated();
@@ -121,11 +123,12 @@ const Navbar = () => {
                               </button>
                             </li>
                             <li>
-                              <button 
+                              <button
                                 onClick={() => {
                                   navigate("/profiles");
                                 }}
-                                className="block text-[18px] font-semibold py-1.5 px-4 hover:text-violet-600 [font-family:'gillsans',Helvetica]">
+                                className="block text-[18px] font-semibold py-1.5 px-4 hover:text-violet-600 [font-family:'gillsans',Helvetica]"
+                              >
                                 <i className="uil uil-setting text-[16px] align-middle me-1"></i>{" "}
                                 Switch Profiles
                               </button>
@@ -158,40 +161,42 @@ const Navbar = () => {
               )}
             </div>
             <div className="absolute w-[238px] h-[59px] top-[25px] left-[378px]">
-            <div className="relative w-[236px] h-[59px]">
-              <div className="absolute w-[236px] h-[53px] top-[6px] left-0 bg-[#66ae45] rounded-[13px]" />
-              <div className="absolute w-[236px] h-[53px] top-0 left-0 bg-[#84c455] rounded-[13px]" />
-              <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+              <div className="relative w-[236px] h-[59px]">
+                <div className="absolute w-[236px] h-[53px] top-[6px] left-0 bg-[#66ae45] rounded-[13px]" />
+                <div className="absolute w-[236px] h-[53px] top-0 left-0 bg-[#84c455] rounded-[13px]" />
+                <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
                   <button
                     onClick={() => {
+                      dashboardplay();
                       navigate("/dashboard");
                     }}
                   >
                     Dashboard
                   </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="absolute w-[238px] h-[59px] top-[25px] left-[925px]">
-            <div className="relative w-[236px] h-[59px]">
-              <div className="w-[236px] bg-[#facd0a] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
-              <div className="w-[236px] bg-[#fae55a] absolute h-[53px] top-0 left-0 rounded-[13px]" />
-              <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+            <div className="absolute w-[238px] h-[59px] top-[25px] left-[925px]">
+              <div className="relative w-[236px] h-[59px]">
+                <div className="w-[236px] bg-[#facd0a] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
+                <div className="w-[236px] bg-[#fae55a] absolute h-[53px] top-0 left-0 rounded-[13px]" />
+                <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
                   <button
                     onClick={() => {
+                      stop();
                       navigate("/collection");
                     }}
                   >
                     Collection
                   </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="absolute w-[238px] h-[59px] top-[25px] left-[1212px]">
-            <div className="relative w-[236px] h-[59px]">
-              <div className="w-[236px] bg-[#e78324] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
-              <div className="w-[236px] bg-[#fcb315] absolute h-[53px] top-0 left-0 rounded-[13px]" />
-              <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+            <div className="absolute w-[238px] h-[59px] top-[25px] left-[1212px]">
+              <div className="relative w-[236px] h-[59px]">
+                <div className="w-[236px] bg-[#e78324] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
+                <div className="w-[236px] bg-[#fcb315] absolute h-[53px] top-0 left-0 rounded-[13px]" />
+                <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
                   <button
                     onClick={() => {
                       navigate("/PlaygroundChoose");
@@ -199,29 +204,29 @@ const Navbar = () => {
                   >
                     Playground
                   </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="absolute w-[157px] h-[59px] top-[25px] left-[1493px]">
-            <div className="relative w-[155px] h-[59px]">
-              <div className="w-[155px] bg-[#595aa4] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
-              <div className="w-[155px] bg-[#8b8dff] absolute h-[53px] top-0 left-0 rounded-[13px]" />
-              <div className="absolute w-[127px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                <button
+            <div className="absolute w-[157px] h-[59px] top-[25px] left-[1493px]">
+              <div className="relative w-[155px] h-[59px]">
+                <div className="w-[155px] bg-[#595aa4] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
+                <div className="w-[155px] bg-[#8b8dff] absolute h-[53px] top-0 left-0 rounded-[13px]" />
+                <div className="absolute w-[127px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+                  <button
                     onClick={() => {
                       navigate("/quest");
                     }}
                   >
                     Quest
                   </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="absolute w-[207px] h-[59px] top-[25px] left-[667px]">
-            <div className="relative w-[205px] h-[59px]">
-              <div className="w-[205px] bg-[#53c2ef] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
-              <div className="w-[205px] bg-[#9cdcf9] absolute h-[53px] top-0 left-0 rounded-[13px]" />
-              <div className="absolute w-[180px] top-[6px] left-[12px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+            <div className="absolute w-[207px] h-[59px] top-[25px] left-[667px]">
+              <div className="relative w-[205px] h-[59px]">
+                <div className="w-[205px] bg-[#53c2ef] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
+                <div className="w-[205px] bg-[#9cdcf9] absolute h-[53px] top-0 left-0 rounded-[13px]" />
+                <div className="absolute w-[180px] top-[6px] left-[12px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
                   <button
                     onClick={() => {
                       navigate("/generateChoose");
@@ -229,11 +234,10 @@ const Navbar = () => {
                   >
                     Generate
                   </button>
+                </div>
               </div>
             </div>
-          </div>
-            
-            
+
             <img
               className="absolute w-[219px] h-[37px] top-[41px] left-[70px]"
               alt="Frame"

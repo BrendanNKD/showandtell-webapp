@@ -1,20 +1,20 @@
-
 // import { UseProfile } from "app/state/profile/useProfile";
 import Navbar from "components/navBar";
 import { Link, useNavigate } from "react-router-dom";
 import Slider from "components/slider";
 import Footer from "components/footer";
 import about from "../../assets/home1.jpeg";
-
+import useSound from "use-sound";
+import { useEffect, useRef } from "react";
 const Home = () => {
   // Redirect user to profile if they are authenticate
   // const profile = UseProfile();
   const navigate = useNavigate();
 
+
   return (
     <div className="h-fit flex-col justify-center align-middle">
       <Navbar></Navbar>
-
       <section className="relative overflow-hidden">
         <div className="container-fluid lg:px-10 md:px-3 relative overflow-hidden">
           <span className="absolute blur-[200px] w-[600px] h-[600px] rounded-full top-1/2 start-1/2 ltr:-translate-x-1/2 rtl:translate-x-1/2 -translate-y-1/2 bg-gradient-to-tl from-red-600/40 to-violet-600/40 dark:from-red-600/60 dark:to-violet-600/60"></span>

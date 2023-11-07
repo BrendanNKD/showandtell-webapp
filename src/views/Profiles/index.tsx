@@ -6,7 +6,11 @@ import { useEffect, useState } from "react";
 import { ProfileSelectionCard } from "../../components/proflieSelection";
 
 import { useNavigate } from "react-router-dom";
-import { useAddProfile, useSetProfile } from "app/hooks/useAccount";
+import {
+  useAddProfile,
+  useDeleteProfile,
+  useSetProfile,
+} from "app/hooks/useAccount";
 import { ProfileResponseModel } from "domain/types/profile/Profile";
 
 // import { useGetCollection } from "app/hooks/useCollection";
@@ -35,11 +39,23 @@ const Profiles = () => {
   const [showModal, setShowModal] = useState(false);
   const [landing, setLanding] = useState<boolean>(true);
   const [formValue, setFormValue] = useState(initialState);
-  const [profiles, setProfiles] = useState<ProfileResponseModel[] | []>([]);
+  const [profiles, setProfiles] = useState<any[] | []>([]);
+
   UseAuthenticatedRoute();
 
-  const { addNewProfile, addProfileLoading, isaddProfileSuccess } =
-    useAddProfile();
+  const {
+    addNewProfile,
+    newAccountData,
+    addProfileLoading,
+    isaddProfileSuccess,
+  } = useAddProfile();
+
+  const {
+    deleteOneProfile,
+    newdeleteAccountData,
+    newdeleteAccountLoading,
+    newdeleteAccountSuccess,
+  } = useDeleteProfile();
 
   const navigate = useNavigate();
   const { signOut } = useSignOut();
@@ -62,6 +78,10 @@ const Profiles = () => {
     await addNewProfile(formValue);
   };
 
+  const handleDeleteItem = async (id: any) => {
+    await deleteOneProfile(id);
+  };
+
   useEffect(() => {
     if (accountData && landing) setProfiles(accountData.profiles);
   }, [accountData, landing]);
@@ -76,9 +96,16 @@ const Profiles = () => {
   useEffect(() => {
     if (isaddProfileSuccess) {
       setShowModal(false);
-      setProfiles((prevProfiles) => [...prevProfiles, formValue]);
+      setProfiles(newAccountData.profiles);
     }
-  }, [isaddProfileSuccess, formValue]); // Empty dependency array ensures this effect runs once on mount
+  }, [newAccountData, isaddProfileSuccess]); // Empty dependency array ensures this effect runs once on mount
+
+  useEffect(() => {
+    if (newdeleteAccountData) {
+      console.log(newdeleteAccountData.profiles);
+      setProfiles(newdeleteAccountData.profiles);
+    }
+  }, [newdeleteAccountData]);
 
   return (
     <>
@@ -88,6 +115,11 @@ const Profiles = () => {
         showModal={showModal}
         buttonFn={handleNewProfile}
         loading={addProfileLoading}
+        cancelBnt={true}
+        cbuttonFn={() => {
+          setShowModal(false);
+        }}
+        confirmButton={true}
         element={
           <AddProfileForm setFormValue={setFormValue} formValue={formValue} />
         }
@@ -113,21 +145,24 @@ const Profiles = () => {
                       className={`rounded-full p-4 cursor-pointer`}
                       onClick={() => handleProfileClick(index)}
                     >
-                      <div className = "flex flex-col w-full justify-content bg-black h-[50px]">
-                        <button 
-                            className = ""
-                            onClick={(event) => {event.stopPropagation();
-                                                    console.log("deletion here!");}}
-                            style={{//this section allows for button hiding
-                                    display: "inline", 
-                                    pointerEvents: "auto", 
-                                  }}>
-                            <FaTrash
-                              style={{ color: "red", cursor: "pointer" }}
-                              className = "w-[30px] h-[18px]"
-                              // onClick={() => handleDeleteItem(item._id)} 
-                            />
-
+                      <div className="flex flex-col w-full justify-content bg-black h-[50px]">
+                        <button
+                          className=""
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            console.log("deletion here!");
+                          }}
+                          style={{
+                            //this section allows for button hiding
+                            display: "inline",
+                            pointerEvents: "auto",
+                          }}
+                        >
+                          <FaTrash
+                            style={{ color: "red", cursor: "pointer" }}
+                            className="w-[30px] h-[18px]"
+                            onClick={() => handleDeleteItem(object._id)}
+                          />
                         </button>
                       </div>
                       {ProfileSelectionCard({ object, index })}
