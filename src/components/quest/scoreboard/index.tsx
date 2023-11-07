@@ -2,6 +2,8 @@ import { UseAccount } from "app/state/account/useAccount";
 import item1 from "../../../assets/items/1.jpg";
 const ScoreBoard = () => {
   const { profiles } = UseAccount();
+  // Sorting the profiles by totalStars
+
   return (
     <div className="w-full p-4 bg-white rounded-lg sm:p-8 dark:bg-gray-800 ">
       <div className="flex items-center justify-between mb-4"></div>
@@ -42,7 +44,7 @@ const ScoreBoard = () => {
                   </div>
                 </div>
               </div>
-              <hr className="my-6 border-gray-200" />
+              {/* <hr className="my-6 border-gray-200" /> */}
             </li>
           ))}
         </ul>

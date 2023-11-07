@@ -8,10 +8,11 @@ const Home = () => {
   // const profile = UseProfile();
   const navigate = useNavigate();
 
-
   return (
     <div className="h-fit flex-col justify-center align-middle">
       <Navbar></Navbar>
+      {/* 
+      <video title="homepage music" src="/assets/homepage.mp3"></video> */}
       <section className="relative overflow-hidden">
         <div className="container-fluid lg:px-10 md:px-3 relative overflow-hidden">
           <span className="absolute blur-[200px] w-[600px] h-[600px] rounded-full top-1/2 start-1/2 ltr:-translate-x-1/2 rtl:translate-x-1/2 -translate-y-1/2 bg-gradient-to-tl from-red-600/40 to-violet-600/40 dark:from-red-600/60 dark:to-violet-600/60"></span>
@@ -23,8 +24,8 @@ const Home = () => {
                     <h4 className="font-bold lg:leading-snug leading-snug text-4xl lg:text-6xl mb-4">
                       <span className="bg-gradient-to-l from-red-600 to-violet-600 text-transparent bg-clip-text ">
                         Learn, experience,
-                      </span>{" "}
-                      <br />{" "}
+                      </span>
+                      <br />
                       <div className="w-max">
                         <h1 className="animate-typing overflow-hidden whitespace-nowrap border-r-4 border-r-black pr-5 text-5xl text-black font-bold">
                           Level Up

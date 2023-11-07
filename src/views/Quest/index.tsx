@@ -58,25 +58,6 @@ const Quest = () => {
     console.log(quest.quests);
   }
 
-  const loadQuestCards = async () => {
-    const questCards = [];
-
-    if (quest) {
-      for (const element of quest.quests) {
-        questCards.push(
-          <QuestCard
-            category={element.category}
-            description={element.description}
-            award={100}
-            completed={element.completed}
-          />
-        );
-      }
-    }
-
-    return questCards;
-  };
-
   return (
     <>
       <div className="h-fit flex-col justify-center align-middle">
@@ -138,7 +119,9 @@ const Quest = () => {
                     )}
                     {activeTab === "leaderboard" && (
                       // Render the "Leaderboard" content when the tab is active
-                      <ScoreBoard />
+                      <div className="space-y-3 overflow-y-scroll">
+                        <ScoreBoard />
+                      </div>
                     )}
                   </div>
                 </div>
