@@ -4,7 +4,7 @@ import { selectAccount } from "features/accountSlice";
 
 export const UseAccount = () => {
   const { profiles, username } = useAppSelector(selectAccount);
-  profiles.sort((a: any, b: any) => b.totalStars - a.totalStars);
+  console.log(profiles);
   return { profiles, username };
 };
 
