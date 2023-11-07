@@ -82,9 +82,10 @@ const Dashboard = () => {
     <div className="bg-transparent flex flex-row justify-center w-full">
       <div className="overflow-hidden bg-[url(https://c.animaapp.com/keKAQgUJ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
         <Navbar></Navbar>
-        <div className="absolute w-[1225px] h-[785px] top-[152px] left-[375px]">
-          <div className="absolute w-[1225px] h-[785px] top-0 left-0">
-            <div className="relative w-[1223px] h-[785px] bg-white rounded-[52px]">
+        <div className="relative w-[65%] h-[70%] left-[20%] top-[5%]"
+             style = {{display : "flex"}}>
+          <div className="w-[100%] h-[100%]">
+            <div className="w-[100%] h-[100%] bg-white rounded-[52px]">
               <div className="absolute w-[523px] top-[58px] left-[72px] font-lapsus font-bold text-black text-[56px] tracking-[0.56px] leading-[normal] whitespace-nowrap">
                 Dashboard
               </div>
