@@ -50,12 +50,7 @@ const Profiles = () => {
     isaddProfileSuccess,
   } = useAddProfile();
 
-  const {
-    deleteOneProfile,
-    newdeleteAccountData,
-    newdeleteAccountLoading,
-    newdeleteAccountSuccess,
-  } = useDeleteProfile();
+  const { deleteOneProfile, newdeleteAccountData } = useDeleteProfile();
 
   const navigate = useNavigate();
   const { signOut } = useSignOut();

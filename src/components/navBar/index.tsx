@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { UseIsAuthenticated } from "app/state/account/useAuthenticated";
 import { UseProfile } from "app/state/profile/useProfile";
 import { defaultPics } from "utils/profilePic";
-import { useEffect, useRef } from "react";
 import useSound from "use-sound";
 const Navbar = () => {
   const [dashboardplay, { stop }] = useSound("/assets/Homepage1.mp3");

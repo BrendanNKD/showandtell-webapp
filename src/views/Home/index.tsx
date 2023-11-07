@@ -2,10 +2,7 @@
 import Navbar from "components/navBar";
 import { Link, useNavigate } from "react-router-dom";
 import Slider from "components/slider";
-import Footer from "components/footer";
 import about from "../../assets/home1.jpeg";
-import useSound from "use-sound";
-import { useEffect, useRef } from "react";
 const Home = () => {
   // Redirect user to profile if they are authenticate
   // const profile = UseProfile();

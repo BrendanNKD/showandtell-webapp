@@ -3,7 +3,6 @@ import {
   UseProfile,
   UseProfileIndex,
 } from "app/state/profile/useProfile";
-import Footer from "components/footer";
 import { Modal } from "components/modal";
 import Navbar from "components/navBar";
 import { ProfilePicSelectionCard } from "../../components/proflieSelection";

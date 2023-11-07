@@ -1,16 +1,13 @@
 import { UseAuthenticatedRoute } from "utils/authRoute";
 // import { UseProfile } from "app/state/profile/useProfile";
 import Navbar from "components/navBar";
-import Footer from "components/footer";
 import { useEffect, useState } from "react";
-import DragDrop from "components/dragAndDrop";
 import { useGenerateImage } from "app/hooks/useGenerate";
-import { Input } from "domain/types/magicPrompt";
-import { useNavigate, createSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Playground = () => {
   UseAuthenticatedRoute();
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  // const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [generatedOutput, setGeneratedOutput] = useState<string[]>([]);
   const [text, setText] = useState<string>(""); // Initialize with an empty string
   const { generate, images } = useGenerateImage();
@@ -73,7 +70,7 @@ const Playground = () => {
               Create Art
             </div>
           </div>
-          <div className="flex flex-row justify-center w-full py-24 absolute w-[490px] top-[150px] left-[0px] [font-family:'gillsans',Helvetica] font-normal text-black text-[39px] tracking-[0] leading-[normal]">
+          <div className="flex flex-row justify-center py-24 absolute w-[490px] top-[150px] left-[0px] [font-family:'gillsans',Helvetica] font-normal text-black text-[39px] tracking-[0] leading-[normal]">
             {generatedOutput ? (
               generatedOutput.map((imageUrl, index) => (
                 <div

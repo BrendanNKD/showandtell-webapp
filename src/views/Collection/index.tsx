@@ -1,20 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { UseAuthenticatedRoute } from 'utils/authRoute';
 import Navbar from 'components/navBar';
 import { CollectionCard } from 'components/collection';
-import Footer from 'components/footer';
 import { UseCollection } from 'app/state/collection';
 import './Collection.css';
 
-{/*const backgroundStyle = {
-  backgroundImage: 'url(https://c.animaapp.com/eyIjESUi/img/group.png)',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat',
-  width: '100%',
-  height: '100vh',
-};*/}
+
 
 const Collection = () => {
   UseAuthenticatedRoute();
@@ -22,10 +14,6 @@ const Collection = () => {
   const collectionData = UseCollection();
 
   const [isModalOpen, setModalOpen] = useState(false);
-
-  const openModal = () => {
-    setModalOpen(true);
-  };
 
   const closeModal = () => {
     setModalOpen(false);
@@ -42,12 +30,6 @@ const Collection = () => {
       overflow              : 'visibile'
     }
   };
-const buttonStyles = {
-  position: "absolute",
-  top: "10px",
-  right: "10px"
-};
-
   return (
     <div>
       <Navbar></Navbar>

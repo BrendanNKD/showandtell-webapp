@@ -1,7 +1,5 @@
 import React from "react";
 import Navbar from "components/navBar";
-import Footer from "components/footer";
-import { Link } from "react-router-dom";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -25,12 +23,7 @@ export const GenerateChoose = (): JSX.Element => {
     alignItems: "center",
   };
 
-  const swiperSlideImgStyle = {
-    display: "block",
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-  };
+
 
   const navigate = useNavigate();
 

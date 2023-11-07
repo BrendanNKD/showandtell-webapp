@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import {
   useAddProfileMutation,
   useDeleteProfileMutation,
-  useGetLevelQuery,
   useUpdateProfileMutation,
 } from "services/account/accountApi";
 import { setProfile } from "features/profileSlice";
@@ -18,7 +17,6 @@ import {
   UpdateProfileRequestModel,
 } from "domain/types/profile/Profile";
 import { useAddStarsMutation } from "services/account/accountApi";
-import { UseProfile } from "app/state/profile/useProfile";
 
 export const useAddProfile = () => {
   const dispatch = useDispatch();

@@ -3,18 +3,13 @@ import { UseAuthenticatedRoute } from "utils/authRoute";
 import Navbar from "components/navBar";
 import { ChangeEvent, useEffect, useState } from "react";
 import DragDrop from "components/dragAndDrop";
-import Footer from "components/footer";
 import { useGenerateCaption } from "app/hooks/useGenerate";
 import { useCheck, useOpenAiCompletion } from "app/hooks/useOpenAiCompletion";
 import TextToSpeech from "components/textToSpeech";
 import { UseProfile, UseProfileIndex } from "app/state/profile/useProfile";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Modal } from "components/modal";
-import {
-  useAddProfile,
-  useAddStars,
-  useSetProfile,
-} from "app/hooks/useAccount";
+import { useAddProfile, useAddStars } from "app/hooks/useAccount";
 import { useSaveCollection } from "app/hooks/useCollection";
 import { useCompleteQuestMutation } from "services/quest";
 
@@ -31,14 +26,11 @@ export const GenerateEmpty = () => {
   const [imageDescription, setImageDescription] = useState<string | null>(null);
   const { generate, caption, captionloading } = useGenerateCaption();
   const { update, updateDataloading } = useSaveCollection();
-  const { addNewProfile, addProfileLoading, isaddProfileSuccess } =
-    useAddProfile();
+  const { addProfileLoading } = useAddProfile();
   const { completion, description, descriptionloading } = useOpenAiCompletion();
-  const { checkAnswer, answer, answerSuccess, answerloading } = useCheck();
-  const { updateStars, newStarsData, isnewStarsSuccess, newStarsLoading } =
-    useAddStars();
-  const [completeQuest, { data: result, isLoading: completeQuestloading }] =
-    useCompleteQuestMutation();
+  const { checkAnswer, answer } = useCheck();
+  const { updateStars, newStarsData } = useAddStars();
+  const [completeQuest] = useCompleteQuestMutation();
   const [selectedIssues, setSelectedIssues] = useState<string[]>([]);
   const [otherIssue, setOtherIssue] = useState<string>("");
 
@@ -124,7 +116,7 @@ export const GenerateEmpty = () => {
         profileId: profile._id,
       });
     }
-  }, [answer]);
+  }, [answer, profile._id, updateStars]);
 
   useEffect(() => {
     if (newStarsData) {
@@ -174,7 +166,7 @@ export const GenerateEmpty = () => {
               />
             </div>
             {/*Caption box*/}
-            <div className="absolute w-[674px] h-[55px] top-[505px] left-[180px] top-0 left-0 bg-[#e2e3e4] p-3 rounded-[10px]">
+            <div className="absolute w-[674px] h-[55px] top-[505px] left-[180px] bg-[#e2e3e4] p-3 rounded-[10px]">
               {caption ? (
                 <>
                   <div className="flex flex-row">

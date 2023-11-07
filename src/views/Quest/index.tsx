@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { UseProfileName } from "app/state/profile/useProfile";
 import QuestProfile from "components/quest/profile";
 import { QuestCard } from "components/quest/questCard";
@@ -14,7 +15,6 @@ import {
 import { useDispatch } from "react-redux";
 
 const Quest = () => {
-  const profileName = UseProfileName();
   const currentprofile: any = UseProfile();
   const [activeTab, setActiveTab] = useState("achievement"); // Initialize the active tab state
   const [nextLimit, setNextLimit] = useState<number | null>(null);
