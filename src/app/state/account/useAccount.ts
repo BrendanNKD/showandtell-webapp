@@ -1,4 +1,3 @@
-import { async } from "q";
 import { useAppSelector } from "../../hooks/useHooks";
 import { selectAccount } from "features/accountSlice";
 

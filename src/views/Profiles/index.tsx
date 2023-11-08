@@ -140,7 +140,7 @@ const Profiles = () => {
                       className={`rounded-full p-4 cursor-pointer`}
                       onClick={() => handleProfileClick(index)}
                     >
-                      <div className="flex flex-col w-full justify-content bg-black h-[50px]">
+                      <div className="flex flex-col w-full justify-content h-[50px] ml-[100px] relative top-[30px]">
                         <button
                           className=""
                           onClick={(event) => {

@@ -17,7 +17,7 @@ const ProgressBar: React.FC<ProgressProps> = ({
 
   return (
     <div
-      className="h-[40px] w-full bg-[#e2e3e4] rounded-full m-10 p-1 flex items-center"
+      className="h-[40px] w-full bg-[#e2e3e4] rounded-full p-2 flex items-center"
       style={{ height: `${height}px` }}
     >
       <div
