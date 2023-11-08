@@ -1,15 +1,11 @@
 // import { UseProfile } from "app/state/profile/useProfile";
 import Navbar from "components/navBar";
-import { Link, useNavigate } from "react-router-dom";
-import Slider from "components/slider";
-import about from "../../assets/home1.jpeg";
 import { useEffect, useState } from "react";
 
 const Home = () => {
   // Redirect user to profile if they are authenticate
   // const profile = UseProfile();
-  const audio = new Audio("/assets/homepage.mp3");
-  const navigate = useNavigate();
+  // const audio = new Audio("/assets/homepage.mp3");
   //Function to forcefully click a button
   //Function to forcefully click a button
   function Test(editButton: any) {
@@ -21,21 +17,20 @@ const Home = () => {
   }
 
   //Run the Function after some effect
-  const [editButton, setEditButton] = useState(false);
+  const [editButton] = useState(false);
   useEffect(() => {
     Test(editButton);
     console.log("test:", editButton);
   }, [editButton]);
 
   //Button click Function to play audio
-  const onClicked = () => {
-    console.log("CLICKED");
-    audio.play();
-  };
+  // const onClicked = () => {
+  //   console.log("CLICKED");
+  //   audio.play();
+  // };
 
   return (
     <div className="h-fit flex-col justify-center align-middle">
-      
       <Navbar></Navbar>
       <div className="bg-white w-[1920px] h-[3870px] relative">
         <div className="absolute w-[1845px] h-[566px] top-[104px] left-[38px] rounded-[16px]">
@@ -79,15 +74,18 @@ const Home = () => {
           <div className="flex flex-col items-start gap-[2px] absolute w-[597px] h-[70px] top-[251px] left-[633px]">
             <p className="relative self-stretch [font-family:'gillsans',Helvetica] font-normal text-black text-[14px] text-center tracking-[0.49px] leading-[normal]">
               <span className="[font-family:'gillsans',Helvetica] font-normal text-black text-[14px] tracking-[0.49px]">
-                Introducing WhatEyeSee: Unlocking the Power of AI-Powered Learning for Young Children!
+                Introducing WhatEyeSee: Unlocking the Power of AI-Powered
+                Learning for Young Children!
                 <br />
               </span>
             </p>
             <p className="relative self-stretch [font-family:'gillsans',Helvetica] font-normal text-black text-[14px] text-center tracking-[0.49px] leading-[normal]">
               <span className="[font-family:'gillsans',Helvetica] font-normal text-black text-[14px] tracking-[0.49px]">
-                Are you ready to revolutionize the way your little ones learn and grow? We&#39;re thrilled to introduce
-                our groundbreaking educational website designed to captivate young minds and inspire a love for
-                learning. Say hello to WhatEyeSee, where the future of child education begins!
+                Are you ready to revolutionize the way your little ones learn
+                and grow? We&#39;re thrilled to introduce our groundbreaking
+                educational website designed to captivate young minds and
+                inspire a love for learning. Say hello to WhatEyeSee, where the
+                future of child education begins!
               </span>
             </p>
           </div>
@@ -162,8 +160,9 @@ const Home = () => {
           Wei Hao
         </div>
         <div className="absolute w-[180px] top-[3666px] left-[465px] [font-family:'gillsans',Helvetica] font-normal text-black text-[24px] text-center tracking-[0.24px] leading-[normal]">
-          Brendan Ng 
-          <br />Kun Deng
+          Brendan Ng
+          <br />
+          Kun Deng
         </div>
         <img
           className="absolute w-[147px] h-[147px] top-[3509px] left-[481px]"
@@ -171,11 +170,14 @@ const Home = () => {
           src="https://c.animaapp.com/dNKToy8N/img/frame-1.png"
         />
         <p className="absolute w-[1222px] top-[810px] left-[377px] [font-family:'gillsans',Helvetica] font-normal text-black text-[20px] tracking-[0.20px] leading-[normal]">
-          At WhatEyeSee, we believe that every child deserves a bright future filled with knowledge and creativity. Join
-          us in this extraordinary journey of discovery and learning. Watch your child&#39;s eyes light up as they
-          explore the world through captivating images and AI-generated captions. Unlock the potential of AI-powered
-          learning for your child today! Join us and embark on a voyage of imagination and education. Together,
-          we&#39;ll shape the next generation of young learners!
+          At WhatEyeSee, we believe that every child deserves a bright future
+          filled with knowledge and creativity. Join us in this extraordinary
+          journey of discovery and learning. Watch your child&#39;s eyes light
+          up as they explore the world through captivating images and
+          AI-generated captions. Unlock the potential of AI-powered learning for
+          your child today! Join us and embark on a voyage of imagination and
+          education. Together, we&#39;ll shape the next generation of young
+          learners!
         </p>
         <img
           className="absolute w-[77px] h-[83px] top-[957px] left-[474px]"
@@ -350,10 +352,11 @@ const Home = () => {
           src="https://c.animaapp.com/dNKToy8N/img/group-1@2x.png"
         />
         <p className="absolute w-[960px] top-[1155px] left-[618px] [font-family:'gillsans',Helvetica] font-normal text-black text-[20px] tracking-[0.20px] leading-[normal]">
-          Parents and caregivers can easily upload images that are familiar and captivating to their children. Once the
-          image is uploaded, our AI-powered system springs into action, generating descriptive captions that help
-          children understand what they&#39;re seeing. It&#39;s like having a personalized virtual storyteller at your
-          fingertips!
+          Parents and caregivers can easily upload images that are familiar and
+          captivating to their children. Once the image is uploaded, our
+          AI-powered system springs into action, generating descriptive captions
+          that help children understand what they&#39;re seeing. It&#39;s like
+          having a personalized virtual storyteller at your fingertips!
         </p>
         <div className="absolute top-[1107px] left-[618px] [font-family:'gillsans',Helvetica] font-normal text-black text-[33px] tracking-[0.33px] leading-[normal]">
           Learning Through Play
@@ -364,9 +367,11 @@ const Home = () => {
           src="https://c.animaapp.com/dNKToy8N/img/vector.svg"
         />
         <p className="absolute w-[960px] top-[1315px] left-[618px] [font-family:'gillsans',Helvetica] font-normal text-black text-[20px] tracking-[0.20px] leading-[normal]">
-          What sets WhatEyeSee apart is our unique system of achievements and quests. As your child engages with the
-          platform, they can complete quests and unlock achievements. These quests are designed to be both entertaining
-          and educational, providing a sense of accomplishment that fuels their enthusiasm to learn.
+          What sets WhatEyeSee apart is our unique system of achievements and
+          quests. As your child engages with the platform, they can complete
+          quests and unlock achievements. These quests are designed to be both
+          entertaining and educational, providing a sense of accomplishment that
+          fuels their enthusiasm to learn.
         </p>
         <div className="absolute top-[1267px] left-[618px] [font-family:'gillsans',Helvetica] font-normal text-black text-[33px] tracking-[0.33px] leading-[normal]">
           Achievements and Quests
@@ -375,10 +380,12 @@ const Home = () => {
           AI-Powered Learning
         </div>
         <p className="absolute w-[960px] top-[998px] left-[618px] [font-family:'gillsans',Helvetica] font-normal text-black text-[20px] tracking-[0.20px] leading-[normal]">
-          Harness the power of AI-generated captions to foster language development and visual recognition in young
-          children.&nbsp;&nbsp;AI-driven learning isn&#39;t just efficient; it&#39;s also incredibly effective. Our
-          platform helps children accelerate their language development and visual recognition skills, giving them a
-          head start in their educational journey.
+          Harness the power of AI-generated captions to foster language
+          development and visual recognition in young
+          children.&nbsp;&nbsp;AI-driven learning isn&#39;t just efficient;
+          it&#39;s also incredibly effective. Our platform helps children
+          accelerate their language development and visual recognition skills,
+          giving them a head start in their educational journey.
         </p>
         <div className="absolute w-[271px] top-[2076px] left-[842px] [font-family:'lapsus',Helvetica] font-bold text-black text-[50px] tracking-[0.50px] leading-[normal] whitespace-nowrap">
           How it works

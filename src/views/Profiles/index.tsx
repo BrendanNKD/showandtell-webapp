@@ -140,21 +140,24 @@ const Profiles = () => {
                       className={`rounded-full p-4 cursor-pointer`}
                       onClick={() => handleProfileClick(index)}
                     >
-                      <div className = "flex flex-col w-full justify-content h-[50px] ml-[100px] relative top-[30px]">
-                        <button 
-                            className = ""
-                            onClick={(event) => {event.stopPropagation();
-                                                    console.log("deletion here!");}}
-                            style={{//this section allows for button hiding
-                                    display: "inline", 
-                                    pointerEvents: "auto", 
-                                  }}>
-                            <FaTrash
-                              style={{ color: "red", cursor: "pointer" }}
-                              className = "w-[30px] h-[18px]"
-                              // onClick={() => handleDeleteItem(item._id)} 
-                            />
-
+                      <div className="flex flex-col w-full justify-content h-[50px] ml-[100px] relative top-[30px]">
+                        <button
+                          className=""
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            console.log("deletion here!");
+                          }}
+                          style={{
+                            //this section allows for button hiding
+                            display: "inline",
+                            pointerEvents: "auto",
+                          }}
+                        >
+                          <FaTrash
+                            style={{ color: "red", cursor: "pointer" }}
+                            className="w-[30px] h-[18px]"
+                            onClick={() => handleDeleteItem(object._id)}
+                          />
                         </button>
                       </div>
                       {ProfileSelectionCard({ object, index })}

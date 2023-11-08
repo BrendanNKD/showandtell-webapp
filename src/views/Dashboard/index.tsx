@@ -2,9 +2,7 @@ import { UseProfile } from "app/state/profile/useProfile";
 import Navbar from "components/navBar";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  useGetLevelQuery,
-} from "services/account/accountApi";
+import { useGetLevelQuery } from "services/account/accountApi";
 import {
   useGetProfileQuestQuery,
   useRefreshQuestsMutation,
@@ -27,8 +25,7 @@ const Dashboard = () => {
   const { data: quest } = useGetProfileQuestQuery(String(currentprofile?._id), {
     skip: !currentprofile,
   });
-  const [refreshQuests, { data: result }] =
-    useRefreshQuestsMutation();
+  const [refreshQuests, { data: result }] = useRefreshQuestsMutation();
   const passQuestParams = (category: string, caption: string) => {
     // var catVal = category;
     // {/*terrible fix to fix the flower value, need to change some variable names in the backend*/}
@@ -106,7 +103,7 @@ const Dashboard = () => {
                       alt="Vector"
                       src="https://c.animaapp.com/keKAQgUJ/img/vector-1.svg"
                     />
-                    <div className="relative w-[100%] top-0 left-[0px] text-[2.5vw] tracking-[0.57px] absolute font-lapsus font-bold text-black leading-[normal] whitespace-nowrap">
+                    <div className="relative w-[100%] top-0 left-[0px] text-[2.5vw] tracking-[0.57px] font-lapsus font-bold text-black leading-[normal] whitespace-nowrap">
                       {currentprofile?.stars}
                     </div>
                   </div>
@@ -149,37 +146,36 @@ const Dashboard = () => {
               }}
             >
               <div className="h-[90%] flex flex-row items-center space-x-6 ">
-              {/*model icon*/}
-              <img
-                id="questImage"
-                className="relative w-[10%]"
-                alt="Frame"
-                src={
-                  quests &&
-                  categoryVal[quests.category as keyof typeof categoryVal].image
-                }
-              />
-              <div className="flex flex-col w-[70%] h-[80%] font-lapsus font-normal text-black text-[1.3vw]">
-                <div>
-                  {quests && quests.category}
+                {/*model icon*/}
+                <img
+                  id="questImage"
+                  className="relative w-[10%]"
+                  alt="Frame"
+                  src={
+                    quests &&
+                    categoryVal[quests.category as keyof typeof categoryVal]
+                      .image
+                  }
+                />
+                <div className="flex flex-col w-[70%] h-[80%] font-lapsus font-normal text-black text-[1.3vw]">
+                  <div>{quests && quests.category}</div>
+                  <div className="relative w-[100%] font-lapsus font-normal text-black text-[1.3vw] tracking-[0] leading-[normal]">
+                    {quests && quests.description}
+                  </div>
                 </div>
-                <div className="relative w-[100%] font-lapsus font-normal text-black text-[1.3vw] tracking-[0] leading-[normal]">
-                  {quests && quests.description}
-                </div>
-              </div>
-              {/*Quest box star reward*/}
-              <div className="flex flex-row space-x-2 items-center relative w-[15%] h-[50%] bg-white rounded-[14px] p-4">
-                <div>
-                  <img
-                    className="relative w-[80%]"
-                    alt="Vector"
-                    src="https://c.animaapp.com/keKAQgUJ/img/vector.svg"
-                  />
-                </div>
-                  <div className="relative w-[10%] text-[2vw] tracking-[0] absolute font-lapsus font-bold text-black leading-[normal] whitespace-nowrap">
+                {/*Quest box star reward*/}
+                <div className="flex flex-row space-x-2 items-center relative w-[15%] h-[50%] bg-white rounded-[14px] p-4">
+                  <div>
+                    <img
+                      className="relative w-[80%]"
+                      alt="Vector"
+                      src="https://c.animaapp.com/keKAQgUJ/img/vector.svg"
+                    />
+                  </div>
+                  <div className="relative w-[10%] text-[2vw] tracking-[0] font-lapsus font-bold text-black leading-[normal] whitespace-nowrap">
                     200
                   </div>
-              </div>
+                </div>
               </div>
             </div>
             <div
