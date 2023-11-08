@@ -1,6 +1,5 @@
 // get account might not be needed
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { config } from "config/config";
 import { AccountResponseModel } from "domain/types/account/UserAccount";
 import {
   ProfileResponseModel,
@@ -10,7 +9,7 @@ import {
 export const accountApi = createApi({
   reducerPath: "accountApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: String(config.api_domain),
+    baseUrl: process.env.REACT_APP_API_PATH,
   }),
   endpoints: (builder) => ({
     getAccount: builder.query<AccountResponseModel, void>({

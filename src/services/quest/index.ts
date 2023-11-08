@@ -1,9 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { config } from "config/config";
 export const questApi = createApi({
   reducerPath: "questApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: String(config.api_domain),
+    baseUrl: process.env.REACT_APP_API_PATH,
   }),
   endpoints: (builder) => ({
     getQuest: builder.query<any, void>({

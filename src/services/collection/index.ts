@@ -1,11 +1,10 @@
 // get account might not be needed
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { CollectionProp } from "domain/types/collection/collection";
-import { config } from "config/config";
 export const collectionApi = createApi({
   reducerPath: "collectionApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: String(config.api_domain),
+    baseUrl: process.env.REACT_APP_API_PATH,
   }),
   endpoints: (builder) => ({
     getCollection: builder.query<CollectionProp[], void>({
