@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { UseProfileName } from "app/state/profile/useProfile";
 import QuestProfile from "components/quest/profile";
 import { QuestCard } from "components/quest/questCard";
@@ -14,7 +15,6 @@ import {
 import { useDispatch } from "react-redux";
 
 const Quest = () => {
-  const profileName = UseProfileName();
   const currentprofile: any = UseProfile();
   const [activeTab, setActiveTab] = useState("achievement"); // Initialize the active tab state
   const [nextLimit, setNextLimit] = useState<number | null>(null);
@@ -57,25 +57,6 @@ const Quest = () => {
     console.log("quest structure");
     console.log(quest.quests);
   }
-
-  const loadQuestCards = async () => {
-    const questCards = [];
-
-    if (quest) {
-      for (const element of quest.quests) {
-        questCards.push(
-          <QuestCard
-            category={element.category}
-            description={element.description}
-            award={100}
-            completed={element.completed}
-          />
-        );
-      }
-    }
-
-    return questCards;
-  };
 
   return (
     <>
@@ -138,7 +119,9 @@ const Quest = () => {
                     )}
                     {activeTab === "leaderboard" && (
                       // Render the "Leaderboard" content when the tab is active
-                      <ScoreBoard />
+                      <div className="space-y-3 overflow-y-scroll">
+                        <ScoreBoard />
+                      </div>
                     )}
                   </div>
                 </div>

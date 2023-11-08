@@ -42,6 +42,17 @@ export const accountApi = createApi({
       },
     }),
 
+    deleteProfile: builder.mutation({
+      query: (body: any) => {
+        return {
+          url: "/api/v1/profile/deleteOne",
+          method: "post",
+          credentials: "include",
+          body,
+        };
+      },
+    }),
+
     updateProfile: builder.mutation({
       query: (body: UpdateProfileRequestModel) => {
         return {
@@ -72,4 +83,5 @@ export const {
   useUpdateProfileMutation,
   useGetLevelQuery,
   useAddStarsMutation,
+  useDeleteProfileMutation,
 } = accountApi;

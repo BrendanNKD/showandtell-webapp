@@ -1,4 +1,3 @@
-import item1 from "../../../assets/items/1.jpg";
 import { FaCheckCircle } from "react-icons/fa";
 import categoryVal from "components/quest/categoryValues";
 

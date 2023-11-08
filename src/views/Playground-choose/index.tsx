@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "components/navBar";
-import { useNavigate, createSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const PlaygroundChoose = () => {
     const navigate = useNavigate();

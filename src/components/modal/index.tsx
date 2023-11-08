@@ -7,6 +7,9 @@ interface IProps {
   element: React.ReactNode;
   loading: boolean;
   buttonFn: any;
+  cbuttonFn: any;
+  cancelBnt?: boolean;
+  confirmButton?: boolean;
 }
 
 export const Modal: React.FC<IProps> = ({
@@ -16,6 +19,9 @@ export const Modal: React.FC<IProps> = ({
   element,
   loading,
   buttonFn,
+  cbuttonFn,
+  cancelBnt,
+  confirmButton,
 }) => {
   return (
     <>
@@ -35,21 +41,29 @@ export const Modal: React.FC<IProps> = ({
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                  <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Close
-                  </button>
-                  <button
-                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={buttonFn}
-                    disabled={loading}
-                  >
-                    Save Changes
-                  </button>
+                  {cancelBnt ? (
+                    <button
+                      className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button"
+                      onClick={cbuttonFn}
+                    >
+                      Close
+                    </button>
+                  ) : (
+                    ""
+                  )}
+                  {confirmButton ? (
+                    <button
+                      className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button"
+                      onClick={buttonFn}
+                      disabled={loading}
+                    >
+                      Save Changes
+                    </button>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             </div>

@@ -27,10 +27,14 @@ export const accountSlice = createSlice({
       state.username = action.payload.username;
       state.email = action.payload.email;
     },
+    resetAccount(state, action) {
+      // ✅ CORRECT: returns a new value to replace the old one
+      return accountinitialState;
+    },
   },
 });
 
 export const selectAccount = (state: RootState) => state.reducer.account;
-export const { setAccount } = accountSlice.actions;
+export const { setAccount, resetAccount } = accountSlice.actions;
 
 export default accountSlice.reducer;

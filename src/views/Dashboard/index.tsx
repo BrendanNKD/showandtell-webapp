@@ -1,10 +1,8 @@
-import { UseProfile, UseProfileIndex } from "app/state/profile/useProfile";
+import { UseProfile } from "app/state/profile/useProfile";
 import Navbar from "components/navBar";
-import { setAccount } from "features/accountSlice";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
-  useGetAccountQuery,
   useGetLevelQuery,
 } from "services/account/accountApi";
 import {
@@ -12,7 +10,6 @@ import {
   useRefreshQuestsMutation,
 } from "services/quest";
 import { defaultPics } from "utils/profilePic";
-import ConfirmOtp from "views/ConfirmOtp";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import ProgressBar from "components/progressBar";
 import categoryVal from "components/quest/categoryValues";
@@ -30,7 +27,7 @@ const Dashboard = () => {
   const { data: quest } = useGetProfileQuestQuery(String(currentprofile?._id), {
     skip: !currentprofile,
   });
-  const [refreshQuests, { data: result, isLoading: refreshLoading }] =
+  const [refreshQuests, { data: result }] =
     useRefreshQuestsMutation();
   const passQuestParams = (category: string, caption: string) => {
     // var catVal = category;

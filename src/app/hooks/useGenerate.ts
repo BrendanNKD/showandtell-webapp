@@ -1,7 +1,4 @@
-import {
-  generateCaptionRequest,
-  generateImageRequest,
-} from "domain/types/generate";
+import { generateImageRequest } from "domain/types/generate";
 import { useCallback } from "react";
 import {
   useGenCaptionMutation,

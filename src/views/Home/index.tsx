@@ -1,15 +1,37 @@
-
 // import { UseProfile } from "app/state/profile/useProfile";
 import Navbar from "components/navBar";
 import { Link, useNavigate } from "react-router-dom";
 import Slider from "components/slider";
-import Footer from "components/footer";
 import about from "../../assets/home1.jpeg";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   // Redirect user to profile if they are authenticate
   // const profile = UseProfile();
+  const audio = new Audio("/assets/homepage.mp3");
   const navigate = useNavigate();
+  //Function to forcefully click a button
+  //Function to forcefully click a button
+  function Test(editButton: any) {
+    const element: any = document.getElementById("tst");
+
+    if (editButton) {
+      element.click();
+    }
+  }
+
+  //Run the Function after some effect
+  const [editButton, setEditButton] = useState(false);
+  useEffect(() => {
+    Test(editButton);
+    console.log("test:", editButton);
+  }, [editButton]);
+
+  //Button click Function to play audio
+  const onClicked = () => {
+    console.log("CLICKED");
+    audio.play();
+  };
 
   return (
     <div className="h-fit flex-col justify-center align-middle">

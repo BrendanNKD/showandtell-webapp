@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
-  generateCaptionRequest,
   generateImageRequest,
 } from "domain/types/generate";
 

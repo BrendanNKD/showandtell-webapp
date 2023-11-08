@@ -11,7 +11,7 @@ interface IProps {
 export const CollectionCard: React.FC<IProps> = ({ collectionData }) => {
   const title = "Collection";
 
-  const { deleteCol, deleteDataErr, deleteDataloading } = useDeleteCollection();
+  const { deleteCol } = useDeleteCollection();
 
   const handleDeleteItem = async (id: string | undefined) => {
     console.log(id);
