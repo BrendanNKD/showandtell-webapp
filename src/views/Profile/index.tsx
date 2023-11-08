@@ -21,6 +21,7 @@ const Profile = () => {
   const currentemail = UseEmail();
   const profileIndex = UseProfileIndex();
   const isMain = UseIsMain();
+  const [currentProfilePic, setCurrentProfilePic] = useState<any>(0);
   const [profile, setProfile] = useState<ProfileResponseModel>({
     firstName: "",
     lastName: "",
@@ -31,6 +32,7 @@ const Profile = () => {
     totalStars: 0,
   });
 
+  const [selectedImage, setSelectedImage] = useState(null);
   const [email, setEmail] = useState("");
 
   const [passwords, setPasswords] = useState({
@@ -71,7 +73,12 @@ const Profile = () => {
     setActiveTab(tab);
   };
 
-  const handleProfilePicChange = () => {};
+  const handleProfilePicChange = async () => {
+    if (profileIndex !== null && profile && selectedImage) {
+      await update({ index: profileIndex, profile: profile });
+      setCurrentProfilePic(selectedImage);
+    }
+  };
 
   const handleUpdateProfile = async () => {
     if (profileIndex !== null && profile)
@@ -96,6 +103,7 @@ const Profile = () => {
   useEffect(() => {
     if (currentprofile && currentemail) {
       setProfile(currentprofile);
+      setCurrentProfilePic(currentprofile.profilePic);
       setEmail(currentemail);
     }
   }, [currentprofile, currentemail]);
@@ -124,8 +132,15 @@ const Profile = () => {
         cbuttonFn={() => {
           setShowModal(false);
         }}
+        cancelBnt={true}
+        confirmButton={true}
         loading={false}
-        element={<ProfilePicSelectionCard />}
+        element={
+          <ProfilePicSelectionCard
+            images={defaultPics}
+            selectedImage={setSelectedImage}
+          />
+        }
       />
       <div className="container">
         <div className="py-32 bg-blueGray-200">
@@ -154,7 +169,7 @@ const Profile = () => {
                           <div className="relative w-40 -m-16 -ml-20 lg:-ml-16">
                             <img
                               className="w-40 h-40 rounded-full absolute"
-                              src={defaultPics[currentprofile?.profilePic].url}
+                              src={defaultPics[currentProfilePic].url}
                               alt=""
                               onClick={() => {
                                 setShowModal((prevShowModal) => !prevShowModal); // Toggle the state

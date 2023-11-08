@@ -1,4 +1,5 @@
 import ProfileSelectionProps from "domain/types/profileSelection";
+import { SetStateAction } from "react";
 import { defaultPics } from "utils/profilePic";
 
 export const ProfileSelectionCard = ({
@@ -25,32 +26,33 @@ export const ProfileSelectionCard = ({
     </>
   );
 };
+interface IProps {
+  images: Array<any>;
+  selectedImage: React.Dispatch<SetStateAction<any>>;
+}
+export const ProfilePicSelectionCard: React.FC<IProps> = ({
+  images,
+  selectedImage,
+}) => {
+  const handleChange = (e: React.MouseEvent<HTMLImageElement>) => {
+    e.preventDefault();
+    const { id } = e.currentTarget;
+    selectedImage(id);
+  };
 
-export const ProfilePicSelectionCard: React.FC = () => {
   return (
     <>
-      {defaultPics.map((item, index) => (
-        <div className="relative" key={index}>
+      {images.map((item: any, index: number) => (
+        <button className="relative" key={index}>
           <img
             className="w-20 h-20 rounded-full"
             src={item.url}
             alt={item.label}
-            key={index}
+            id={String(index)} // Convert index to string
+            onClick={handleChange}
           />
-        </div>
+        </button>
       ))}
-      {/* <div className="relative">
-        <img className="w-20 h-20 rounded-full" src={item1} alt="" />
-      </div>
-      <div className="relative">
-        <img className="w-20 h-20 rounded-full" src={item2} alt="" />
-      </div>
-      <div className="relative">
-        <img className="w-20 h-20 rounded-full" src={item3} alt="" />
-      </div>
-      <div className="relative">
-        <img className="w-20 h-20 rounded-full" src={item4} alt="" />
-      </div> */}
     </>
   );
 };

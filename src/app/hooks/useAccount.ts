@@ -90,6 +90,7 @@ export const useUpdateProfile = () => {
   useEffect(() => {
     if (isupdateProfileSuccess) {
       // dispatch(setAccount(newAccountData));
+      dispatch(resetAccount(accountinitialState));
       dispatch(setAccount(newAccountData));
     } else {
       //toast to show confirm sign up error
