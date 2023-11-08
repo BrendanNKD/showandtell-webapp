@@ -3,11 +3,12 @@ import {
   TUserConfirmOtp,
   TUserRegistration,
 } from "domain/types/auth/UserRegistration";
+import { config } from "config/config";
 
 export const signUpApi = createApi({
   reducerPath: "signUpApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000",
+    baseUrl: String(config.api_domain),
   }),
   endpoints: (builder) => ({
     signUpUser: builder.mutation({

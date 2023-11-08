@@ -1,12 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import {
-  generateImageRequest,
-} from "domain/types/generate";
+import { generateImageRequest } from "domain/types/generate";
+
+import { config } from "config/config";
 
 export const generateApi = createApi({
   reducerPath: "generateApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000",
+    baseUrl: String(config.api_domain),
   }),
   endpoints: (builder) => ({
     genCaption: builder.mutation({

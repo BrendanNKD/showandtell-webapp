@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { promptRequest } from "domain/types/openAi/completion";
-
+import { config } from "config/config";
 export const openAiCompletionApi = createApi({
   reducerPath: "describeApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000",
+    baseUrl: String(config.api_domain),
   }),
   endpoints: (builder) => ({
     openAiCompletion: builder.mutation({
