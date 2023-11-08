@@ -2,19 +2,29 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { CollectionProp } from "domain/types/collection/collection";
 import { defaultPics } from "utils/profilePic";
+import truncateText from "utils/truncate";
+import { FaTrash } from "react-icons/fa";
+import { useDeleteCollection } from "app/hooks/useCollection";
 interface IProps {
   collectionData: CollectionProp[];
 }
-
 export const CollectionCard: React.FC<IProps> = ({ collectionData }) => {
   const title = "Collection";
+
+  const { deleteCol, deleteDataErr, deleteDataloading } = useDeleteCollection();
+
+  const handleDeleteItem = async (id: string | undefined) => {
+    console.log(id);
+    deleteCol({ profileId: id });
+  };
 
   return (
     <>
       <div className="container">
-        <h1 className="font-extrabold leading-none tracking-tigh md:text-3xl lg:text-4xl dark:text-white text-gray-700">
+        {/*<h1 className="font-extrabold leading-none tracking-tigh md:text-3xl lg:text-4xl dark:text-white text-gray-700">
           Collection
         </h1>
+        */}
         <div
           className={`grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[30px] ${
             title !== undefined ? "mt-12" : ""
@@ -54,8 +64,23 @@ export const CollectionCard: React.FC<IProps> = ({ collectionData }) => {
                       </Link>
                     </span>
                     <span className="text-slate-400 block text-[16px] mt-1">
-                      {item.description}
+                      {truncateText(item.description, 20)}
                     </span>
+                    <button
+                      className="bottom-2 right-2 flex items-center bg-red-300 p-2 rounded"
+                      onClick={() => handleDeleteItem(item._id)}
+                    >
+                      <FaTrash
+                        style={{ color: "red", cursor: "pointer" }}
+                        // onClick={() => handleDeleteItem(item._id)} // Replace handleDeleteItem with your delete logic
+                      />
+                      <span
+                        className="text-red-600 ml-1"
+                        //onClick={() => handleDeleteItem(item._id)}
+                      >
+                        Delete
+                      </span>
+                    </button>
                   </div>
                 </div>
               </div>

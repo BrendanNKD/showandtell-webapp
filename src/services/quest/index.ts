@@ -28,7 +28,7 @@ export const questApi = createApi({
       query: (body: any) => {
         return {
           url: "/api/v1/quest/createQuest",
-          method: "get",
+          method: "post",
           credentials: "include",
           body,
         };
@@ -38,7 +38,17 @@ export const questApi = createApi({
       query: (body: any) => {
         return {
           url: "/api/v1/quest/completeQuest",
-          method: "get",
+          method: "post",
+          credentials: "include",
+          body,
+        };
+      },
+    }),
+    refreshQuests: builder.mutation({
+      query: (body: any) => {
+        return {
+          url: "/api/v1/quest/refreshQuest",
+          method: "post",
           credentials: "include",
           body,
         };
@@ -51,4 +61,6 @@ export const {
   useGetQuestQuery,
   useCreateQuestMutation,
   useGetProfileQuestQuery,
+  useCompleteQuestMutation,
+  useRefreshQuestsMutation,
 } = questApi;

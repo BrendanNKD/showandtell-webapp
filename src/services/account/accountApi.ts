@@ -30,7 +30,7 @@ export const accountApi = createApi({
         };
       },
     }),
-    
+
     addProfile: builder.mutation({
       query: (body: ProfileResponseModel) => {
         return {
@@ -52,6 +52,17 @@ export const accountApi = createApi({
         };
       },
     }),
+
+    addStars: builder.mutation({
+      query: (body: any) => {
+        return {
+          url: "/api/v1/profile/awardStars",
+          method: "post",
+          credentials: "include",
+          body,
+        };
+      },
+    }),
   }),
 });
 
@@ -60,5 +71,5 @@ export const {
   useAddProfileMutation,
   useUpdateProfileMutation,
   useGetLevelQuery,
-  
+  useAddStarsMutation,
 } = accountApi;

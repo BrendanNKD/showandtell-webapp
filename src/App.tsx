@@ -13,6 +13,7 @@ import Dashboard from "views/Dashboard";
 import Register from "views/Register";
 import { GenerateChoose } from "views/Generation-choose";
 import { GenerateEmpty } from "views/Generation";
+import PlaygroundChoose from "views/Playground-choose";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/quest" element={<Quest />} />
         <Route path="/generate" element={<GenerateEmpty />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/PlaygroundChoose" element={<PlaygroundChoose />} />
       </Routes>
     </Router>
   );

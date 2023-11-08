@@ -1,43 +1,68 @@
 import { UseAuthenticatedRoute } from "utils/authRoute";
 // import { UseProfile } from "app/state/profile/useProfile";
 import Navbar from "components/navBar";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import DragDrop from "components/dragAndDrop";
 import Footer from "components/footer";
 import { useGenerateCaption } from "app/hooks/useGenerate";
 import { useCheck, useOpenAiCompletion } from "app/hooks/useOpenAiCompletion";
 import TextToSpeech from "components/textToSpeech";
-import { useSaveCollection } from "app/hooks/useCollection";
 import { UseProfile, UseProfileIndex } from "app/state/profile/useProfile";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Modal } from "components/modal";
-import { useAddProfile, useSetProfile } from "app/hooks/useAccount";
+import {
+  useAddProfile,
+  useAddStars,
+  useSetProfile,
+} from "app/hooks/useAccount";
+import { useSaveCollection } from "app/hooks/useCollection";
+import { useCompleteQuestMutation } from "services/quest";
 
 export const GenerateEmpty = () => {
   // Redirect user to profile if they are authenticate
   // const profile = UseProfile();
+  const profile: any = UseProfile();
+  const profileIndex = UseProfileIndex();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   UseAuthenticatedRoute();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [imageCaption, setImageCaption] = useState<string | null>(null);
   const [imageDescription, setImageDescription] = useState<string | null>(null);
-  const profile = UseProfile();
-  const profileIndex = UseProfileIndex();
   const { generate, caption, captionloading } = useGenerateCaption();
   const { update, updateDataloading } = useSaveCollection();
   const { addNewProfile, addProfileLoading, isaddProfileSuccess } =
     useAddProfile();
   const { completion, description, descriptionloading } = useOpenAiCompletion();
   const { checkAnswer, answer, answerSuccess, answerloading } = useCheck();
+  const { updateStars, newStarsData, isnewStarsSuccess, newStarsLoading } =
+    useAddStars();
+  const [completeQuest, { data: result, isLoading: completeQuestloading }] =
+    useCompleteQuestMutation();
+  const [selectedIssues, setSelectedIssues] = useState<string[]>([]);
+  const [otherIssue, setOtherIssue] = useState<string>("");
+
+  const handleNavigationAndRefresh = () => {
+    // Navigate to a different route
+    navigate("/dashboard");
+
+    // Refresh the page after navigation
+    window.location.reload();
+  };
 
   const handleGenerateCaption = async () => {
+    console.log(String(searchParams.get("category")));
     if (selectedImage) {
       await generate({
         image: selectedImage,
         category: String(searchParams.get("category")),
       });
     }
+  };
+
+  const emptyClick = async () => {
+    console.log(selectedIssues);
+    console.log(otherIssue);
   };
 
   const handleSaveContent = async () => {
@@ -56,6 +81,7 @@ export const GenerateEmpty = () => {
         description: imageDescription,
         avatar: profile.profilePic,
       });
+      setShowSuccess((prevShowModal) => !prevShowModal);
     }
   };
 
@@ -68,24 +94,53 @@ export const GenerateEmpty = () => {
 
   useEffect(() => {
     setImageDescription(description);
-    checkAnswer({ caption: imageCaption, sentence: description });
-  }, [description, checkAnswer, imageCaption]);
+    if (description && searchParams.get("caption") != null) {
+      checkAnswer({
+        caption: imageCaption,
+        sentence: String(searchParams.get("caption")),
+      });
+    }
+  }, [description, searchParams, checkAnswer, imageCaption]);
 
-  const emptyClick = () => {
-    // console.log(index);
-    // dispatch(setProfile(index));
+  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = event.target;
+
+    if (checked) {
+      setSelectedIssues([...selectedIssues, name]);
+    } else {
+      setSelectedIssues(selectedIssues.filter((item) => item !== name));
+    }
   };
 
+  const handleOtherIssueChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setOtherIssue(event.target.value);
+  };
   useEffect(() => {
-    if (searchParams.get("caption")) {
-      if (String(answer).includes("True")) {
-        console.log("You are correct!");
-      }
+    if (String(answer).includes("True")) {
+      console.log("You are correct!");
+      setShowQuest(true);
+      updateStars({
+        awardStars: 200,
+        profileId: profile._id,
+      });
     }
-  }, [answer, searchParams]);
+  }, [answer, updateStars, profile._id]);
 
-  //report function stuf
+  useEffect(() => {
+    if (newStarsData) {
+      completeQuest({
+        profileId: profile._id,
+        questIndex: String(searchParams.get("index")),
+      });
+    }
+  }, [newStarsData, completeQuest, profile._id, searchParams]);
+
+  //report function stuff
   const [showModal, setShowModal] = useState(false);
+  //success pop-up
+  const [showSuccess, setShowSuccess] = useState(false);
+  //quest complete popup
+  const [showQuest, setShowQuest] = useState(false);
 
   return (
     <div className="bg-transparent flex flex-row justify-center w-full">
@@ -130,8 +185,22 @@ export const GenerateEmpty = () => {
                 <p>Caption not generated.</p>
               )}
             </div>
+            <Modal
+              title=""
+              setShowModal={setShowQuest}
+              showModal={showQuest}
+              buttonFn={handleNavigationAndRefresh}
+              loading={addProfileLoading}
+              element={
+                <>
+                  <div className="flex flex-col py-2 [font-family:'lapsus',Helvetica] text-[75px] tracking-[0.82px]">
+                    Quest complete!
+                  </div>
+                </>
+              }
+            ></Modal>
             {/*Description box*/}
-            <div className="absolute w-[674px] h-[130px] top-[571px] left-[180px] bg-[#e2e3e4] p-3 rounded-[10px]">
+            <div className="absolute w-[674px] top-[571px] left-[180px] bg-[#e2e3e4] p-3 rounded-[10px] min-h-fit max-h-225px">
               {imageDescription ? (
                 <>
                   <div className="flex flex-col">
@@ -152,7 +221,7 @@ export const GenerateEmpty = () => {
               <div className="absolute w-[674px] h-[382px] top-0 left-0 bg-[#e2e3e4]">
                 {selectedImage ? (
                   <img
-                    className="w-full h-full object-cover transition-all duration-300 rounded-lg cursor-pointer filter"
+                    className="w-full h-full object-contain transition-all duration-300 rounded-lg cursor-pointer filter"
                     src={selectedImage}
                     alt="description"
                   />
@@ -165,16 +234,27 @@ export const GenerateEmpty = () => {
                 )}
               </div>
             </div>
-            {/*text to speech button*/}
-            <img
-              className="absolute w-[77px] h-[83px] top-[722px] left-[537px]"
-              alt="Group"
-              src="https://c.animaapp.com/xYMQ48TT/img/group-2@2x.png"
-            />
+
             {/*save button*/}
+            <Modal
+              title="Save to Collection"
+              setShowModal={setShowSuccess}
+              showModal={showSuccess}
+              buttonFn={emptyClick}
+              loading={addProfileLoading}
+              element={
+                <>
+                  <div className="flex flex-col py-2 [font-family:'lapsus',Helvetica] text-[75px] tracking-[0.82px]">
+                    Success!
+                  </div>
+                </>
+              }
+            ></Modal>
             <button
-              className="absolute w-[115px] h-[70px] top-[727px] left-[386px]"
-              onClick={handleSaveContent}
+              className="absolute w-[115px] h-[70px] top-[727px] left-[875px]"
+              onClick={function (event) {
+                handleSaveContent();
+              }}
               disabled={
                 descriptionloading || captionloading || updateDataloading
               }
@@ -229,106 +309,43 @@ export const GenerateEmpty = () => {
                         <br />
                       </label>
 
-                      <label
-                        style={{ fontSize: 32, letterSpacing: 0.2 }}
-                        className="[font-family:'gillsans',Helvetica]"
-                      >
+                      <label>
                         <input
                           type="checkbox"
-                          className="
-                       peer relative appearance-none shrink-0 w-6 h-6 border-2 border-blue-200 rounded-sm mt-1 bg-white
-                       focus:outline-none focus:ring-offset-0 focus:ring-1 focus:ring-blue-100
-                       checked:bg-blue-500 checked:border-0
-                       disabled:border-steel-400 disabled:bg-steel-400
-                       [font-family:'gillsans',Helvetica]"
-                          name="inaccurate captions"
+                          name="inaccurateCaptions"
+                          onChange={handleCheckboxChange}
                         />
                         <span> Inaccurate captions </span>
                         <br />
                       </label>
-                      <label
-                        style={{ fontSize: 32, letterSpacing: 0.2 }}
-                        className="[font-family:'gillsans',Helvetica]"
-                      >
+                      <label>
                         <input
                           type="checkbox"
-                          className="
-                       peer relative appearance-none shrink-0 w-6 h-6 border-2 border-blue-200 rounded-sm mt-1 bg-white
-                       focus:outline-none focus:ring-offset-0 focus:ring-1 focus:ring-blue-100
-                       checked:bg-blue-500 checked:border-0
-                       disabled:border-steel-400 disabled:bg-steel-400
-                       [font-family:'gillsans',Helvetica]"
-                          name="sound problem"
+                          name="soundProblem"
+                          onChange={handleCheckboxChange}
                         />
                         <span> Sound problem </span>
                         <br />
                       </label>
-                      <label
-                        style={{ fontSize: 32, letterSpacing: 0.2 }}
-                        className="[font-family:'gillsans',Helvetica]"
-                      >
+                      <label>
                         <input
                           type="checkbox"
-                          className="
-                       peer relative appearance-none shrink-0 w-6 h-6 border-2 border-blue-200 rounded-sm mt-1 bg-white
-                       focus:outline-none focus:ring-offset-0 focus:ring-1 focus:ring-blue-100
-                       checked:bg-blue-500 checked:border-0
-                       disabled:border-steel-400 disabled:bg-steel-400
-                       [font-family:'gillsans',Helvetica]"
-                          name="sound problem"
+                          name="somethingElse"
+                          onChange={handleCheckboxChange}
                         />
                         <span> Something else: </span>
                         <br />
                       </label>
 
                       <textarea
-                        className="
-                      appearance-none shrink-0 w-150 h-70 border-2 border-blue-200 rounded-sm mt-1 bg-white
-                      disabled:border-steel-400 disabled:bg-steel-400
-                      [font-family:'gillsans',Helvetica] "
+                        value={otherIssue}
+                        onChange={handleOtherIssueChange}
                         rows={5}
                         cols={35}
                         placeholder={"Let us know what's wrong"}
                       />
                     </form>
                   </div>
-                  {/*
-
-                  <div className="flex flex-col py-2">
-                    <div className="relative w-[222px] h-[86px]">
-                      <div className="absolute w-[222px] h-[78px] top-[7px] left-0 bg-[#67ac44] rounded-[30px]" />
-                      <div className="absolute w-[222px] h-[78px] top-0 left-0 bg-[#84c455] rounded-[30px]" />
-                      <div className="absolute w-[142px] top-[15px] left-[39px] [font-family:'Lapsus_Pro-Bold',Helvetica] font-bold text-black text-[48px] tracking-[1.68px] leading-[normal] whitespace-nowrap">
-                        Submit
-                      </div>
-                    </div>
-                  </div>
-
-                    <div className="absolute w-[344px] top-[5px] left-[78px] [font-family:'Gill_Sans_Infant_Std-Regular',Helvetica] font-normal text-black text-[40px] tracking-[0.40px] leading-[normal] whitespace-nowrap">
-                      Inaccurate captions
-                    </div>
-                  </div>
-                  <div className="flex flex-col py-2">
-                    <div className="absolute w-[50px] h-[50px] top-0 left-0 bg-[#d9d9d9]" />
-                    <div className="absolute w-[344px] top-[5px] left-[78px] [font-family:'Gill_Sans_Infant_Std-Regular',Helvetica] font-normal text-black text-[40px] tracking-[0.40px] leading-[normal] whitespace-nowrap">
-                      Sound problem
-                    </div>
-                  </div>
-                  <div className="flex flex-col py-2">
-                    <div className="absolute w-[50px] h-[50px] top-0 left-0 bg-[#d9d9d9]" />
-                    <div className="absolute w-[344px] top-[5px] left-[78px] [font-family:'Gill_Sans_Infant_Std-Regular',Helvetica] font-normal text-black text-[40px] tracking-[0.40px] leading-[normal] whitespace-nowrap">
-                      Something else:
-                    </div>
-                  </div>
-                  <div className="flex flex-col py-2">
-                    Check all that apply
-                  </div>
-                  <div className="flex flex-col bg-[#e2e3e4]" />
-                  <p className="absolute w-[384px] top-[662px] left-[759px] [font-family:'Inter',Helvetica] font-normal text-black text-[21px] tracking-[0] leading-[normal]">
-                    Let us know what’s going on
-                  </p>
-                  
-                */}
                 </>
               }
             ></Modal>
@@ -395,77 +412,9 @@ export const GenerateEmpty = () => {
                   </div>
                 </div>
               </button>
-              {/*
-            <img
-              className="absolute w-[72px] h-[51px] top-[89px] left-[194px]"
-              alt="Frame"
-              src="https://c.animaapp.com/xYMQ48TT/img/frame-5.svg"
-            />
-            <img
-              className="w-[315px] h-[41px] top-[158px] left-[73px] absolute object-cover"
-              alt="Image"
-              src="https://c.animaapp.com/xYMQ48TT/img/image-64-1@2x.png"
-            />
-            */}
             </div>
           </div>
-          {/*
-        <div className="absolute w-[1920px] h-[96px] -top-px left-px bg-white">
-          <img
-            className="absolute w-[81px] h-[81px] top-[8px] left-[1776px]"
-            alt="Frame"
-            src="https://c.animaapp.com/xYMQ48TT/img/frame-3.svg"
-          />
-          <img
-            className="absolute w-[38px] h-[48px] top-[30px] left-[1701px]"
-            alt="Group"
-            src="https://c.animaapp.com/xYMQ48TT/img/group-1@2x.png"
-          />
-          <div className="absolute w-[238px] h-[59px] top-[25px] left-[492px]">
-            <div className="relative w-[236px] h-[59px]">
-              <div className="bg-[#66ae45] absolute w-[236px] h-[53px] top-[6px] left-0 rounded-[13px]" />
-              <div className="bg-[#84c455] absolute w-[236px] h-[53px] top-0 left-0 rounded-[13px]" />
-              <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                Dashboard
-              </div>
-            </div>
-          </div>
-          <div className="absolute w-[238px] h-[59px] top-[25px] left-[1039px]">
-            <div className="relative w-[236px] h-[59px]">
-              <div className="bg-[#facd0a] absolute w-[236px] h-[53px] top-[6px] left-0 rounded-[13px]" />
-              <div className="bg-[#fae55a] absolute w-[236px] h-[53px] top-0 left-0 rounded-[13px]" />
-              <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                Collection
-              </div>
-            </div>
-          </div>
-          <div className="absolute w-[238px] h-[59px] top-[25px] left-[1326px]">
-            <div className="relative w-[236px] h-[59px]">
-              <div className="bg-[#e78324] absolute w-[236px] h-[53px] top-[6px] left-0 rounded-[13px]" />
-              <div className="bg-[#fcb315] absolute w-[236px] h-[53px] top-0 left-0 rounded-[13px]" />
-              <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                Playground
-              </div>
-            </div>
-          </div>
-          <div className="absolute w-[207px] h-[59px] top-[25px] left-[781px]">
-            <div className="relative w-[205px] h-[59px]">
-              <div className="absolute w-[205px] h-[53px] top-[6px] left-0 bg-[#53c2ef] rounded-[13px]" />
-              <div className="absolute w-[205px] h-[53px] top-0 left-0 bg-[#9cdcf9] rounded-[13px]" />
-              <div className="absolute w-[180px] top-[6px] left-[12px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                Generate
-              </div>
-            </div>
-          </div>
-          <img
-            className="absolute w-[219px] h-[37px] top-[41px] left-[70px]"
-            alt="Frame"
-            src="https://c.animaapp.com/xYMQ48TT/img/frame-2.svg"
-          />
         </div>
-  */}
-        </div>
-        <Footer />
       </div>
     </div>
   );

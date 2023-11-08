@@ -1,6 +1,7 @@
 import { UseUsername } from "app/state/account/useAccount";
 import React, { useCallback, useEffect, useState } from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
+import Navbar from "components/navBar";
 
 export const Game = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -36,6 +37,9 @@ export const Game = () => {
   }, [addEventListener, removeEventListener, handleStart]);
 
   return (
+    <div>
+    <Navbar></Navbar>
+    
     <Unity
       style={{
         width: "100%",
@@ -44,5 +48,6 @@ export const Game = () => {
       }}
       unityProvider={unityProvider}
     />
+    </div>
   );
 };
