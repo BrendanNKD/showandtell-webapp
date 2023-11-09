@@ -11,6 +11,7 @@ import { defaultPics } from "utils/profilePic";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import ProgressBar from "components/progressBar";
 import categoryVal from "components/quest/categoryValues";
+import ReactAudioPlayer from 'react-audio-player';
 
 const Dashboard = () => {
   const { data: levelData } = useGetLevelQuery();
@@ -187,6 +188,13 @@ const Dashboard = () => {
                     .darkcolor!,
               }}
             ></div>
+            <div className="dashboardplayer">
+            <ReactAudioPlayer
+                src="/assets/Homepage1.mp3"
+                autoPlay={true}
+                controls
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -13,6 +13,7 @@ import {
   useGetLevelQuery,
 } from "services/account/accountApi";
 import { useDispatch } from "react-redux";
+import ReactAudioPlayer from 'react-audio-player';
 
 const Quest = () => {
   const currentprofile: any = UseProfile();
@@ -135,6 +136,13 @@ const Quest = () => {
                 {/*<ProgressBar bgcolor="#84c455" progress={currentprofile?.stars} max={nextLimit} height={60} />
               </div>*/}
               </div>
+              <div className="questplayer">
+              <ReactAudioPlayer
+                  src="/assets/Homepage2.mp3"
+                  autoPlay={true}
+                  controls
+                />
+            </div>
             </div>
           </div>
         </div>
