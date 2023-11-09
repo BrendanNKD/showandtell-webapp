@@ -5,8 +5,12 @@ import { UseIsAuthenticated } from "app/state/account/useAuthenticated";
 import { UseProfile } from "app/state/profile/useProfile";
 import { defaultPics } from "utils/profilePic";
 import useSound from "use-sound";
+import ReactAudioPlayer from 'react-audio-player';
+import './audio.css';
+
 const Navbar = () => {
-  const [dashboardplay, { stop }] = useSound("/assets/Homepage1.mp3");
+  //const [dashboardplay, { stop: stopDashboard }] = useSound("/assets/Homepage1.mp3");
+  //const [collectionplay, { stop: stopCollection }] = useSound("/assets/Homepage.mp3");
   const { signOut } = useSignOut();
   const [isOpen, setIsOpen] = useState(false);
   const isAuthenticated = UseIsAuthenticated();
@@ -166,7 +170,8 @@ const Navbar = () => {
                 <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
                   <button
                     onClick={() => {
-                      dashboardplay();
+                      //stopCollection();
+                      //dashboardplay();
                       navigate("/dashboard");
                     }}
                   >
@@ -182,7 +187,8 @@ const Navbar = () => {
                 <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
                   <button
                     onClick={() => {
-                      stop();
+                      //stopDashboard();
+                      //collectionplay();
                       navigate("/collection");
                     }}
                   >
@@ -245,6 +251,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+
     </>
   );
 

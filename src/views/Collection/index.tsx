@@ -5,7 +5,7 @@ import Navbar from 'components/navBar';
 import { CollectionCard } from 'components/collection';
 import { UseCollection } from 'app/state/collection';
 import './Collection.css';
-
+import ReactAudioPlayer from 'react-audio-player';
 
 
 const Collection = () => {
@@ -83,6 +83,14 @@ const Collection = () => {
         </button>
       </Modal>
       
+      </div>
+      <div className="collectionplayer">
+        <ReactAudioPlayer
+          src="/assets/Homepage3.mp3"
+          autoPlay={true}
+          controls
+          loop
+        />
       </div>
     </div>
     </div>

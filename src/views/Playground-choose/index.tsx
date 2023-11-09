@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "components/navBar";
 import { useNavigate } from "react-router-dom";
+import ReactAudioPlayer from 'react-audio-player';
 
 const PlaygroundChoose = () => {
     const navigate = useNavigate();
@@ -69,6 +70,13 @@ const PlaygroundChoose = () => {
                 Art
               </div>
             </div>
+          </div>
+          <div className="playgroundchooseplayer">
+            <ReactAudioPlayer
+                src="/assets/Homepage4.mp3"
+                autoPlay={true}
+                controls
+              />
           </div>
         </div>
       </div>

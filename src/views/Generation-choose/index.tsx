@@ -8,6 +8,7 @@ import "swiper/css";
 
 // import required modules
 import { Navigation, Pagination } from "swiper/modules";
+import ReactAudioPlayer from 'react-audio-player';
 
 export const GenerateChoose = (): JSX.Element => {
   const swiperStyle = {
@@ -342,6 +343,14 @@ export const GenerateChoose = (): JSX.Element => {
               </SwiperSlide>
             </div>
           </Swiper>
+          <div className="generatechooseplayer">
+            <ReactAudioPlayer
+                src="/assets/Homepage.mp3"
+                autoPlay={true}
+                controls
+                loop
+              />
+          </div>
         </div>
       </div>
     </div>
