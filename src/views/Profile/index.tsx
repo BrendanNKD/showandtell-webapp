@@ -15,8 +15,10 @@ import { defaultPics } from "utils/profilePic";
 import { useChangePassword } from "app/hooks/useCognitoAuth";
 import toast, { Toaster } from "react-hot-toast";
 import { UseEmail } from "app/state/account/useAccount";
+import { UseAuthenticatedRoute } from "utils/authRoute";
 
 const Profile = () => {
+  UseAuthenticatedRoute();
   const currentprofile = UseProfile();
   const currentemail = UseEmail();
   const profileIndex = UseProfileIndex();
@@ -32,7 +34,7 @@ const Profile = () => {
     totalStars: 0,
   });
 
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [email, setEmail] = useState("");
 
   const [passwords, setPasswords] = useState({
@@ -72,10 +74,24 @@ const Profile = () => {
   const handleTabChange = (tab: "profile" | "password") => {
     setActiveTab(tab);
   };
-
   const handleProfilePicChange = async () => {
     if (profileIndex !== null && profile && selectedImage) {
-      await update({ index: profileIndex, profile: profile });
+      console.log(selectedImage);
+
+      // Update the profile using the callback in setProfile
+      setProfile((prevProfile) => {
+        const updatedProfile = { ...prevProfile, profilePic: selectedImage };
+        return updatedProfile;
+      });
+
+      // Note: the console.log(profile) here might still display the older state due to its asynchronous nature.
+
+      // If the 'update' function needs the latest profile, you might use the 'selectedImage' directly
+      await update({
+        index: profileIndex,
+        profile: { ...profile, profilePic: selectedImage },
+      });
+
       setCurrentProfilePic(selectedImage);
     }
   };

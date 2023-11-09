@@ -13,9 +13,11 @@ import {
   useGetLevelQuery,
 } from "services/account/accountApi";
 import { useDispatch } from "react-redux";
-import ReactAudioPlayer from 'react-audio-player';
+import ReactAudioPlayer from "react-audio-player";
+import { UseAuthenticatedRoute } from "utils/authRoute";
 
 const Quest = () => {
+  UseAuthenticatedRoute();
   const currentprofile: any = UseProfile();
   const [activeTab, setActiveTab] = useState("achievement"); // Initialize the active tab state
   const [nextLimit, setNextLimit] = useState<number | null>(null);
@@ -137,12 +139,12 @@ const Quest = () => {
               </div>*/}
               </div>
               <div className="questplayer">
-              <ReactAudioPlayer
+                <ReactAudioPlayer
                   src="/assets/Homepage2.mp3"
                   autoPlay={true}
                   controls
                 />
-            </div>
+              </div>
             </div>
           </div>
         </div>

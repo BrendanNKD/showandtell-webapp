@@ -2,8 +2,10 @@ import { UseUsername } from "app/state/account/useAccount";
 import React, { useCallback, useEffect, useState } from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
 import Navbar from "components/navBar";
+import { UseAuthenticatedRoute } from "utils/authRoute";
 
 export const Game = () => {
+  UseAuthenticatedRoute();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [score, setScore] = useState();
   const username = UseUsername();

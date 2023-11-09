@@ -1,10 +1,12 @@
 import React from "react";
 import Navbar from "components/navBar";
 import { useNavigate } from "react-router-dom";
-import ReactAudioPlayer from 'react-audio-player';
+import ReactAudioPlayer from "react-audio-player";
+import { UseAuthenticatedRoute } from "utils/authRoute";
 
 const PlaygroundChoose = () => {
-    const navigate = useNavigate();
+  UseAuthenticatedRoute();
+  const navigate = useNavigate();
   return (
     <div className="bg-transparent flex flex-row justify-center w-full">
       <div className="overflow-hidden bg-[url(https://c.animaapp.com/tZB0JjG7/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
@@ -15,15 +17,17 @@ const PlaygroundChoose = () => {
         <div className="absolute w-[917px] h-[181px] top-[259px] left-[480px]">
           <div className="absolute w-[652px] h-[168px] top-[8px] left-[265px] bg-[url(https://c.animaapp.com/tZB0JjG7/img/vector-1.svg)] bg-[100%_100%]">
             <p className="absolute w-[411px] top-[25px] left-[111px] [font-family:'gillsans',Helvetica] font-normal text-black text-[21px] tracking-[0.21px] leading-[normal]">
-              Welcome to our world of kid-friendly jigsaw puzzles! Our delightful collection of puzzles is designed to
-              captivate young minds, offering hours of creative play while honing problem-solving skills.
+              Welcome to our world of kid-friendly jigsaw puzzles! Our
+              delightful collection of puzzles is designed to captivate young
+              minds, offering hours of creative play while honing
+              problem-solving skills.
             </p>
-            <button onClick={()=> navigate('/gaming')}>
-            <img
-              className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
-              alt="Frame"
-              src="https://c.animaapp.com/tZB0JjG7/img/frame-4.svg"
-            />
+            <button onClick={() => navigate("/gaming")}>
+              <img
+                className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
+                alt="Frame"
+                src="https://c.animaapp.com/tZB0JjG7/img/frame-4.svg"
+              />
             </button>
           </div>
           <div className="absolute w-[353px] h-[181px] top-0 left-0">
@@ -44,15 +48,17 @@ const PlaygroundChoose = () => {
         <div className="absolute w-[917px] h-[181px] top-[484px] left-[480px]">
           <div className="absolute w-[652px] h-[168px] top-[3px] left-[265px] bg-[url(https://c.animaapp.com/tZB0JjG7/img/vector-1.svg)] bg-[100%_100%]">
             <p className="absolute w-[411px] top-[25px] left-[111px] [font-family:'gillsans',Helvetica] font-normal text-black text-[21px] tracking-[0.21px] leading-[normal]">
-              Step into the realm of creativity and artistry with our image creation platform. Unleash your imagination
-              and craft stunning visual masterpieces with ease. Dive into a world of color, shapes, and innovation.
+              Step into the realm of creativity and artistry with our image
+              creation platform. Unleash your imagination and craft stunning
+              visual masterpieces with ease. Dive into a world of color, shapes,
+              and innovation.
             </p>
-            <button onClick={() => navigate('/playground')}>
-                <img
+            <button onClick={() => navigate("/playground")}>
+              <img
                 className="absolute w-[77px] h-[83px] top-[43px] left-[543px]"
                 alt="Frame"
                 src="https://c.animaapp.com/tZB0JjG7/img/frame-3.svg"
-                />
+              />
             </button>
           </div>
           <div className="absolute w-[353px] h-[181px] top-0 left-0">
@@ -73,10 +79,10 @@ const PlaygroundChoose = () => {
           </div>
           <div className="playgroundchooseplayer">
             <ReactAudioPlayer
-                src="/assets/Homepage4.mp3"
-                autoPlay={true}
-                controls
-              />
+              src="/assets/Homepage4.mp3"
+              autoPlay={true}
+              controls
+            />
           </div>
         </div>
       </div>
