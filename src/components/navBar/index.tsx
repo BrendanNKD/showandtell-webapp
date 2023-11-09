@@ -4,9 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { UseIsAuthenticated } from "app/state/account/useAuthenticated";
 import { UseProfile } from "app/state/profile/useProfile";
 import { defaultPics } from "utils/profilePic";
-import useSound from "use-sound";
-import ReactAudioPlayer from 'react-audio-player';
-import './audio.css';
+import "./audio.css";
 
 const Navbar = () => {
   //const [dashboardplay, { stop: stopDashboard }] = useSound("/assets/Homepage1.mp3");
@@ -251,7 +249,6 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-
     </>
   );
 
