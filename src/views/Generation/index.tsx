@@ -3,7 +3,7 @@ import { UseAuthenticatedRoute } from "utils/authRoute";
 import Navbar from "components/navBar";
 import { ChangeEvent, useEffect, useState } from "react";
 import DragDrop from "components/dragAndDrop";
-import { useGenerateCaption } from "app/hooks/useGenerate";
+import { useGenerateCaption, useReportIssue } from "app/hooks/useGenerate";
 import { useCheck, useOpenAiCompletion } from "app/hooks/useOpenAiCompletion";
 import TextToSpeech from "components/textToSpeech";
 import { UseProfile, UseProfileIndex } from "app/state/profile/useProfile";
@@ -12,6 +12,7 @@ import { Modal } from "components/modal";
 import { useAddProfile, useAddStars } from "app/hooks/useAccount";
 import { useSaveCollection } from "app/hooks/useCollection";
 import { useCompleteQuestMutation } from "services/quest";
+import toast, { Toaster } from "react-hot-toast";
 
 export const GenerateEmpty = () => {
   // Redirect user to profile if they are authenticate
@@ -33,6 +34,7 @@ export const GenerateEmpty = () => {
   const [completeQuest] = useCompleteQuestMutation();
   const [selectedIssues, setSelectedIssues] = useState<string[]>([]);
   const [otherIssue, setOtherIssue] = useState<string>("");
+  const { reportIssue, reported, reportLoading } = useReportIssue();
 
   const handleCancelModal = () => {
     setShowQuest(false);
@@ -52,10 +54,31 @@ export const GenerateEmpty = () => {
     }
   };
 
-  const emptyClick = async () => {
+  const submitReport = async () => {
     console.log(selectedIssues);
-    console.log(otherIssue);
+    if (
+      selectedImage &&
+      imageCaption &&
+      imageDescription &&
+      selectedIssues.length !== 0
+    ) {
+      const data = {
+        image: selectedImage,
+        caption: imageCaption,
+        description: imageDescription,
+        issues: selectedIssues,
+        otherIssues: otherIssue,
+      };
+      await reportIssue(data);
+    }
   };
+
+  useEffect(() => {
+    if (reported) {
+      toast.success("Issue Successfully Reported!");
+      setShowModal(false);
+    }
+  }, [reported]);
 
   const handleSaveContent = async () => {
     if (
@@ -138,6 +161,7 @@ export const GenerateEmpty = () => {
     <div className="bg-transparent flex flex-row justify-center w-full">
       <div className="h-fit flex-col justify-center align-middle">
         <Navbar />
+        <Toaster position="top-center" reverseOrder={false} />
         <div className="overflow-hidden bg-[url(https://c.animaapp.com/xYMQ48TT/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
           <button
             onClick={() => {
@@ -234,7 +258,7 @@ export const GenerateEmpty = () => {
               title="Save to Collection"
               setShowModal={setShowSuccess}
               showModal={showSuccess}
-              buttonFn={emptyClick}
+              buttonFn={() => {}}
               cbuttonFn={() => {
                 setShowQuest(false);
                 // Navigate to a different route
@@ -295,12 +319,13 @@ export const GenerateEmpty = () => {
               title="Report problem"
               setShowModal={setShowModal}
               showModal={showModal}
-              buttonFn={emptyClick}
+              buttonFn={submitReport}
               cbuttonFn={() => {
                 setShowModal(false);
               }}
               cancelBnt={true}
-              loading={addProfileLoading}
+              confirmButton={true}
+              loading={reportLoading}
               element={
                 <>
                   <div className="flex flex-col py-2">

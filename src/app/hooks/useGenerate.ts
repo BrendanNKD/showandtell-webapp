@@ -3,6 +3,7 @@ import { useCallback } from "react";
 import {
   useGenCaptionMutation,
   useGenImageMutation,
+  useReportMutation,
 } from "services/replicate/inference";
 
 export const useGenerateCaption = () => {
@@ -36,5 +37,22 @@ export const useGenerateImage = () => {
     generate,
     images,
     imagesloading,
+  };
+};
+
+export const useReportIssue = () => {
+  const [report, { data: reported, isLoading: reportLoading }] =
+    useReportMutation();
+
+  const reportIssue = useCallback(
+    async (reportdata: any) => {
+      await report(reportdata).unwrap();
+    },
+    [report]
+  );
+  return {
+    reportIssue,
+    reported,
+    reportLoading,
   };
 };

@@ -27,7 +27,17 @@ export const generateApi = createApi({
         };
       },
     }),
+    report: builder.mutation({
+      query: (body: any) => {
+        return {
+          url: "/api/v1/generate/report",
+          method: "post",
+          credentials: "include",
+          body,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGenCaptionMutation, useGenImageMutation } = generateApi;
+export const { useGenCaptionMutation, useGenImageMutation,useReportMutation } = generateApi;
