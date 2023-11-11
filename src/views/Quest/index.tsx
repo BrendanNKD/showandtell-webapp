@@ -114,6 +114,8 @@ const Quest = () => {
                               description={item.description}
                               award={100}
                               completed={item.completed}
+                              caption = {item.caption}
+                              questindex = {index}
                             />
                           ))}
                       </div>

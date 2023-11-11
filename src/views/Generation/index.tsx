@@ -156,6 +156,7 @@ export const GenerateEmpty = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   //quest complete popup
   const [showQuest, setShowQuest] = useState(false);
+  console.log(String(searchParams.get("questIndex")));
 
   return (
     <div className="bg-transparent flex flex-row justify-center w-full">

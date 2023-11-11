@@ -1,16 +1,39 @@
 import { FaCheckCircle } from "react-icons/fa";
 import categoryVal from "components/quest/categoryValues";
-
-// const categoryValues = categoryVal;
+import { useNavigate, createSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export const QuestCard = ({
   category,
   description,
   award,
   completed,
+  caption,
+  questindex
 }: IProps) => {
-  // const catColor = categoryValues[category as keyof typeof categoryValues].color!
-  console.log(category);
+  const navigate = useNavigate();
+  const [questIndex, setQuestIndex] = useState<any>(null);
+
+  const passQuestParams = (category: string, caption: string) => {
+    navigate({
+      pathname: "/generate",
+      search: createSearchParams({
+        title: categoryVal[category as keyof typeof categoryVal].title,
+        image: categoryVal[category as keyof typeof categoryVal].image,
+        color: categoryVal[category as keyof typeof categoryVal].color,
+        category: category,
+        caption: caption,
+        index: questIndex,
+      }).toString(),
+    });
+  };
+  
+  useEffect(() => {
+    if (questindex !== -1 && questindex !== null) {
+      setQuestIndex(questindex);
+    }
+  });
+
   return (
     <>
       <button
@@ -21,6 +44,7 @@ export const QuestCard = ({
           backgroundColor:
             categoryVal[category as keyof typeof categoryVal].color!,
         }}
+        onClick={() => passQuestParams(category, caption)}
       >
         <div className="flex justify-start">
           {/*<img
@@ -65,4 +89,6 @@ interface IProps {
   description: string;
   award: number;
   completed: boolean;
+  caption: string;
+  questindex: number;
 }

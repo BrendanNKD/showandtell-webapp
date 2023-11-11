@@ -26,8 +26,100 @@ const Navbar = () => {
   return (
     <>
       <nav>
-        <div className="relative w-[1920px] h-[96px] z-10">
-          <div className="fixed w-[1920px] h-[96px] top-0 left-0 bg-white">
+        <div className="w-full h-[9%] z-10 fixed">
+          <div className="flex flex-row items-center relative w-full h-[100%] top-0 left-0 bg-white drop-shadow-md">
+            {/* logo */}
+            <img
+              className="w-20 sm:w-5 md:w-48 lg:w-48"
+              alt="Frame"
+              src="https://c.animaapp.com/Y2tyLAH0/img/frame.svg"
+              />
+            {/* dashboard */}
+            <div className="flex flex-col w-60 md:w-48 bg-black">
+              <div className="bg-[#66ae45] sm:rounded-full md:rounded-lg lg:rounded-xl">
+                <div className="bg-[#84c455] sm:rounded-full md:rounded-lg lg:rounded-xl">
+                  <div className="flex flex-row justify-center items-center [font-family:'lapsus',Helvetica] font-bold text-white text-[2.3vw] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+                    <button
+                      className=""
+                      onClick={() => {
+                        //stopCollection();
+                        //dashboardplay();
+                        navigate("/dashboard");
+                      }}
+                    >
+                      Dashboard
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* generate choose */}
+            <div className="absolute w-[207px] h-[59px] top-[25px] left-[667px]">
+              <div className="relative w-[205px] h-[59px]">
+                <div className="w-[205px] bg-[#53c2ef] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
+                <div className="w-[205px] bg-[#9cdcf9] absolute h-[53px] top-0 left-0 rounded-[13px]" />
+                <div className="absolute w-[180px] top-[6px] left-[12px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+                  <button
+                    onClick={() => {
+                      navigate("/generateChoose");
+                    }}
+                  >
+                    Generate
+                  </button>
+                </div>
+              </div>
+            </div>
+            {/* Collection */}
+            <div className="absolute w-[238px] h-[59px] top-[25px] left-[925px]">
+              <div className="relative w-[236px] h-[59px]">
+                <div className="w-[236px] bg-[#facd0a] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
+                <div className="w-[236px] bg-[#fae55a] absolute h-[53px] top-0 left-0 rounded-[13px]" />
+                <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+                  <button
+                    onClick={() => {
+                      //stopDashboard();
+                      //collectionplay();
+                      navigate("/collection");
+                    }}
+                  >
+                    Collection
+                  </button>
+                </div>
+              </div>
+            </div>
+            {/* playground */}
+            <div className="absolute w-[238px] h-[59px] top-[25px] left-[1212px]">
+              <div className="relative w-[236px] h-[59px]">
+                <div className="w-[236px] bg-[#e78324] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
+                <div className="w-[236px] bg-[#fcb315] absolute h-[53px] top-0 left-0 rounded-[13px]" />
+                <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+                  <button
+                    onClick={() => {
+                      navigate("/PlaygroundChoose");
+                    }}
+                  >
+                    Playground
+                  </button>
+                </div>
+              </div>
+            </div>
+            {/* quest */}
+            <div className="absolute w-[157px] h-[59px] top-[25px] left-[1493px]">
+              <div className="relative w-[155px] h-[59px]">
+                <div className="w-[155px] bg-[#595aa4] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
+                <div className="w-[155px] bg-[#8b8dff] absolute h-[53px] top-0 left-0 rounded-[13px]" />
+                <div className="absolute w-[127px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+                  <button
+                    onClick={() => {
+                      navigate("/quest");
+                    }}
+                  >
+                    Quest
+                  </button>
+                </div>
+              </div>
+            </div>
+            {/* profile icon */}
             <div className="absolute w-[156px] h-[81px] top-[8px] left-[1701px]">
               {isAuthenticated ? (
                 <>
@@ -161,91 +253,6 @@ const Navbar = () => {
                 </button>
               )}
             </div>
-            <div className="absolute w-[238px] h-[59px] top-[25px] left-[378px]">
-              <div className="relative w-[236px] h-[59px]">
-                <div className="absolute w-[236px] h-[53px] top-[6px] left-0 bg-[#66ae45] rounded-[13px]" />
-                <div className="absolute w-[236px] h-[53px] top-0 left-0 bg-[#84c455] rounded-[13px]" />
-                <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                  <button
-                    onClick={() => {
-                      //stopCollection();
-                      //dashboardplay();
-                      navigate("/dashboard");
-                    }}
-                  >
-                    Dashboard
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="absolute w-[238px] h-[59px] top-[25px] left-[925px]">
-              <div className="relative w-[236px] h-[59px]">
-                <div className="w-[236px] bg-[#facd0a] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
-                <div className="w-[236px] bg-[#fae55a] absolute h-[53px] top-0 left-0 rounded-[13px]" />
-                <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                  <button
-                    onClick={() => {
-                      //stopDashboard();
-                      //collectionplay();
-                      navigate("/collection");
-                    }}
-                  >
-                    Collection
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="absolute w-[238px] h-[59px] top-[25px] left-[1212px]">
-              <div className="relative w-[236px] h-[59px]">
-                <div className="w-[236px] bg-[#e78324] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
-                <div className="w-[236px] bg-[#fcb315] absolute h-[53px] top-0 left-0 rounded-[13px]" />
-                <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                  <button
-                    onClick={() => {
-                      navigate("/PlaygroundChoose");
-                    }}
-                  >
-                    Playground
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="absolute w-[157px] h-[59px] top-[25px] left-[1493px]">
-              <div className="relative w-[155px] h-[59px]">
-                <div className="w-[155px] bg-[#595aa4] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
-                <div className="w-[155px] bg-[#8b8dff] absolute h-[53px] top-0 left-0 rounded-[13px]" />
-                <div className="absolute w-[127px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                  <button
-                    onClick={() => {
-                      navigate("/quest");
-                    }}
-                  >
-                    Quest
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="absolute w-[207px] h-[59px] top-[25px] left-[667px]">
-              <div className="relative w-[205px] h-[59px]">
-                <div className="w-[205px] bg-[#53c2ef] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
-                <div className="w-[205px] bg-[#9cdcf9] absolute h-[53px] top-0 left-0 rounded-[13px]" />
-                <div className="absolute w-[180px] top-[6px] left-[12px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                  <button
-                    onClick={() => {
-                      navigate("/generateChoose");
-                    }}
-                  >
-                    Generate
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <img
-              className="absolute w-[219px] h-[37px] top-[41px] left-[70px]"
-              alt="Frame"
-              src="https://c.animaapp.com/Y2tyLAH0/img/frame.svg"
-            />
           </div>
         </div>
       </nav>
