@@ -27,100 +27,116 @@ const Navbar = () => {
     <>
       <nav>
         <div className="w-full h-[9%] z-10 fixed">
-          <div className="flex flex-row items-center relative w-full h-[100%] top-0 left-0 bg-white drop-shadow-md">
+          <div className="flex flex-row justify-evenly items-center relative w-full h-[100%] top-0 left-0 bg-white drop-shadow-md space-x-1">
             {/* logo */}
+            <button
+                    onClick={() => {
+                      navigate("/");
+                    }}
+                  >
             <img
-              className="w-20 sm:w-5 md:w-48 lg:w-48"
+              className="w-24 md:w-36 lg:w-36"
               alt="Frame"
               src="https://c.animaapp.com/Y2tyLAH0/img/frame.svg"
               />
+            </button>
             {/* dashboard */}
-            <div className="flex flex-col w-60 md:w-48 bg-black">
-              <div className="bg-[#66ae45] sm:rounded-full md:rounded-lg lg:rounded-xl">
-                <div className="bg-[#84c455] sm:rounded-full md:rounded-lg lg:rounded-xl">
-                  <div className="flex flex-row justify-center items-center [font-family:'lapsus',Helvetica] font-bold text-white text-[2.3vw] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+            <div className="flex flex-col w-24 md:w-36 lg:w-50 xl:w-56">
+              <div className="h-5 sm:h-6 md:h-9 l:h-10 xl:h-12 bg-[#66ae45] rounded-3xl md:rounded-lg lg:rounded-xl">
+                <div className="h-4 sm:h-5 md:h-8 l:h-9 xl:h-11 bg-[#84c455] rounded-3xl md:rounded-lg lg:rounded-xl">
+                  <div className="flex flex-row justify-center items-center [font-family:'lapsus',Helvetica] font-bold text-black text-l sm:text-[17px] md:text-3xl lg:text-3xl xl:text-[36px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
                     <button
-                      className=""
+                      className="h-4 sm:h-5 md:h-8 l:h-9 xl:h-11"
                       onClick={() => {
-                        //stopCollection();
-                        //dashboardplay();
-                        navigate("/dashboard");
+                          //stopCollection();
+                           //dashboardplay();
+                      navigate("/dashboard");
                       }}
                     >
-                      Dashboard
+                    Dashboard
                     </button>
                   </div>
                 </div>
               </div>
             </div>
             {/* generate choose */}
-            <div className="absolute w-[207px] h-[59px] top-[25px] left-[667px]">
-              <div className="relative w-[205px] h-[59px]">
-                <div className="w-[205px] bg-[#53c2ef] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
-                <div className="w-[205px] bg-[#9cdcf9] absolute h-[53px] top-0 left-0 rounded-[13px]" />
-                <div className="absolute w-[180px] top-[6px] left-[12px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                  <button
-                    onClick={() => {
+            <div className="flex flex-col w-24 md:w-36 lg:w-50 xl:w-56">
+              <div className="h-5 sm:h-6 md:h-9 l:h-10 xl:h-12 bg-[#53c2ef] rounded-3xl md:rounded-lg lg:rounded-xl">
+                <div className="h-4 sm:h-5 md:h-8 l:h-9 xl:h-11 bg-[#9cdcf9] rounded-3xl md:rounded-lg lg:rounded-xl">
+                  <div className="flex flex-row justify-center items-center [font-family:'lapsus',Helvetica] font-bold text-black text-l sm:text-[17px] md:text-3xl lg:text-3xl xl:text-[36px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+                    <button
+                      className="h-4 sm:h-5 md:h-8 l:h-9 xl:h-11"
+                      onClick={() => {
+                          //stopCollection();
+                           //dashboardplay();
                       navigate("/generateChoose");
-                    }}
-                  >
+                      }}
+                    >
                     Generate
-                  </button>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
             {/* Collection */}
-            <div className="absolute w-[238px] h-[59px] top-[25px] left-[925px]">
-              <div className="relative w-[236px] h-[59px]">
-                <div className="w-[236px] bg-[#facd0a] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
-                <div className="w-[236px] bg-[#fae55a] absolute h-[53px] top-0 left-0 rounded-[13px]" />
-                <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                  <button
-                    onClick={() => {
-                      //stopDashboard();
-                      //collectionplay();
+            <div className="flex flex-col w-24 md:w-36 lg:w-50 xl:w-56">
+              <div className="h-5 sm:h-6 md:h-9 l:h-10 xl:h-12 bg-[#facd0a] rounded-3xl md:rounded-lg lg:rounded-xl">
+                <div className="h-4 sm:h-5 md:h-8 l:h-9 xl:h-11 bg-[#fae55a] rounded-3xl md:rounded-lg lg:rounded-xl">
+                  <div className="flex flex-row justify-center items-center [font-family:'lapsus',Helvetica] font-bold text-black text-l sm:text-[17px] md:text-3xl lg:text-3xl xl:text-[36px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+                    <button
+                      className="h-4 sm:h-5 md:h-8 l:h-9 xl:h-11"
+                      onClick={() => {
+                          //stopCollection();
+                           //dashboardplay();
                       navigate("/collection");
-                    }}
-                  >
+                      }}
+                    >
                     Collection
-                  </button>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
             {/* playground */}
-            <div className="absolute w-[238px] h-[59px] top-[25px] left-[1212px]">
-              <div className="relative w-[236px] h-[59px]">
-                <div className="w-[236px] bg-[#e78324] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
-                <div className="w-[236px] bg-[#fcb315] absolute h-[53px] top-0 left-0 rounded-[13px]" />
-                <div className="absolute w-[207px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                  <button
-                    onClick={() => {
+            <div className="flex flex-col w-24 md:w-36 lg:w-50 xl:w-56">
+              <div className="h-5 sm:h-6 md:h-9 l:h-10 xl:h-12 bg-[#e78324] rounded-3xl md:rounded-lg lg:rounded-xl">
+                <div className="h-4 sm:h-5 md:h-8 l:h-9 xl:h-11 bg-[#fcb315] rounded-3xl md:rounded-lg lg:rounded-xl">
+                  <div className="flex flex-row justify-center items-center [font-family:'lapsus',Helvetica] font-bold text-black text-l sm:text-[17px] md:text-3xl lg:text-3xl xl:text-[36px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+                    <button
+                      className="h-4 sm:h-5 md:h-8 l:h-9 xl:h-11"
+                      onClick={() => {
+                          //stopCollection();
+                           //dashboardplay();
                       navigate("/PlaygroundChoose");
-                    }}
-                  >
+                      }}
+                    >
                     Playground
-                  </button>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
             {/* quest */}
-            <div className="absolute w-[157px] h-[59px] top-[25px] left-[1493px]">
-              <div className="relative w-[155px] h-[59px]">
-                <div className="w-[155px] bg-[#595aa4] absolute h-[53px] top-[6px] left-0 rounded-[13px]" />
-                <div className="w-[155px] bg-[#8b8dff] absolute h-[53px] top-0 left-0 rounded-[13px]" />
-                <div className="absolute w-[127px] top-[6px] left-[14px] [font-family:'lapsus',Helvetica] font-bold text-black text-[43px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                  <button
-                    onClick={() => {
+            <div className="flex flex-col w-24 md:w-36 lg:w-50 xl:w-56">
+              <div className="h-5 sm:h-6 md:h-9 l:h-10 xl:h-12 bg-[#595aa4] rounded-3xl md:rounded-lg lg:rounded-xl">
+                <div className="h-4 sm:h-5 md:h-8 l:h-9 xl:h-11 bg-[#8b8dff] rounded-3xl md:rounded-lg lg:rounded-xl">
+                  <div className="flex flex-row justify-center items-center [font-family:'lapsus',Helvetica] font-bold text-black text-l sm:text-[17px] md:text-3xl lg:text-3xl xl:text-[36px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+                    <button
+                      className="h-4 sm:h-5 md:h-8 l:h-9 xl:h-11"
+                      onClick={() => {
+                          //stopCollection();
+                           //dashboardplay();
                       navigate("/quest");
-                    }}
-                  >
+                      }}
+                    >
                     Quest
-                  </button>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
             {/* profile icon */}
-            <div className="absolute w-[156px] h-[81px] top-[8px] left-[1701px]">
+            <div className="">
               {isAuthenticated ? (
                 <>
                   {/* <button
@@ -144,7 +160,7 @@ const Navbar = () => {
                       />
                     </svg>
                   </button> */}
-                  <div className="relative ml-3 mt-4">
+                  <div className="relative ml-1 sm:ml-3">
                     <div>
                       <button
                         type="button"
@@ -158,7 +174,7 @@ const Navbar = () => {
                         <span className="sr-only">Open user menu</span>
                         {profile && (
                           <img
-                            className="h-16 w-16 rounded-full "
+                            className="w-5 sm:w-7 md:w-7 lg:w-12 xl:w-16 rounded-full "
                             src={defaultPics[profile.profilePic].url}
                             alt=""
                           />
