@@ -1,35 +1,51 @@
-import item1 from "../../../assets/items/1.jpg";
 import { FaCheckCircle } from "react-icons/fa";
-
-const categoryValues = {
-  'animals': {title: "Animals" , image:"https://c.animaapp.com/YStE9pzZ/img/frame-2.svg", color:"#F177AE"},
-  'shapes': {title: "Shapes & Colors" , image:"https://c.animaapp.com/YStE9pzZ/img/frame.svg", color:"#FAE55A"},
-  'vege': {title: "Fruits & Vegetables" , image:"https://c.animaapp.com/NIGs1Y1e/img/frame-7.svg", color:"#9784D6"},
-  'vehicle': {title: "Vehicle" , image:"https://c.animaapp.com/YStE9pzZ/img/frame-1.svg", color:"#885FA8"},
-  'flowers': {title: "Flowers" , image:"https://c.animaapp.com/NIGs1Y1e/img/frame-5.svg", color:"#FCB315"},
-  'food': {title: "Food" , image:"https://c.animaapp.com/NIGs1Y1e/img/frame-6.svg", color:"#80C342"}
-} 
-
-
+import categoryVal from "components/quest/categoryValues";
+import { useNavigate, createSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export const QuestCard = ({
   category,
   description,
   award,
   completed,
+  caption,
+  questindex
 }: IProps) => {
-  const catColor = categoryValues[category as keyof typeof categoryValues].color!
+  const navigate = useNavigate();
+  const [questIndex, setQuestIndex] = useState<any>(null);
+
+  const passQuestParams = (category: string, caption: string) => {
+    navigate({
+      pathname: "/generate",
+      search: createSearchParams({
+        title: categoryVal[category as keyof typeof categoryVal].title,
+        image: categoryVal[category as keyof typeof categoryVal].image,
+        color: categoryVal[category as keyof typeof categoryVal].color,
+        category: category,
+        caption: caption,
+        index: questIndex,
+      }).toString(),
+    });
+  };
+  
+  useEffect(() => {
+    if (questindex !== -1 && questindex !== null) {
+      setQuestIndex(questindex);
+    }
+  });
+
   return (
     <>
-      
       <button
         className={`h-[100px] w-[700px] top-[10px] overflow-y-hidden relative flex flex-row items-center border border-gray-200 rounded-xl shadow hover:bg-gray-200 p-4 ${
           completed ? "opacity-50 pointer-events-none" : ""
-        }`
-        }
-        style={{ backgroundColor: categoryValues[category as keyof typeof categoryValues].color! }}
+        }`}
+        style={{
+          backgroundColor:
+            categoryVal[category as keyof typeof categoryVal].color!,
+        }}
+        onClick={() => passQuestParams(category, caption)}
       >
-        
         <div className="flex justify-start">
           {/*<img
             className="object-cover w-48"
@@ -41,14 +57,15 @@ export const QuestCard = ({
           <img
             className="object-cover w-26"
             alt="Frame"
-            src={categoryValues[category as keyof typeof categoryValues].image!}
+            src={categoryVal[category as keyof typeof categoryVal].image!}
           />
         </div>
 
         <div className="flex flex-col justify-between p-4 leading-normal w-full">
           <div className="flex justify-start m-1">
-            <h5 className="text-[25px] tracking-[0.85px] [font-family:'lapsus',Helvetica] font-bold tracking-tight text-black">
-              Category: {categoryValues[category as keyof typeof categoryValues].title!}
+            <h5 className="text-[25px] tracking-[0.85px] [font-family:'lapsus',Helvetica] font-bold  text-black">
+              Category:{" "}
+              {categoryVal[category as keyof typeof categoryVal].title!}
             </h5>
           </div>
 
@@ -72,4 +89,6 @@ interface IProps {
   description: string;
   award: number;
   completed: boolean;
+  caption: string;
+  questindex: number;
 }

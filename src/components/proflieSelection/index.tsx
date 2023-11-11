@@ -1,4 +1,5 @@
 import ProfileSelectionProps from "domain/types/profileSelection";
+import { SetStateAction } from "react";
 import { defaultPics } from "utils/profilePic";
 
 export const ProfileSelectionCard = ({
@@ -13,11 +14,11 @@ export const ProfileSelectionCard = ({
           // onClick={handleProfileClick}
         >
           <img
-            className="rounded border-2 border-transparent group-hover:border-2 group-hover:border-gray-300  "
+            className="rounded border-2 border-transparent group-hover:border-2 group-hover:border-gray-300"
             src={defaultPics[object.profilePic].url}
             alt={`Profile ${index + 1}`}
           />
-          <p className="text-gray-500 group-hover:text-gray-300">
+          <p className="text-black group-hover:text-gray-300">
             {object.firstName}
           </p>
         </button>
@@ -25,32 +26,33 @@ export const ProfileSelectionCard = ({
     </>
   );
 };
+interface IProps {
+  images: Array<any>;
+  selectedImage: React.Dispatch<SetStateAction<any>>;
+}
+export const ProfilePicSelectionCard: React.FC<IProps> = ({
+  images,
+  selectedImage,
+}) => {
+  const handleChange = (e: React.MouseEvent<HTMLImageElement>) => {
+    e.preventDefault();
+    const { id } = e.currentTarget;
+    selectedImage(id);
+  };
 
-export const ProfilePicSelectionCard: React.FC = () => {
   return (
     <>
-      {defaultPics.map((item, index) => (
-        <div className="relative" key={index}>
+      {images.map((item: any, index: number) => (
+        <button className="relative" key={index}>
           <img
             className="w-20 h-20 rounded-full"
             src={item.url}
             alt={item.label}
-            key={index}
+            id={String(index)} // Convert index to string
+            onClick={handleChange}
           />
-        </div>
+        </button>
       ))}
-      {/* <div className="relative">
-        <img className="w-20 h-20 rounded-full" src={item1} alt="" />
-      </div>
-      <div className="relative">
-        <img className="w-20 h-20 rounded-full" src={item2} alt="" />
-      </div>
-      <div className="relative">
-        <img className="w-20 h-20 rounded-full" src={item3} alt="" />
-      </div>
-      <div className="relative">
-        <img className="w-20 h-20 rounded-full" src={item4} alt="" />
-      </div> */}
     </>
   );
 };

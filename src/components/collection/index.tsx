@@ -4,12 +4,20 @@ import { CollectionProp } from "domain/types/collection/collection";
 import { defaultPics } from "utils/profilePic";
 import truncateText from "utils/truncate";
 import { FaTrash } from "react-icons/fa";
+import { useDeleteCollection } from "app/hooks/useCollection";
 interface IProps {
   collectionData: CollectionProp[];
 }
-
 export const CollectionCard: React.FC<IProps> = ({ collectionData }) => {
   const title = "Collection";
+
+  const { deleteCol } = useDeleteCollection();
+
+  const handleDeleteItem = async (id: string | undefined) => {
+    console.log(id);
+    deleteCol({ profileId: id });
+  };
+
   return (
     <>
       <div className="container">
@@ -58,10 +66,13 @@ export const CollectionCard: React.FC<IProps> = ({ collectionData }) => {
                     <span className="text-slate-400 block text-[16px] mt-1">
                       {truncateText(item.description, 20)}
                     </span>
-                    <button className="bottom-2 right-2 flex items-center bg-red-300 p-2 rounded">
+                    <button
+                      className="bottom-2 right-2 flex items-center bg-red-300 p-2 rounded"
+                      onClick={() => handleDeleteItem(item._id)}
+                    >
                       <FaTrash
                         style={{ color: "red", cursor: "pointer" }}
-                        //onClick={() => handleDeleteItem(index)} // Replace handleDeleteItem with your delete logic
+                        // onClick={() => handleDeleteItem(item._id)} // Replace handleDeleteItem with your delete logic
                       />
                       <span
                         className="text-red-600 ml-1"

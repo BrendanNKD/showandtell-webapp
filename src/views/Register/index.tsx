@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSignIn, useSignUp } from "../../app/hooks/useCognitoAuth";
+import { useSignUp } from "../../app/hooks/useCognitoAuth";
 import { useNavigate } from "react-router-dom";
 import { UseNonAuthenticatedRoute } from "utils/authRoute";
 import toast, { Toaster } from "react-hot-toast";
@@ -169,7 +169,10 @@ const Register = () => {
                 />
               </div>
               <p className="absolute w-[390px] top-[1007px] left-[121px] font-gillsans font-normal text-black text-[28px] tracking-[0.28px] leading-[normal] whitespace-nowrap">
-                Already have an account? Sign in
+                Already have an account?{" "}
+                <span className="underline" onClick={() => navigate("/login")}>
+                  Sign in
+                </span>
               </p>
               <button className="absolute w-[302px] h-[88px] top-[879px] left-[166px] all-[unset] box-border">
                 <div className="relative w-[300px] h-[88px]">

@@ -9,7 +9,7 @@ import {
 export const accountApi = createApi({
   reducerPath: "accountApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000",
+    baseUrl: process.env.REACT_APP_API_PATH,
   }),
   endpoints: (builder) => ({
     getAccount: builder.query<AccountResponseModel, void>({
@@ -30,11 +30,22 @@ export const accountApi = createApi({
         };
       },
     }),
-    
+
     addProfile: builder.mutation({
       query: (body: ProfileResponseModel) => {
         return {
           url: "/api/v1/profile/add",
+          method: "post",
+          credentials: "include",
+          body,
+        };
+      },
+    }),
+
+    deleteProfile: builder.mutation({
+      query: (body: any) => {
+        return {
+          url: "/api/v1/profile/deleteOne",
           method: "post",
           credentials: "include",
           body,
@@ -52,6 +63,17 @@ export const accountApi = createApi({
         };
       },
     }),
+
+    addStars: builder.mutation({
+      query: (body: any) => {
+        return {
+          url: "/api/v1/profile/awardStars",
+          method: "post",
+          credentials: "include",
+          body,
+        };
+      },
+    }),
   }),
 });
 
@@ -60,5 +82,6 @@ export const {
   useAddProfileMutation,
   useUpdateProfileMutation,
   useGetLevelQuery,
-  
+  useAddStarsMutation,
+  useDeleteProfileMutation,
 } = accountApi;

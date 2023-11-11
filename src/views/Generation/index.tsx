@@ -1,35 +1,48 @@
 import { UseAuthenticatedRoute } from "utils/authRoute";
 // import { UseProfile } from "app/state/profile/useProfile";
 import Navbar from "components/navBar";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import DragDrop from "components/dragAndDrop";
-import Footer from "components/footer";
-import { useGenerateCaption } from "app/hooks/useGenerate";
+import { useGenerateCaption, useReportIssue } from "app/hooks/useGenerate";
 import { useCheck, useOpenAiCompletion } from "app/hooks/useOpenAiCompletion";
 import TextToSpeech from "components/textToSpeech";
-import { useSaveCollection } from "app/hooks/useCollection";
 import { UseProfile, UseProfileIndex } from "app/state/profile/useProfile";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Modal } from "components/modal";
-import { useAddProfile, useSetProfile } from "app/hooks/useAccount";
+import { useAddProfile, useAddStars } from "app/hooks/useAccount";
+import { useSaveCollection } from "app/hooks/useCollection";
+import { useCompleteQuestMutation } from "services/quest";
+import toast, { Toaster } from "react-hot-toast";
 
 export const GenerateEmpty = () => {
   // Redirect user to profile if they are authenticate
   // const profile = UseProfile();
+  const profile: any = UseProfile();
+  const profileIndex = UseProfileIndex();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   UseAuthenticatedRoute();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [imageCaption, setImageCaption] = useState<string | null>(null);
   const [imageDescription, setImageDescription] = useState<string | null>(null);
-  const profile = UseProfile();
-  const profileIndex = UseProfileIndex();
   const { generate, caption, captionloading } = useGenerateCaption();
   const { update, updateDataloading } = useSaveCollection();
-  const { addNewProfile, addProfileLoading, isaddProfileSuccess } =
-    useAddProfile();
+  const { addProfileLoading } = useAddProfile();
   const { completion, description, descriptionloading } = useOpenAiCompletion();
-  const { checkAnswer, answer, answerSuccess, answerloading } = useCheck();
+  const { checkAnswer, answer } = useCheck();
+  const { updateStars, newStarsData } = useAddStars();
+  const [completeQuest] = useCompleteQuestMutation();
+  const [selectedIssues, setSelectedIssues] = useState<string[]>([]);
+  const [otherIssue, setOtherIssue] = useState<string>("");
+  const { reportIssue, reported, reportLoading } = useReportIssue();
+
+  const handleCancelModal = () => {
+    setShowQuest(false);
+    // Navigate to a different route
+    navigate("/dashboard");
+    // Refresh the page after navigation
+    navigate(0);
+  };
 
   const handleGenerateCaption = async () => {
     console.log(String(searchParams.get("category")));
@@ -40,6 +53,32 @@ export const GenerateEmpty = () => {
       });
     }
   };
+
+  const submitReport = async () => {
+    console.log(selectedIssues);
+    if (
+      selectedImage &&
+      imageCaption &&
+      imageDescription &&
+      selectedIssues.length !== 0
+    ) {
+      const data = {
+        image: selectedImage,
+        caption: imageCaption,
+        description: imageDescription,
+        issues: selectedIssues,
+        otherIssues: otherIssue,
+      };
+      await reportIssue(data);
+    }
+  };
+
+  useEffect(() => {
+    if (reported) {
+      toast.success("Issue Successfully Reported!");
+      setShowModal(false);
+    }
+  }, [reported]);
 
   const handleSaveContent = async () => {
     if (
@@ -56,8 +95,7 @@ export const GenerateEmpty = () => {
         profileIndex: profileIndex,
         description: imageDescription,
         avatar: profile.profilePic,
-      }
-      );
+      });
       setShowSuccess((prevShowModal) => !prevShowModal);
     }
   };
@@ -71,38 +109,60 @@ export const GenerateEmpty = () => {
 
   useEffect(() => {
     setImageDescription(description);
-    checkAnswer({
-      caption: imageCaption,
-      sentence: String(searchParams.get("caption")),
-    });
+    if (description && searchParams.get("caption") != null) {
+      checkAnswer({
+        caption: imageCaption,
+        sentence: String(searchParams.get("caption")),
+      });
+    }
   }, [description, searchParams, checkAnswer, imageCaption]);
 
-  const emptyClick = () => {
-    // console.log(index);
-    // dispatch(setProfile(index));
+  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = event.target;
+
+    if (checked) {
+      setSelectedIssues([...selectedIssues, name]);
+    } else {
+      setSelectedIssues(selectedIssues.filter((item) => item !== name));
+    }
   };
 
+  const handleOtherIssueChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setOtherIssue(event.target.value);
+  };
   useEffect(() => {
-    if (searchParams.get("caption")) {
-      if (String(answer).includes("True")) {
-        console.log("You are correct!")
-        setShowQuest(true);
-        
-      }
+    if (String(answer).includes("True")) {
+      console.log("You are correct!");
+      setShowQuest(true);
+      updateStars({
+        awardStars: 200,
+        profileId: profile._id,
+      });
     }
-  }, [answer, searchParams]);
+  }, [answer, profile._id, updateStars]);
 
-  //report function stuf
+  useEffect(() => {
+    if (newStarsData) {
+      completeQuest({
+        profileId: profile._id,
+        questIndex: String(searchParams.get("index")),
+      });
+    }
+  }, [newStarsData, completeQuest, profile._id, searchParams]);
+
+  //report function stuff
   const [showModal, setShowModal] = useState(false);
   //success pop-up
   const [showSuccess, setShowSuccess] = useState(false);
   //quest complete popup
   const [showQuest, setShowQuest] = useState(false);
+  console.log(String(searchParams.get("questIndex")));
 
   return (
     <div className="bg-transparent flex flex-row justify-center w-full">
       <div className="h-fit flex-col justify-center align-middle">
         <Navbar />
+        <Toaster position="top-center" reverseOrder={false} />
         <div className="overflow-hidden bg-[url(https://c.animaapp.com/xYMQ48TT/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
           <button
             onClick={() => {
@@ -131,7 +191,7 @@ export const GenerateEmpty = () => {
               />
             </div>
             {/*Caption box*/}
-            <div className="absolute w-[674px] h-[55px] top-[505px] left-[180px] top-0 left-0 bg-[#e2e3e4] p-3 rounded-[10px]">
+            <div className="absolute w-[674px] h-[55px] top-[505px] left-[180px] bg-[#e2e3e4] p-3 rounded-[10px]">
               {caption ? (
                 <>
                   <div className="flex flex-row">
@@ -143,11 +203,13 @@ export const GenerateEmpty = () => {
               )}
             </div>
             <Modal
-              title="Report problem"
+              title="Congrats"
               setShowModal={setShowQuest}
               showModal={showQuest}
-              buttonFn={emptyClick}
+              buttonFn={() => {}}
+              cbuttonFn={handleCancelModal}
               loading={addProfileLoading}
+              cancelBnt={true}
               element={
                 <>
                   <div className="flex flex-col py-2 [font-family:'lapsus',Helvetica] text-[75px] tracking-[0.82px]">
@@ -191,14 +253,20 @@ export const GenerateEmpty = () => {
                 )}
               </div>
             </div>
-          
+
             {/*save button*/}
             <Modal
               title="Save to Collection"
               setShowModal={setShowSuccess}
               showModal={showSuccess}
-              buttonFn={emptyClick}
+              buttonFn={() => {}}
+              cbuttonFn={() => {
+                setShowQuest(false);
+                // Navigate to a different route
+                navigate("/collection");
+              }}
               loading={addProfileLoading}
+              cancelBnt={true}
               element={
                 <>
                   <div className="flex flex-col py-2 [font-family:'lapsus',Helvetica] text-[75px] tracking-[0.82px]">
@@ -209,7 +277,9 @@ export const GenerateEmpty = () => {
             ></Modal>
             <button
               className="absolute w-[115px] h-[70px] top-[727px] left-[875px]"
-              onClick={function(event){handleSaveContent();}}
+              onClick={function (event) {
+                handleSaveContent();
+              }}
               disabled={
                 descriptionloading || captionloading || updateDataloading
               }
@@ -250,8 +320,13 @@ export const GenerateEmpty = () => {
               title="Report problem"
               setShowModal={setShowModal}
               showModal={showModal}
-              buttonFn={emptyClick}
-              loading={addProfileLoading}
+              buttonFn={submitReport}
+              cbuttonFn={() => {
+                setShowModal(false);
+              }}
+              cancelBnt={true}
+              confirmButton={true}
+              loading={reportLoading}
               element={
                 <>
                   <div className="flex flex-col py-2">
@@ -264,63 +339,37 @@ export const GenerateEmpty = () => {
                         <br />
                       </label>
 
-                      <label
-                        style={{ fontSize: 32, letterSpacing: 0.2 }}
-                        className="[font-family:'gillsans',Helvetica]"
-                      >
+                      <label>
                         <input
                           type="checkbox"
-                          className="
-                       peer relative appearance-none shrink-0 w-6 h-6 border-2 border-blue-200 rounded-sm mt-1 bg-white
-                       focus:outline-none focus:ring-offset-0 focus:ring-1 focus:ring-blue-100
-                       checked:bg-blue-500 checked:border-0
-                       disabled:border-steel-400 disabled:bg-steel-400
-                       [font-family:'gillsans',Helvetica]"
-                          name="inaccurate captions"
+                          name="inaccurateCaptions"
+                          onChange={handleCheckboxChange}
                         />
                         <span> Inaccurate captions </span>
                         <br />
                       </label>
-                      <label
-                        style={{ fontSize: 32, letterSpacing: 0.2 }}
-                        className="[font-family:'gillsans',Helvetica]"
-                      >
+                      <label>
                         <input
                           type="checkbox"
-                          className="
-                       peer relative appearance-none shrink-0 w-6 h-6 border-2 border-blue-200 rounded-sm mt-1 bg-white
-                       focus:outline-none focus:ring-offset-0 focus:ring-1 focus:ring-blue-100
-                       checked:bg-blue-500 checked:border-0
-                       disabled:border-steel-400 disabled:bg-steel-400
-                       [font-family:'gillsans',Helvetica]"
-                          name="sound problem"
+                          name="soundProblem"
+                          onChange={handleCheckboxChange}
                         />
                         <span> Sound problem </span>
                         <br />
                       </label>
-                      <label
-                        style={{ fontSize: 32, letterSpacing: 0.2 }}
-                        className="[font-family:'gillsans',Helvetica]"
-                      >
+                      <label>
                         <input
                           type="checkbox"
-                          className="
-                       peer relative appearance-none shrink-0 w-6 h-6 border-2 border-blue-200 rounded-sm mt-1 bg-white
-                       focus:outline-none focus:ring-offset-0 focus:ring-1 focus:ring-blue-100
-                       checked:bg-blue-500 checked:border-0
-                       disabled:border-steel-400 disabled:bg-steel-400
-                       [font-family:'gillsans',Helvetica]"
-                          name="sound problem"
+                          name="somethingElse"
+                          onChange={handleCheckboxChange}
                         />
                         <span> Something else: </span>
                         <br />
                       </label>
 
                       <textarea
-                        className="
-                      appearance-none shrink-0 w-150 h-70 border-2 border-blue-200 rounded-sm mt-1 bg-white
-                      disabled:border-steel-400 disabled:bg-steel-400
-                      [font-family:'gillsans',Helvetica] "
+                        value={otherIssue}
+                        onChange={handleOtherIssueChange}
                         rows={5}
                         cols={35}
                         placeholder={"Let us know what's wrong"}
@@ -396,7 +445,6 @@ export const GenerateEmpty = () => {
             </div>
           </div>
         </div>
-        <Footer />
       </div>
     </div>
   );

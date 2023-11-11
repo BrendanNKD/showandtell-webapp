@@ -3,7 +3,7 @@ import { selectAccount } from "features/accountSlice";
 
 export const UseAccount = () => {
   const { profiles, username } = useAppSelector(selectAccount);
-
+  console.log(profiles);
   return { profiles, username };
 };
 

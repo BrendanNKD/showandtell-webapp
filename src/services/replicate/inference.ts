@@ -1,13 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import {
-  generateCaptionRequest,
-  generateImageRequest,
-} from "domain/types/generate";
+import { generateImageRequest } from "domain/types/generate";
 
 export const generateApi = createApi({
   reducerPath: "generateApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000",
+    baseUrl: process.env.REACT_APP_API_PATH,
   }),
   endpoints: (builder) => ({
     genCaption: builder.mutation({
@@ -30,7 +27,17 @@ export const generateApi = createApi({
         };
       },
     }),
+    report: builder.mutation({
+      query: (body: any) => {
+        return {
+          url: "/api/v1/generate/report",
+          method: "post",
+          credentials: "include",
+          body,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGenCaptionMutation, useGenImageMutation } = generateApi;
+export const { useGenCaptionMutation, useGenImageMutation,useReportMutation } = generateApi;

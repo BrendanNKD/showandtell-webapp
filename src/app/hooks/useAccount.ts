@@ -1,7 +1,12 @@
-import {  setAccount } from "features/accountSlice";
+import {
+  accountinitialState,
+  resetAccount,
+  setAccount,
+} from "features/accountSlice";
 import { useDispatch } from "react-redux";
 import {
   useAddProfileMutation,
+  useDeleteProfileMutation,
   useUpdateProfileMutation,
 } from "services/account/accountApi";
 import { setProfile } from "features/profileSlice";
@@ -11,6 +16,7 @@ import {
   ProfileResponseModel,
   UpdateProfileRequestModel,
 } from "domain/types/profile/Profile";
+import { useAddStarsMutation } from "services/account/accountApi";
 
 export const useAddProfile = () => {
   const dispatch = useDispatch();
@@ -32,6 +38,7 @@ export const useAddProfile = () => {
 
   useEffect(() => {
     if (isaddProfileSuccess) {
+      dispatch(resetAccount(accountinitialState));
       dispatch(setAccount(newAccountData));
     } else {
       //toast to show confirm sign up error
@@ -39,7 +46,12 @@ export const useAddProfile = () => {
     }
   }, [dispatch, isaddProfileSuccess, newAccountData]);
 
-  return { addNewProfile, addProfileLoading, isaddProfileSuccess };
+  return {
+    addNewProfile,
+    newAccountData,
+    addProfileLoading,
+    isaddProfileSuccess,
+  };
 };
 
 export const useSetProfile = () => {
@@ -78,6 +90,7 @@ export const useUpdateProfile = () => {
   useEffect(() => {
     if (isupdateProfileSuccess) {
       // dispatch(setAccount(newAccountData));
+      dispatch(resetAccount(accountinitialState));
       dispatch(setAccount(newAccountData));
     } else {
       //toast to show confirm sign up error
@@ -90,5 +103,80 @@ export const useUpdateProfile = () => {
     updateProfileLoading,
     newAccountData,
     isupdateProfileSuccess,
+  };
+};
+
+export const useAddStars = () => {
+  const dispatch = useDispatch();
+  const [
+    addStars,
+    {
+      data: newStarsData,
+      isSuccess: isnewStarsSuccess,
+      isLoading: newStarsLoading,
+    },
+  ] = useAddStarsMutation();
+
+  const updateStars = useCallback(
+    async (data: any) => {
+      await addStars(data);
+    },
+    [addStars]
+  );
+
+  useEffect(() => {
+    if (newStarsData) {
+      // dispatch(setAccount(newAccountData));
+      if (newStarsData.leveled) {
+        console.log("I HAVE LEVELED UP");
+      }
+      dispatch(setAccount(newStarsData.result));
+    } else {
+      //toast to show confirm sign up error
+      //second layer defense after try catch
+    }
+  }, [dispatch, newStarsData]);
+
+  return {
+    updateStars,
+    newStarsData,
+    isnewStarsSuccess,
+    newStarsLoading,
+  };
+};
+
+export const useDeleteProfile = () => {
+  const dispatch = useDispatch();
+  const [
+    deleteProfile,
+    {
+      data: newdeleteAccountData,
+      isSuccess: newdeleteAccountSuccess,
+      isLoading: newdeleteAccountLoading,
+    },
+  ] = useDeleteProfileMutation();
+
+  const deleteOneProfile = useCallback(
+    async (id: any) => {
+      await deleteProfile({ profileId: id });
+    },
+    [deleteProfile]
+  );
+
+  useEffect(() => {
+    if (newdeleteAccountSuccess) {
+      dispatch(resetAccount(accountinitialState));
+      dispatch(setAccount(newdeleteAccountData));
+    } else {
+      //toast to show confirm sign up error
+      //second layer defense after try catch
+    }
+  }, [dispatch, newdeleteAccountSuccess, newdeleteAccountData]);
+
+  return {
+    deleteOneProfile,
+    newdeleteAccountData,
+    newdeleteAccountLoading,
+    newdeleteAccountSuccess,
   };
 };
