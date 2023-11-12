@@ -73,7 +73,7 @@ const Dashboard = () => {
     <div className="bg-transparent flex flex-wrap flex-row justify-center w-full">
       <div className="overflow-hidden bg-[url(https://c.animaapp.com/keKAQgUJ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
         <Navbar></Navbar>
-        <div className="flex flex-col relative w-[65%] h-[75%] left-[20%] top-[5%] flex-wrap bg-white rounded-[52px]">
+        <div className="flex flex-col relative w-[65%] h-[70%] left-[20%] top-[5%] flex-wrap bg-white rounded-[52px] xl:mt-[45px]">
           <div className="flex flex-col w-[100%] h-[55%] p-10">
             <div className="font-lapsus font-bold text-black text-[49px] tracking-[0.49px] leading-[normal]">
               <p>Dashboard</p>

@@ -26,7 +26,7 @@ const ScoreBoard = () => {
             profileSorted.map((item: any, index: any) => (
               <li className="py-3 sm:py-4">
                 <div className="flex items-center space-x-4">
-                  <h5 className="text-[48px] font-lapsus text-gray-900 pr-4">
+                  <h5 className="text-[20px] md:text-[48px] dark:text-white font-lapsus text-gray-900 pr-4">
                     # {index + 1}
                   </h5>
                   <div className="flex-shrink-0">
@@ -37,13 +37,13 @@ const ScoreBoard = () => {
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className=" text-gray-900 dark:text-white font-lapsus text-[48px]">
+                    <p className=" text-gray-900 dark:text-white font-lapsus text-[20px] md:text-[48px]">
                       {item.firstName}
                     </p>
                   </div>
                   <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                     <div className="flex justify-end">
-                      <h5 className="mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
+                      <h5 className="mb-2 text-[20px] md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
                         {item.totalStars}
                       </h5>
                       <svg
