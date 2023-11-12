@@ -126,22 +126,14 @@ const Quest = () => {
                   )}
                 </div>
               </div>
-                {/*<div className="flex flex-col justify-left gap-6">
-                <QuestProfile
-                  stars={200}
-                  percentage={45}
-                  name={profileName ? profileName : ""}
-                />
-                {/*<ProgressBar bgcolor="#84c455" progress={currentprofile?.stars} max={nextLimit} height={60} />
-              </div>*/}
             </div>
-              <div className="questplayer">
-                <ReactAudioPlayer
-                  src="/assets/Homepage2.mp3"
-                  autoPlay={true}
-                  controls
-                />
-              </div>
+            <div className="questplayer">
+              <ReactAudioPlayer
+                src="/assets/Homepage2.mp3"
+                autoPlay={true}
+                controls
+              />
+            </div>
       </div>
     </div>
   </>
