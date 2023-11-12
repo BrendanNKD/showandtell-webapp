@@ -49,8 +49,9 @@ export const GenerateChoose = (): JSX.Element => {
     <div className="h-fit flex-col justify-center items-center align-middle">
       <Navbar />
       <div className="bg-transparent flex flex-row justify-center items-center w-full">
-        <div className="overflow-hidden bg-[url(https://c.animaapp.com/YStE9pzZ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
-          <div className="absolute left-[400px] top-[100px] [font-family:'lapsus',Helvetica] font-bold text-black text-[64px] tracking-[0.71px] leading-[normal] whitespace-nowrap">
+        <div className="overflow-hidden bg-[url(https://c.animaapp.com/YStE9pzZ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative p-20">
+        <div className="bg-transparent flex flex-col justify-center items-center w-full space-y-5">
+          <div className="[font-family:'lapsus',Helvetica] font-bold text-black text-[56px] tracking-[0.71px] leading-[normal] whitespace-nowrap">
                 Generate
           </div>
           <Swiper
@@ -71,14 +72,13 @@ export const GenerateChoose = (): JSX.Element => {
             touchStartPreventDefault={false}
             watchSlidesProgress={true}
           >
-            <div className="w-[100%] h-[100%]">
+            <div className="">
               <SwiperSlide style={swiperSlideStyle}>
-              <div className="flex flex-row justify-center items-center w-[100%] h-[100%] space-x-[2%]">                  
-                <div className="flex flex-col justify-center items-center w-[48%] h-[55%] space-y-[3%]">
+              <div className="flex flex-row justify-center items-center w-[100%] space-x-[2%]">                  
+                <div className="flex flex-col justify-center items-center w-[100%] h-[500px] lg:w-[70%] lg:h-[550px] xl:w-[60%] xl:h-[700px] space-y-[3%]">
                   {/*animals*/}
                   <div className="relative w-[100%] h-[30%]">
                     <div className="flex flex-row justify-center items-center w-[100%] h-[100%]">
-                
                       <div className="relative w-[100%] h-[100%]">
                         <div className="relative w-[100%] h-[100%] top-[0] bg-[#ef59a1] rounded-[20px]">
                           <div className="flex md:flex-row flex-col md:justify-center items-center w-[100%] h-[90%] top-0 bg-[#f177ae] rounded-[17px] p-[2%]">
@@ -236,14 +236,14 @@ export const GenerateChoose = (): JSX.Element => {
               </SwiperSlide>
 
               <SwiperSlide style={swiperSlideStyle}>
-              <div className="flex flex-row justify-center items-center w-[100%] h-[100%] space-x-[2%]">
+              <div className="flex flex-row justify-center items-center w-[100%] space-x-[2%]">
                   <button className="prev">
                       <img
                       src="https://c.animaapp.com/qxMy52EW/img/frame-3.svg"
                       alt="Frame"
                     />
                   </button>
-                <div className="flex flex-col justify-center items-center w-[48%] h-[55%] space-y-[3%]">
+                <div className="flex flex-col justify-center items-center w-[100%] h-[500px] lg:w-[70%] lg:h-[550px] xl:w-[60%] xl:h-[700px] space-y-[3%]">
                     {/*Flowers */}
                     <div className="relative w-[100%] h-[30%]">
                       <div className="flex flex-row justify-center items-center w-[100%] h-[100%]">
@@ -410,6 +410,7 @@ export const GenerateChoose = (): JSX.Element => {
               />
           </div>
         </div>
+       </div>
       </div>
     </div>
   );
