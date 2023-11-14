@@ -27,7 +27,7 @@ const Navbar = () => {
     <>
       <nav>
         <div className="w-full h-[9%] z-10 fixed">
-          <div className="flex flex-row justify-evenly items-center relative w-full h-[100%] top-0 left-0 bg-white drop-shadow-md space-x-1">
+          <div className="flex flex-row justify-center md:justify-evenly items-center relative w-full h-[100%] top-0 left-0 bg-white drop-shadow-md space-x-2 md:space-x-1 p-4">
             {/* logo */}
             <button
                     onClick={() => {
@@ -35,7 +35,7 @@ const Navbar = () => {
                     }}
                   >
             <img
-              className="w-24 md:w-36 lg:w-36"
+              className="w-12 md:w-16 lg:w-30"
               alt="Frame"
               src="https://c.animaapp.com/Y2tyLAH0/img/frame.svg"
               />
@@ -60,7 +60,7 @@ const Navbar = () => {
               </div>
             </div>
             {/* generate choose */}
-            <div className="flex flex-col w-24 md:w-36 lg:w-50 xl:w-56">
+            <div className="flex flex-col w-20 md:w-28 lg:w-50 xl:w-56">
               <div className="h-5 sm:h-6 md:h-9 l:h-10 xl:h-12 bg-[#53c2ef] rounded-3xl md:rounded-lg lg:rounded-xl">
                 <div className="h-4 sm:h-5 md:h-8 l:h-9 xl:h-11 bg-[#9cdcf9] rounded-3xl md:rounded-lg lg:rounded-xl">
                   <div className="flex flex-row justify-center items-center [font-family:'lapsus',Helvetica] font-bold text-black text-l sm:text-[17px] md:text-3xl lg:text-3xl xl:text-[36px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
@@ -117,7 +117,7 @@ const Navbar = () => {
               </div>
             </div>
             {/* quest */}
-            <div className="flex flex-col w-24 md:w-36 lg:w-50 xl:w-56">
+            <div className="flex flex-col w-16 md:w-20 lg:w-35 xl:w-[100px]">
               <div className="h-5 sm:h-6 md:h-9 l:h-10 xl:h-12 bg-[#595aa4] rounded-3xl md:rounded-lg lg:rounded-xl">
                 <div className="h-4 sm:h-5 md:h-8 l:h-9 xl:h-11 bg-[#8b8dff] rounded-3xl md:rounded-lg lg:rounded-xl">
                   <div className="flex flex-row justify-center items-center [font-family:'lapsus',Helvetica] font-bold text-black text-l sm:text-[17px] md:text-3xl lg:text-3xl xl:text-[36px] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
@@ -136,7 +136,7 @@ const Navbar = () => {
               </div>
             </div>
             {/* profile icon */}
-            <div className="">
+            <div className="md:mr-8">
               {isAuthenticated ? (
                 <>
                   {/* <button
@@ -160,7 +160,7 @@ const Navbar = () => {
                       />
                     </svg>
                   </button> */}
-                  <div className="relative ml-1 sm:ml-3">
+                  <div className="relative">
                     <div>
                       <button
                         type="button"
@@ -174,7 +174,7 @@ const Navbar = () => {
                         <span className="sr-only">Open user menu</span>
                         {profile && (
                           <img
-                            className="w-5 sm:w-7 md:w-7 lg:w-12 xl:w-16 rounded-full "
+                            className="w-7 md:w-7 lg:w-12 xl:w-16 rounded-full "
                             src={defaultPics[profile.profilePic].url}
                             alt=""
                           />

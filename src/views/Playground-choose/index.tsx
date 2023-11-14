@@ -66,7 +66,7 @@ const PlaygroundChoose = () => {
                           <div className="flex md:flex-row flex-col md:justify-center items-center w-[100%] h-[90%] top-0 bg-[#929acd] rounded-[17px] p-[2%]">
                             <div className="flex justify-center items-center w-[70%] h-[70%]">
                               <img
-                                className="w-[75%] h-[80%]"
+                                className="md:w-[100%] md:h-[100%] w-[90px] h-[70px]"
                                 alt="Frame"
                                 src="https://c.animaapp.com/tZB0JjG7/img/group-1@2x.png"
                               />

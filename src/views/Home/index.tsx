@@ -96,7 +96,7 @@ const Home = () => {
           </div>
         
           {/* first header */}
-          <div className="flex flex-col w-[90%] h-[900px] md:h-[600px] lg:h-[900px] xl:h-[800px] items-center space-y-2">
+          <div className="bg-gray-200 flex flex-col w-[90%] h-[1000px] md:h-[600px] lg:h-[900px] xl:h-[800px] items-center space-y-2">
             <div className="mt-[10px] [font-family:'lapsus',Helvetica] font-bold text-black text-[32px] lg:text-[40px] tracking-[0.50px] leading-[normal] whitespace-nowrap">
               Why choose WhatEyeSee?
             </div>
