@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import Modal from 'react-modal';
-import { UseAuthenticatedRoute } from 'utils/authRoute';
-import Navbar from 'components/navBar';
-import { CollectionCard } from 'components/collection';
-import { UseCollection } from 'app/state/collection';
-import './Collection.css';
-import ReactAudioPlayer from 'react-audio-player';
-
+import React, { useState } from "react";
+import Modal from "react-modal";
+import { UseAuthenticatedRoute } from "utils/authRoute";
+import Navbar from "components/navBar";
+import { CollectionCard } from "components/collection";
+import { UseCollection } from "app/state/collection";
+import "./Collection.css";
+import ReactAudioPlayer from "react-audio-player";
 
 const Collection = () => {
   UseAuthenticatedRoute();
@@ -20,15 +19,15 @@ const Collection = () => {
   };
 
   const modalStyles = {
-    content : {
-      top                   : '50%',
-      left                  : '50%',
-      right                 : 'auto',
-      bottom                : 'auto',
-      marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)',
-      overflow              : 'visibile'
-    }
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      overflow: "visibile",
+    },
   };
   return (
     <div>

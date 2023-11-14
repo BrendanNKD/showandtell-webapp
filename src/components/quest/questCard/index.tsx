@@ -9,7 +9,7 @@ export const QuestCard = ({
   award,
   completed,
   caption,
-  questindex
+  questindex,
 }: IProps) => {
   const navigate = useNavigate();
   const [questIndex, setQuestIndex] = useState<any>(null);
@@ -27,12 +27,12 @@ export const QuestCard = ({
       }).toString(),
     });
   };
-  
+
   useEffect(() => {
     if (questindex !== -1 && questindex !== null) {
       setQuestIndex(questindex);
     }
-  });
+  }, [questindex]);
 
   return (
     <>

@@ -9,7 +9,8 @@ import "swiper/css/pagination";
 
 // import required modules
 import { Navigation, Pagination } from "swiper/modules";
-import ReactAudioPlayer from 'react-audio-player';
+import ReactAudioPlayer from "react-audio-player";
+import { UseAuthenticatedRoute } from "utils/authRoute";
 
 export const GenerateChoose = (): JSX.Element => {
   const swiperStyle = {
@@ -25,7 +26,7 @@ export const GenerateChoose = (): JSX.Element => {
     alignItems: "center",
   };
 
-
+  UseAuthenticatedRoute();
 
   const navigate = useNavigate();
 
@@ -469,11 +470,11 @@ export const GenerateChoose = (): JSX.Element => {
           
           <div className="generatechooseplayer">
             <ReactAudioPlayer
-                src="/assets/Homepage.mp3"
-                autoPlay={true}
-                controls
-                loop
-              />
+              src="/assets/Homepage.mp3"
+              autoPlay={true}
+              controls
+              loop
+            />
           </div>
           
         </div>                 

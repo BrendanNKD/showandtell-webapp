@@ -13,9 +13,11 @@ import {
   useGetLevelQuery,
 } from "services/account/accountApi";
 import { useDispatch } from "react-redux";
-import ReactAudioPlayer from 'react-audio-player';
+import ReactAudioPlayer from "react-audio-player";
+import { UseAuthenticatedRoute } from "utils/authRoute";
 
 const Quest = () => {
+  UseAuthenticatedRoute();
   const currentprofile: any = UseProfile();
   const [activeTab, setActiveTab] = useState("achievement"); // Initialize the active tab state
   const [nextLimit, setNextLimit] = useState<number | null>(null);
@@ -63,80 +65,76 @@ const Quest = () => {
     <>
       <div className="bg-transparent flex flex-wrap flex-row justify-center w-full">
         <div className="overflow-hidden bg-[url(https://c.animaapp.com/keKAQgUJ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
-        <Navbar></Navbar>
-            <div className="overflow-auto flex flex-col relative w-[90%] left-[3%] md:w-[65%] h-[60%] md:left-[20%] top-[5%] flex-wrap bg-white rounded-[52px] mt-[10px] md:mt-[20px] lg:mt-[45px]">
-              <div className="flex flex-col w-[100%] h-[100%] justify-center items-center">
-                <div className="flex flex-col p-5 space-y-5 h-[100%] w-[100%] justify-start items-center bg-white rounded-[27px]">
-                  {/* Toggle between "Achievement" and "Leaderboard" tabs */}
-                  <div className="w-[100%] flex flex-row justify-start space-x-3">
-                    <button
-                      className={`tab-button ${
-                        activeTab === "achievement" ? "active" : ""
-                      }`}
-                      onClick={() => setActiveTab("achievement")}
-                      style={
-                        activeTab === "achievement" ? activeTabStyle : {}
-                      }
+          <Navbar></Navbar>
+          <div className="flex flex-col relative w-[65%] h-[60%] left-[20%] top-[5%] flex-wrap bg-white rounded-[52px] mt-[10px] md:mt-[20px] lg:mt-[45px]">
+            <div className="flex flex-col w-[100%] h-[100%] justify-center items-center">
+              <div className="flex flex-col p-5 space-y-5 h-[100%] w-[100%] justify-start items-center bg-white rounded-[27px]">
+                {/* Toggle between "Achievement" and "Leaderboard" tabs */}
+                <div className="w-[100%] flex flex-row justify-start space-x-3">
+                  <button
+                    className={`tab-button ${
+                      activeTab === "achievement" ? "active" : ""
+                    }`}
+                    onClick={() => setActiveTab("achievement")}
+                    style={activeTab === "achievement" ? activeTabStyle : {}}
+                  >
+                    <span
+                      className="[font-family:'lapsus',Helvetica] text-[18px] md:text-[28px] lg:text-[35px] p-1"
+                      style={tabText}
                     >
-                      <span
-                        className="[font-family:'lapsus',Helvetica] text-[18px] md:text-[28px] lg:text-[35px] p-1"
-                        style={tabText}
-                      >
-                        Achievement
-                      </span>
-                    </button>
-                    <button
-                      className={`tab-button ${
-                        activeTab === "leaderboard" ? "active" : ""
-                      }`}
-                      onClick={() => setActiveTab("leaderboard")}
-                      style={
-                        activeTab === "leaderboard" ? activeTabStyle : {}
-                      }
+                      Achievement
+                    </span>
+                  </button>
+                  <button
+                    className={`tab-button ${
+                      activeTab === "leaderboard" ? "active" : ""
+                    }`}
+                    onClick={() => setActiveTab("leaderboard")}
+                    style={activeTab === "leaderboard" ? activeTabStyle : {}}
+                  >
+                    <span
+                      className="[font-family:'lapsus',Helvetica] text-[18px] md:text-[28px] lg:text-[35px]"
+                      style={tabText}
                     >
-                      <span
-                        className="[font-family:'lapsus',Helvetica] text-[18px] md:text-[28px] lg:text-[35px]"
-                        style={tabText}
-                      >
-                        Leaderboard
-                      </span>
-                    </button>
+                      Leaderboard
+                    </span>
+                  </button>
+                </div>
+                {activeTab === "achievement" && (
+                  // Render the "Achievement" content when the tab is active
+                  <div className="space-y-3 overflow-y-scroll">
+                    {quest &&
+                      quest.quests.map((item: any, index: any) => (
+                        <QuestCard
+                          category={item.category}
+                          description={item.description}
+                          award={100}
+                          completed={item.completed}
+                          caption={item.caption}
+                          questindex={index}
+                        />
+                      ))}
                   </div>
-                  {activeTab === "achievement" && (
-                    // Render the "Achievement" content when the tab is active
-                    <div className="space-y-3 overflow-y-scroll">
-                      {quest &&
-                        quest.quests.map((item: any, index: any) => (
-                          <QuestCard
-                            category={item.category}
-                            description={item.description}
-                            award={100}
-                            completed={item.completed}
-                            caption = {item.caption}
-                            questindex = {index}
-                          />
-                        ))}
-                    </div>
-                  )}
-                  {activeTab === "leaderboard" && (
-                    // Render the "Leaderboard" content when the tab is active
+                )}
+                {activeTab === "leaderboard" && (
+                  // Render the "Leaderboard" content when the tab is active
                   <div className="w-[100%] space-y-3 overflow-y-scroll ">
                     <ScoreBoard />
                   </div>
-                  )}
-                </div>
+                )}
               </div>
             </div>
-            <div className="questplayer">
-              <ReactAudioPlayer
-                src="/assets/Homepage2.mp3"
-                autoPlay={true}
-                controls
-              />
-            </div>
+          </div>
+          <div className="questplayer">
+            <ReactAudioPlayer
+              src="/assets/Homepage2.mp3"
+              autoPlay={true}
+              controls
+            />
+          </div>
+        </div>
       </div>
-    </div>
-  </>
+    </>
   );
 };
 
