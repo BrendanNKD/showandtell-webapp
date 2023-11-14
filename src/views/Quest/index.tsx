@@ -62,9 +62,9 @@ const Quest = () => {
   return (
     <>
       <div className="bg-transparent flex flex-wrap flex-row justify-center w-full">
-      <div className="overflow-hidden bg-[url(https://c.animaapp.com/keKAQgUJ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
+        <div className="overflow-hidden bg-[url(https://c.animaapp.com/keKAQgUJ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
         <Navbar></Navbar>
-        <div className="flex flex-col relative w-[65%] h-[60%] left-[20%] top-[5%] flex-wrap bg-white rounded-[52px] mt-[10px] md:mt-[20px] lg:mt-[45px]">
+            <div className="overflow-auto flex flex-col relative w-[90%] left-[3%] md:w-[65%] h-[60%] md:left-[20%] top-[5%] flex-wrap bg-white rounded-[52px] mt-[10px] md:mt-[20px] lg:mt-[45px]">
               <div className="flex flex-col w-[100%] h-[100%] justify-center items-center">
                 <div className="flex flex-col p-5 space-y-5 h-[100%] w-[100%] justify-start items-center bg-white rounded-[27px]">
                   {/* Toggle between "Achievement" and "Leaderboard" tabs */}

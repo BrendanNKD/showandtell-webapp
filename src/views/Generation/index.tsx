@@ -13,6 +13,7 @@ import { useAddProfile, useAddStars } from "app/hooks/useAccount";
 import { useSaveCollection } from "app/hooks/useCollection";
 import { useCompleteQuestMutation } from "services/quest";
 import toast, { Toaster } from "react-hot-toast";
+import { motion, useAnimation } from "framer-motion";
 
 export const GenerateEmpty = () => {
   // Redirect user to profile if they are authenticate
@@ -35,6 +36,7 @@ export const GenerateEmpty = () => {
   const [selectedIssues, setSelectedIssues] = useState<string[]>([]);
   const [otherIssue, setOtherIssue] = useState<string>("");
   const { reportIssue, reported, reportLoading } = useReportIssue();
+
 
   const handleCancelModal = () => {
     setShowQuest(false);
@@ -149,6 +151,13 @@ export const GenerateEmpty = () => {
       });
     }
   }, [newStarsData, completeQuest, profile._id, searchParams]);
+  
+  const getRandomNumber = (min: number, max: number) => Math.random() * (max - min) + min;
+
+  const animationVariants = {
+    initial: { x: -200, y: getRandomNumber(0, 1000) },
+    animate: { x: 2200 },
+  };
 
   //report function stuff
   const [showModal, setShowModal] = useState(false);
@@ -161,10 +170,25 @@ export const GenerateEmpty = () => {
   return (
     <div className="bg-transparent flex flex-row justify-center w-full h-fit">
         <Navbar />
+        
+
         <Toaster position="top-center" reverseOrder={false} />
         <div className="bg-transparent flex flex-row justify-center items-center w-full">
-          <div className="overflow-hidden bg-[url(https://c.animaapp.com/xYMQ48TT/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative p-20">
+          <div className="overflow-hidden bg-[url(https://c.animaapp.com/xYMQ48TT/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative p-20" style = {{zIndex: 0}}>
             <div className="flex flex-row items-start h-[100%] lg:pt-5">
+               
+               {/*testing animation*/}
+               <motion.div  animate = "animate" 
+                            initial = "initial"
+                            style = {{position: "absolute", zIndex: -1}} 
+                            variants={animationVariants}
+                            transition={{ duration: 25.0, delay: 0.5, repeat: Infinity }}>
+                    <img
+                      className=" w-20 md:w-32"
+                      alt="Frame"
+                      src="https://c.animaapp.com/ERt8OH5Z/img/vector.svg"/>
+              </motion.div>
+             
               <button
                 onClick={() => {
                   navigate("/GenerateChoose");
@@ -176,12 +200,14 @@ export const GenerateEmpty = () => {
                   src="https://c.animaapp.com/xYMQ48TT/img/frame.svg"
                 />
               </button>
+              
+              
               <div className="flex flex-col justify-start items-start lg:flex-row p-3 w-[100%] h-[100%] space-y-6 lg:space-x-10">
                 {/*left side image square*/}
                 <div className="flex flex-col items-center w-[100%] h-[70%] md:h-[70%] lg:w-[150%] lg:h-[90%] bg-white rounded-3xl">
                   <div
                     className="flex flex-row justify-center items-center w-[100%] h-[60px] p-5 rounded-t-3xl space-x-5 md:space-x-8"
-                    style={{ backgroundColor: searchParams.get("color")! }}
+                    style={{ backgroundColor: searchParams.get("color")!}}
                   >
                     <div className="w-10">
                       <img
@@ -192,7 +218,7 @@ export const GenerateEmpty = () => {
                     <div className=" flex justify-center items-center  [font-family:'lapsus',Helvetica] font-bold text-black text-[28px] md:text-[32px] tracking-[1.23px] leading-[normal] whitespace-nowrap">
                       {searchParams.get("title")}
                     </div>
-                    
+                  
                   </div>
                   <div className="w-[100%] h-[180px] md:h-[320px] lg-h:[440px] xl:h-[400px] bg-white p-[2%]">
                     {/*Selected image box*/}
@@ -212,6 +238,7 @@ export const GenerateEmpty = () => {
                       )}
                     </div>
                   </div>
+                  
                   {/*Caption box*/}
                   <div className="w-[100%] h-[55px] md:h-[70px] bg-white px-2 md:px-5">
                     <div className="flex justify-start items-start w-[100%] h-[100%] bg-[#e2e3e4] p-3 rounded-[10px]">
@@ -277,6 +304,7 @@ export const GenerateEmpty = () => {
                         descriptionloading || captionloading || updateDataloading
                       }
                     >
+                      
                       <div className="relative w-[80px] h-[40px] lg:w-[160px] lg:h-[60px] m-2">
                         <div className="w-[100%] h-[100%] top-10 left-0 bg-[#56c0ee] rounded-[17px]">
                           <div className="flex justify-center items-center relative w-[100%] h-[90%] top-0 left-0 bg-[#9cdbf8] rounded-[17px]">
