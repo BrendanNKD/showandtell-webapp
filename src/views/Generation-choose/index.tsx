@@ -236,14 +236,14 @@ export const GenerateChoose = (): JSX.Element => {
               </SwiperSlide>
 
               <SwiperSlide style={swiperSlideStyle}>
-              <div className="flex flex-row justify-center items-center w-[100%] space-x-[2%]">
+                <div className="flex flex-row justify-center items-center w-[100%] space-x-[2%]">
                   <button className="prev">
                       <img
                       src="https://c.animaapp.com/qxMy52EW/img/frame-3.svg"
                       alt="Frame"
                     />
                   </button>
-                <div className="flex flex-col justify-center items-center w-[100%] h-[500px] lg:w-[70%] lg:h-[550px] xl:w-[60%] xl:h-[700px] space-y-[3%]">
+                  <div className="flex flex-col justify-center items-center w-[100%] h-[500px] lg:w-[70%] lg:h-[550px] xl:w-[60%] xl:h-[700px] space-y-[3%]">
                     {/*Flowers */}
                     <div className="relative w-[100%] h-[30%]">
                       <div className="flex flex-row justify-center items-center w-[100%] h-[100%]">
@@ -397,7 +397,71 @@ export const GenerateChoose = (): JSX.Element => {
                       </div>
                     </div>
                   </div>
+                  <button className="next">
+                      <img
+                      src="https://c.animaapp.com/YStE9pzZ/img/frame-5.svg"
+                      alt="Frame"
+                    />
+                  </button>
                 </div>
+              </SwiperSlide>
+              <SwiperSlide style={swiperSlideStyle}>
+                <div className="flex flex-row justify-center items-center w-[100%] space-x-[2%]">
+                  <button className="prev">
+                      <img
+                      src="https://c.animaapp.com/qxMy52EW/img/frame-3.svg"
+                      alt="Frame"
+                    />
+                  </button>
+                  <div className="flex flex-col justify-start items-start w-[100%] h-[500px] lg:w-[70%] lg:h-[550px] xl:w-[60%] xl:h-[700px] space-y-[3%]">
+                    <div className="relative w-[100%] h-[30%]">
+                      <div className="flex flex-row justify-center items-center w-[100%] h-[100%]">
+                        <div className="relative w-[100%] h-[100%]">
+                          <div className="relative w-[100%] h-[100%] top-[0] bg-[#5971af] rounded-[20px]">
+                            <div className="flex md:flex-row flex-col md:justify-center items-center w-[100%] h-[90%] top-0 bg-[#82a5ff] rounded-[17px] p-[2%]">
+                              <div className="flex justify-center items-center w-[70%] h-[70%]">
+                                <img
+                                  className="w-[100%] h-[100%] md:shrink-0"
+                                  alt="Frame"
+                                  src="https://c.animaapp.com/zJNs34OX/img/frame.svg"
+                                />
+                              </div>
+                              <div className="flex justify-center items-center relative w-[100%] h-[35%] top-[0] left-[0] [font-family:'lapsus',Helvetica] font-bold text-black text-[2.5vw] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+                                General
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="w-[170%] h-[90%]">
+                          <div className="flex flex-row justify-center items-center relative w-[100%] h-[100%] bg-white rounded-r-[24px] p-[3%] space-x-[10%]">
+                            <div className="flex justify-center items-center w-[100%] h-[100%] left-[0] [font-family:'gillsans',Helvetica] font-normal text-black text-[10px] md:text-[13px] lg:text-[15px] xl:text-[17px] 2xl:text[20px] tracking-[0.21px] leading-[normal]">
+                              Go beyond traditional subjects, introducing kids to a multitude of fascinating realms. 
+                              Learning is not just about acquiring facts but about exploring the richness of the world around you.
+                            </div>
+                            <div className="flex justify-center items-center relative w-[30%] h-[100%]">
+                              <button
+                                onClick={() =>
+                                  passParams(
+                                    "General",
+                                    "https://c.animaapp.com/zJNs34OX/img/frame.svg",
+                                    "#82a5ff",
+                                    "food"
+                                  )
+                                }
+                              >
+                                <img
+                                  className=""
+                                  alt="Frame"
+                                  src="https://c.animaapp.com/NIGs1Y1e/img/frame-2.svg"
+                                  />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>   
               </SwiperSlide>
             </div>
           </Swiper>
