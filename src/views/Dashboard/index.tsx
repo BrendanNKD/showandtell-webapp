@@ -30,10 +30,6 @@ const Dashboard = () => {
   });
   const [refreshQuests, { data: result }] = useRefreshQuestsMutation();
   const passQuestParams = (category: string, caption: string) => {
-    // var catVal = category;
-    // {/*terrible fix to fix the flower value, need to change some variable names in the backend*/}
-    // if(category = "flower")
-    // {catVal = "flowers"}
     navigate({
       pathname: "/generate",
       search: createSearchParams({
@@ -79,16 +75,16 @@ const Dashboard = () => {
     <div className="bg-transparent flex flex-wrap flex-row justify-center w-full">
       <div className="overflow-hidden bg-[url(https://c.animaapp.com/keKAQgUJ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
         <Navbar></Navbar>
-        <div className="flex flex-col relative w-[65%] h-[75%] left-[20%] top-[5%] flex-wrap bg-white rounded-[52px]">
+        <div className="flex flex-col relative w-[65%] h-[70%] left-[20%] top-[5%] flex-wrap bg-white rounded-[52px] xl:mt-[45px]">
           <div className="flex flex-col w-[100%] h-[55%] p-10">
-            <div className="relative w-[100%] h-[20%] top-[0%] font-lapsus font-bold text-black text-[2.5vw] tracking-[0.56px] leading-[normal] whitespace-nowrap">
+            <div className="font-lapsus font-bold text-black text-[49px] tracking-[0.49px] leading-[normal]">
               <p>Dashboard</p>
             </div>
             {/* profile details */}
-            <div className="flex flex-row relative w-[100%] h-[55%] space-x-5">
-              <div className="relative w-[13%] top-[0%] m-[1%] pl-10">
+            <div className="bg-gray-200 flex flex-col justify-center items-center md:flex-row md:justify-start md:p-4 relative w-[100%] h-[55%] space-y-2 md:space-x-5 rounded-xl">
+              <div className="w-16 md:w-24 lg:w-32 xl:w-32">
                 {currentprofile && (
-                  <img
+                  <img 
                     className="rounded-full"
                     alt="Frame"
                     src={defaultPics[currentprofile.profilePic].url}
@@ -97,29 +93,28 @@ const Dashboard = () => {
               </div>
               <div>
                 <div className="flex flex-col space-y-2">
-                  <div className="relative w-[100%] left-[0%] top-[0%] font-lapsus font-bold text-black text-[2.5vw] tracking-[0] leading-[normal] whitespace-nowrap">
-                    {currentprofile?.firstName}
+                  <div className="flex justify-center w-36 md:w-48 lg:w-56 xl:w-64 display-block left-[0%] top-[0%] font-lapsus font-bold text-black text-[24px] sm:text-[34px] md:text-[40px] lg:text-[54px] xl:text-[54px] tracking-[0] leading-[normal] whitespace-nowrap">
+                    <p className="truncate">{currentprofile?.firstName}</p>
                   </div>
-                  <div className="flex flex-row space-x-2">
+                  <div className="flex flex-row justify-center items-center space-x-2 ">
                     <img
-                      className="relative w-[30%]"
+                      className="w-10"
                       alt="Vector"
                       src="https://c.animaapp.com/keKAQgUJ/img/vector-1.svg"
                     />
-                    <div className="relative w-[100%] top-0 left-[0px] text-[2.5vw] tracking-[0.57px] font-lapsus font-bold text-black leading-[normal] whitespace-nowrap">
+                    <div className="text-[32px] md:text-[40px] lg:text-[54px] xl:text-[56px] tracking-[0.57px] font-lapsus font-bold text-black leading-[normal] whitespace-nowrap">
                       {currentprofile?.stars}
                     </div>
                   </div>
                 </div>
               </div>
-              <div>
-                <div className="flex justify-end relative w-[100%] font-lapsus font-bold text-black text-[2.5vw] tracking-[0] leading-[normal] whitespace-nowrap">
+              <div className="h-[50%] lg:h-[130px] xl:h-[134px]">
+                <div className="flex h-full md:justify-end relative font-lapsus font-bold text-black text-[32px] md:text-[40px] lg:text-[54px] xl:text-[50px] tracking-[0] leading-[normal] whitespace-nowrap">
                   Level {currentprofile && currentprofile.level}
                 </div>
               </div>
             </div>
-
-            <div className="relative w-[100%] h-[20%] justify-center">
+            <div className="relative w-[100%] h-[20%] justify-center mt-3">
               <ProgressBar
                 bgcolor="#84c455"
                 progress={currentprofile?.stars}
@@ -127,20 +122,17 @@ const Dashboard = () => {
                 height={60}
               />
             </div>
-
-            <div className="relative w-[100%] h-[5%] ml-[10%]">
-              <div className="font-lapsus font-bold text-black text-[49px] tracking-[0.49px] leading-[normal]">
+            <div className="font-lapsus font-bold text-black text-[32px] md:text-[45px] xl:text-[50px] xl:ml-10 tracking-[0.49px] leading-[normal]">
                 Next up:
-              </div>
             </div>
           </div>
           {/*Quest box*/}
           <div
-            className="relative w-[100%] h-[30%] flex flex-col justify-center items-center p-4"
+            className="flex flex-col justify-center items-center p-4"
             onClick={() => passQuestParams(quests.category, quests.caption)}
           >
             <div
-              className="relative w-[80%] h-[80%] top-[5%] left-0 rounded-t-[20px] font-lapsus p-4"
+              className="w-64 h-60 md:w-[450px] lg:w-[600px] xl:w-[760px] rounded-t-[20px] font-lapsus p-4"
               style={{
                 backgroundColor:
                   quests &&
@@ -148,11 +140,11 @@ const Dashboard = () => {
                     .color!,
               }}
             >
-              <div className="h-[90%] flex flex-row items-center space-x-6 ">
+              <div className="h-full flex flex-col space-y-2 md:flex-row items-center justify-center md:space-x-6">
                 {/*model icon*/}
                 <img
                   id="questImage"
-                  className="relative w-[10%]"
+                  className="w-16 lg:w-32"
                   alt="Frame"
                   src={
                     quests &&
@@ -160,14 +152,12 @@ const Dashboard = () => {
                       .image
                   }
                 />
-                <div className="flex flex-col w-[70%] h-[80%] font-lapsus font-normal text-black text-[1.3vw]">
-                  <div>{quests && quests.category}</div>
-                  <div className="relative w-[100%] font-lapsus font-normal text-black text-[1.3vw] tracking-[0] leading-[normal]">
-                    {quests && quests.description}
-                  </div>
+                <div className="flex flex-col justify-center items-center w-full h-15 md:h-[200px] font-lapsus font-normal text-black text-[16px] md:text-[20px] lg:text-[26px] xl:text-[30px] md:space-y-5">
+                  <div className="w-full flex justify-center md:justify-start items-center">{quests && quests.category}</div>
+                  <div className="w-full flex justify-center items-center">{quests && quests.description}</div>
                 </div>
                 {/*Quest box star reward*/}
-                <div className="flex flex-row space-x-2 items-center relative w-[15%] h-[50%] bg-white rounded-[14px] p-4">
+                <div className="flex flex-row space-x-2 items-center relative w-50 h-10 md:w-[250px] lg:w-[300px] lg:h-[100px] bg-white rounded-[14px] p-4">
                   <div>
                     <img
                       className="relative w-[80%]"
@@ -175,14 +165,14 @@ const Dashboard = () => {
                       src="https://c.animaapp.com/keKAQgUJ/img/vector.svg"
                     />
                   </div>
-                  <div className="relative w-[10%] text-[2vw] tracking-[0] font-lapsus font-bold text-black leading-[normal] whitespace-nowrap">
+                  <div className="text-[20px] lg:text-[45px] tracking-[0] font-lapsus font-bold text-black leading-[normal] whitespace-nowrap">
                     200
                   </div>
                 </div>
               </div>
             </div>
             <div
-              className="relative w-[80%] h-[10%] bg-[#facd0a] rounded-b-[15px]"
+              className="w-64 h-10 md:w-[450px] lg:w-[600px] xl:w-[760px] bg-[#facd0a] rounded-b-[15px]"
               style={{
                 backgroundColor:
                   quests &&

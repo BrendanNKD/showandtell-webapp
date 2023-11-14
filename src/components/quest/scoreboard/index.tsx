@@ -25,8 +25,8 @@ const ScoreBoard = () => {
           {profileSorted &&
             profileSorted.map((item: any, index: any) => (
               <li className="py-3 sm:py-4">
-                <div className="flex items-center space-x-4">
-                  <h5 className="text-[48px] font-lapsus text-gray-900 pr-4">
+                <div className="flex flex-col md:flex-row justify-center items-center md:space-x-4">
+                  <h5 className="text-[20px] text-center md:text-[36px] lg:text-[48px] dark:text-white font-lapsus text-gray-900 md:pr-4">
                     # {index + 1}
                   </h5>
                   <div className="flex-shrink-0">
@@ -36,18 +36,20 @@ const ScoreBoard = () => {
                       alt="Neil"
                     />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className=" text-gray-900 dark:text-white font-lapsus text-[48px]">
+                  <div className="flex-1 min-w-0 ">
+                    <p className="text-center w-200 truncate text-gray-900 dark:text-white font-lapsus text-[20px] md:text-[24px] md:text-left lg:text-[36px]">
                       {item.firstName}
                     </p>
                   </div>
+
                   <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                     <div className="flex justify-end">
-                      <h5 className="mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
+                      <h5 className="mb-2 text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
                         {item.totalStars}
                       </h5>
+                      
                       <svg
-                        className="w-10 h-10 text-yellow-300 mr-1"
+                        className="w-7 h-7 md:w-10 md:h-10 text-yellow-300 mr-1"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="currentColor"
