@@ -31,7 +31,7 @@ const initialState: ProfileResponseModel = {
 
 const Profiles = () => {
   // Redirect user to profile if they are authenticated
-
+  UseAuthenticatedRoute();
   // const { setProfileState, accountData } = useGetAccount();
   // const { isLoading } = useGetCollection();
   const { setProfileState } = useSetProfile();
@@ -40,8 +40,6 @@ const Profiles = () => {
   const [landing, setLanding] = useState<boolean>(true);
   const [formValue, setFormValue] = useState(initialState);
   const [profiles, setProfiles] = useState<any[] | []>([]);
-
-  UseAuthenticatedRoute();
 
   const {
     addNewProfile,

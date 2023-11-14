@@ -1,10 +1,12 @@
 import React from "react";
 import Navbar from "components/navBar";
 import { useNavigate } from "react-router-dom";
-import ReactAudioPlayer from 'react-audio-player';
+import ReactAudioPlayer from "react-audio-player";
+import { UseAuthenticatedRoute } from "utils/authRoute";
 
 const PlaygroundChoose = () => {
-    const navigate = useNavigate();
+  UseAuthenticatedRoute();
+  const navigate = useNavigate();
   return (
     <div className="h-fit flex-col justify-center items-center align-middle">
       <Navbar />

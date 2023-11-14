@@ -12,8 +12,10 @@ import { useNavigate, createSearchParams } from "react-router-dom";
 import ProgressBar from "components/progressBar";
 import categoryVal from "components/quest/categoryValues";
 import ReactAudioPlayer from 'react-audio-player';
+import { UseAuthenticatedRoute } from "utils/authRoute";
 
 const Dashboard = () => {
+  UseAuthenticatedRoute();
   const { data: levelData } = useGetLevelQuery();
   const navigate = useNavigate();
   const dispatch = useDispatch();
