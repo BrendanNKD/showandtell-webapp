@@ -6,6 +6,10 @@ import { CollectionCard } from "components/collection";
 import { UseCollection } from "app/state/collection";
 import "./Collection.css";
 import ReactAudioPlayer from "react-audio-player";
+import { Animation } from "components/animationComponent";
+
+  //animation logic
+ 
 
 const Collection = () => {
   UseAuthenticatedRoute();
@@ -29,11 +33,24 @@ const Collection = () => {
       overflow: "visibile",
     },
   };
+
+  const animationComponents = [];
+
+  for (let i = 0; i < 20; i++) {
+    const delayValue = 0.0 + 2*i; // Increment delay by 1 second in each iteration
+    animationComponents.push(<Animation key={i} 
+    delay={delayValue} 
+    location ={-500}
+    minheight = {200}
+    maxheight = {500}/>);
+  }
   return (
     <div>
       <Navbar></Navbar>
       <div className="bg-transparent flex flex-row justify-center w-full h-full">
-      <div className="overflow-hidden bg-[url(https://c.animaapp.com/dJl7E6OS/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
+      <div className="overflow-hidden bg-[url(https://c.animaapp.com/dJl7E6OS/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative"
+           style = {{zIndex:0}}>
+        {animationComponents}
         <div className="flex relative w-[100%] h-[75%] top-[100px] flex-row justify-center items-center">
           <div className="relative w-[80%] h-[100%] bg-white rounded-[74px] justify-center items-center">
             <div className="flex flex-col p-7 md:p-8 justify-start items-start relative w-[100%] h-[800px] bg-transparent rounded-[74px]">
