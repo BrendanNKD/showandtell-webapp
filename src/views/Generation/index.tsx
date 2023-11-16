@@ -13,8 +13,7 @@ import { useAddProfile, useAddStars } from "app/hooks/useAccount";
 import { useSaveCollection } from "app/hooks/useCollection";
 import { useCompleteQuestMutation } from "services/quest";
 import toast, { Toaster } from "react-hot-toast";
-import { motion } from "framer-motion";
-import { Animation } from "components/animationComponent"
+import { Animation } from "components/animationComponent";
 
 export const GenerateEmpty = () => {
   // Redirect user to profile if they are authenticate
@@ -164,8 +163,8 @@ export const GenerateEmpty = () => {
   const animationComponents = [];
 
   for (let i = 0; i < 20; i++) {
-      const delayValue = 0.0 + 2*i; // Increment delay by 1 second in each iteration
-      animationComponents.push(<Animation key={i} delay={delayValue} />);
+    const delayValue = 0.0 + 2 * i; // Increment delay by 1 second in each iteration
+    animationComponents.push(<Animation key={i} delay={delayValue} />);
   }
 
   return (
