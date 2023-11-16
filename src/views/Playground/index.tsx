@@ -4,6 +4,7 @@ import Navbar from "components/navBar";
 import { useEffect, useState } from "react";
 import { useGenerateImage } from "app/hooks/useGenerate";
 import { useNavigate } from "react-router-dom";
+import { Animation } from "components/animationComponent";
 
 const Playground = () => {
   UseAuthenticatedRoute();
@@ -60,12 +61,26 @@ const Playground = () => {
     setGeneratedOutput(images);
   }, [images]);
 
+  const animationComponents = [];
+
+  for (let i = 0; i < 20; i++) {
+    const delayValue = 0.0 + 2*i; // Increment delay by 1 second in each iteration
+    animationComponents.push(<Animation key={i} 
+    delay={delayValue} 
+    location ={-500}
+    minheight = {200}
+    maxheight = {500}/>);
+  }
+
   return (
       <div className="bg-transparent flex flex-row justify-center w-full">
         <Navbar></Navbar>
         <div className="bg-transparent flex flex-row justify-center items-center w-full">
-          <div className="overflow-hidden bg-[url(https://c.animaapp.com/xYMQ48TT/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative p-20">
+          <div className="overflow-hidden bg-[url(https://c.animaapp.com/xYMQ48TT/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative p-20"
+               style = {{zIndex:0}}>
+            
             <div className="flex flex-row items-start h-[100%] lg:pt-5">
+            {animationComponents}
               <button
                 onClick={() => {
                   navigate("/PlaygroundChoose");

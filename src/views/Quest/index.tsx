@@ -15,6 +15,7 @@ import {
 import { useDispatch } from "react-redux";
 import ReactAudioPlayer from "react-audio-player";
 import { UseAuthenticatedRoute } from "utils/authRoute";
+import { Animation } from "components/animationComponent";
 
 const Quest = () => {
   UseAuthenticatedRoute();
@@ -61,14 +62,28 @@ const Quest = () => {
     console.log(quest.quests);
   }
 
+  //animation logic
+  const animationComponents = [];
+
+      for (let i = 0; i < 20; i++) {
+        const delayValue = 0.0 + 2*i; // Increment delay by 1 second in each iteration
+        animationComponents.push(<Animation key={i} 
+          delay={delayValue} 
+          location ={-1300}
+          minheight = {100}
+          maxheight = {400}/>);
+    }
+
   return (
     <>
       <div className="bg-transparent flex flex-wrap flex-row justify-center w-full">
-        <div className="overflow-hidden bg-[url(https://c.animaapp.com/keKAQgUJ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
+        <div className="overflow-hidden bg-[url(https://c.animaapp.com/keKAQgUJ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative"
+             style = {{ zIndex: 0 }}>
           <Navbar></Navbar>
           <div className="flex flex-col relative w-[65%] h-[60%] left-[20%] top-[5%] flex-wrap bg-white rounded-[52px] mt-[10px] md:mt-[20px] lg:mt-[45px]">
             <div className="flex flex-col w-[100%] h-[100%] justify-center items-center">
               <div className="flex flex-col p-5 space-y-5 h-[100%] w-[100%] justify-start items-center bg-white rounded-[27px]">
+               {animationComponents}
                 {/* Toggle between "Achievement" and "Leaderboard" tabs */}
                 <div className="w-[100%] flex flex-row justify-start space-x-3">
                   <button

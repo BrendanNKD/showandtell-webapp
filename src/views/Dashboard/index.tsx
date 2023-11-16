@@ -13,6 +13,7 @@ import ProgressBar from "components/progressBar";
 import categoryVal from "components/quest/categoryValues";
 import ReactAudioPlayer from 'react-audio-player';
 import { UseAuthenticatedRoute } from "utils/authRoute";
+import { Animation } from "components/animationComponent";
 
 const Dashboard = () => {
   UseAuthenticatedRoute();
@@ -43,6 +44,8 @@ const Dashboard = () => {
     });
   };
 
+
+
   useEffect(() => {
     if (levelData && currentprofile && quest) {
       const nextLimit = levelData[0].rules[Number(currentprofile?.level) + 1];
@@ -71,9 +74,23 @@ const Dashboard = () => {
     }
   }, [result, navigate]);
 
+  //animation logic
+  const animationComponents = [];
+
+  for (let i = 0; i < 20; i++) {
+    const delayValue = 0.0 + 2*i; // Increment delay by 1 second in each iteration
+    animationComponents.push(<Animation key={i} 
+    delay={delayValue} 
+    location ={-500}
+    minheight = {200}
+    maxheight = {500}/>);
+  }
+
   return (
     <div className="bg-transparent flex flex-wrap flex-row justify-center w-full">
-      <div className="overflow-hidden bg-[url(https://c.animaapp.com/keKAQgUJ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
+      <div className="overflow-hidden bg-[url(https://c.animaapp.com/keKAQgUJ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative"
+           style = {{zIndex : 0}}>
+        {animationComponents}
         <Navbar></Navbar>
         <div className="overflow-auto flex flex-col relative w-[65%] h-[70%] left-[20%] top-[5%] flex-wrap bg-white rounded-[52px] xl:mt-[45px]">
           <div className="flex flex-col w-[100%] h-[55%] p-10">

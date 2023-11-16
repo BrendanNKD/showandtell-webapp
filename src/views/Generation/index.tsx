@@ -13,7 +13,7 @@ import { useAddProfile, useAddStars } from "app/hooks/useAccount";
 import { useSaveCollection } from "app/hooks/useCollection";
 import { useCompleteQuestMutation } from "services/quest";
 import toast, { Toaster } from "react-hot-toast";
-import { motion } from "framer-motion";
+import { Animation } from "components/animationComponent";
 
 export const GenerateEmpty = () => {
   // Redirect user to profile if they are authenticate
@@ -151,14 +151,6 @@ export const GenerateEmpty = () => {
     }
   }, [newStarsData, completeQuest, profile._id, searchParams]);
 
-  const getRandomNumber = (min: number, max: number) =>
-    Math.random() * (max - min) + min;
-
-  const animationVariants = {
-    initial: { x: -200, y: getRandomNumber(0, 1000) },
-    animate: { x: 2200 },
-  };
-
   //report function stuff
   const [showModal, setShowModal] = useState(false);
   //success pop-up
@@ -166,6 +158,14 @@ export const GenerateEmpty = () => {
   //quest complete popup
   const [showQuest, setShowQuest] = useState(false);
   console.log(String(searchParams.get("questIndex")));
+
+  //animation logic
+  const animationComponents = [];
+
+  for (let i = 0; i < 20; i++) {
+    const delayValue = 0.0 + 2 * i; // Increment delay by 1 second in each iteration
+    animationComponents.push(<Animation key={i} delay={delayValue} />);
+  }
 
   return (
     <div className="bg-transparent flex flex-row justify-center w-full h-fit">
@@ -179,19 +179,7 @@ export const GenerateEmpty = () => {
         >
           <div className="flex flex-row items-start h-[100%] lg:pt-5">
             {/*testing animation*/}
-            <motion.div
-              animate="animate"
-              initial="initial"
-              style={{ position: "absolute", zIndex: -1 }}
-              variants={animationVariants}
-              transition={{ duration: 25.0, delay: 0.5, repeat: Infinity }}
-            >
-              <img
-                className=" w-20 md:w-32"
-                alt="Frame"
-                src="https://c.animaapp.com/ERt8OH5Z/img/vector.svg"
-              />
-            </motion.div>
+            {animationComponents}
 
             <button
               onClick={() => {

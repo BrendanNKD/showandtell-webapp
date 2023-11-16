@@ -35,7 +35,7 @@ const Navbar = () => {
                     }}
                   >
             <img
-              className="w-12 md:w-16 lg:w-30"
+              className="w-12 md:w-16 lg:w-32"
               alt="Frame"
               src="https://c.animaapp.com/Y2tyLAH0/img/frame.svg"
               />

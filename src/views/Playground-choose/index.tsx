@@ -2,6 +2,18 @@ import React from "react";
 import Navbar from "components/navBar";
 import { useNavigate } from "react-router-dom";
 import { UseAuthenticatedRoute } from "utils/authRoute";
+import { Animation } from "components/animationComponent";
+
+const animationComponents: React.ReactNode[] = [];
+
+for (let i = 0; i < 20; i++) {
+  const delayValue = 0.0 + 2*i; // Increment delay by 1 second in each iteration
+  animationComponents.push(<Animation key={i} 
+  delay={delayValue} 
+  location ={-1300}
+  minheight = {-100}
+  maxheight = {200}/>);
+}
 
 const PlaygroundChoose = () => {
   UseAuthenticatedRoute();
@@ -10,8 +22,10 @@ const PlaygroundChoose = () => {
     <div className="h-fit flex-col justify-center items-center align-middle">
       <Navbar />
       <div className="bg-transparent flex flex-row justify-center items-center w-full">
-        <div className="overflow-hidden bg-[url(https://c.animaapp.com/YStE9pzZ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative p-20">
+        <div className="overflow-hidden bg-[url(https://c.animaapp.com/YStE9pzZ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative p-20"
+             style = {{zIndex:0}}>
           <div className="bg-transparent flex flex-col justify-center items-center w-full space-y-5">
+          {animationComponents}
             <div className="[font-family:'lapsus',Helvetica] font-bold text-black text-[56px] tracking-[0.71px] leading-[normal] whitespace-nowrap">
               Playground
             </div>
