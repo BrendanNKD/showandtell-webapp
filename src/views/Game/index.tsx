@@ -68,16 +68,16 @@ export const Game = () => {
 
   return (
     <div>
-    <Navbar></Navbar>
-    
-    <Unity
-      style={{
-        width: "100%",
-        // justifySelf: "center",
-        // alignSelf: "center",
-      }}
-      unityProvider={unityProvider}
-    />
+      <Navbar></Navbar>
+
+      <Unity
+        style={{
+          width: "100%",
+          // justifySelf: "center",
+          // alignSelf: "center",
+        }}
+        unityProvider={unityProvider}
+      />
     </div>
   );
 };
