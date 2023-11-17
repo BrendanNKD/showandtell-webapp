@@ -54,7 +54,7 @@ export const Game = () => {
     return () => {
       removeEventListener("ScoreToStars", handleMenu);
     };
-  }, [addEventListener, removeEventListener, handleMenu]);
+  }, [addEventListener, removeEventListener, handleMenu, handleScore]);
 
   return (
     <div>
