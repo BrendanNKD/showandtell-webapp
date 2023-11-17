@@ -5,10 +5,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
+import "swiper/css/pagination";
 
 // import required modules
 import { Navigation, Pagination } from "swiper/modules";
-import ReactAudioPlayer from 'react-audio-player';
+import ReactAudioPlayer from "react-audio-player";
+import { UseAuthenticatedRoute } from "utils/authRoute";
+
+import { Animation } from "components/animationComponent"
 
 export const GenerateChoose = (): JSX.Element => {
   const swiperStyle = {
@@ -24,7 +28,7 @@ export const GenerateChoose = (): JSX.Element => {
     alignItems: "center",
   };
 
-
+  UseAuthenticatedRoute();
 
   const navigate = useNavigate();
 
@@ -45,14 +49,29 @@ export const GenerateChoose = (): JSX.Element => {
     });
   };
 
+    //animation logic
+    const animationComponents = [];
+
+    for (let i = 0; i < 20; i++) {
+        const delayValue = 0.0 + 2*i; // Increment delay by 1 second in each iteration
+        animationComponents.push(<Animation key={i} 
+          delay={delayValue} 
+          location ={-1300}
+          minheight = {-100}
+          maxheight = {200}/>);
+    }
+
   return (
     <div className="h-fit flex-col justify-center items-center align-middle">
       <Navbar />
       <div className="bg-transparent flex flex-row justify-center items-center w-full">
-        <div className="overflow-hidden bg-[url(https://c.animaapp.com/YStE9pzZ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
-          <div className="absolute left-[400px] top-[100px] [font-family:'lapsus',Helvetica] font-bold text-black text-[64px] tracking-[0.71px] leading-[normal] whitespace-nowrap">
+        <div className="overflow-hidden bg-[url(https://c.animaapp.com/YStE9pzZ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative pt-20 px-3 md:px-20"
+         style={{ zIndex: 0 }}>
+        <div className="bg-transparent flex flex-col justify-center items-center w-full space-y-5">
+          <div className="[font-family:'lapsus',Helvetica] font-bold text-black text-[56px] tracking-[0.71px] leading-[normal] whitespace-nowrap">
                 Generate
           </div>
+          {animationComponents}
           <Swiper
             navigation={{
               prevEl: ".prev",
@@ -60,8 +79,7 @@ export const GenerateChoose = (): JSX.Element => {
             }}
             pagination={{
               clickable: true,
-              el: `swiper-container swiper-container-testClass`,
-              bulletClass: `swiper-pagination-bullet swiper-pagination-testClass`,
+              el: ".swiper-pagination"
             }}
             modules={[Navigation, Pagination]}
             style={swiperStyle}
@@ -71,14 +89,13 @@ export const GenerateChoose = (): JSX.Element => {
             touchStartPreventDefault={false}
             watchSlidesProgress={true}
           >
-            <div className="w-[100%] h-[100%]">
+            <div>
               <SwiperSlide style={swiperSlideStyle}>
-              <div className="flex flex-row justify-center items-center w-[100%] h-[100%] space-x-[2%]">                  
-                <div className="flex flex-col justify-center items-center w-[48%] h-[55%] space-y-[3%]">
+              <div className="flex flex-row justify-center items-center w-[100%] space-x-[2%]">                  
+                <div className="flex flex-col justify-center items-center w-[100%] h-[500px] lg:w-[70%] lg:h-[550px] xl:w-[60%] xl:h-[700px] space-y-[3%]">
                   {/*animals*/}
                   <div className="relative w-[100%] h-[30%]">
                     <div className="flex flex-row justify-center items-center w-[100%] h-[100%]">
-                
                       <div className="relative w-[100%] h-[100%]">
                         <div className="relative w-[100%] h-[100%] top-[0] bg-[#ef59a1] rounded-[20px]">
                           <div className="flex md:flex-row flex-col md:justify-center items-center w-[100%] h-[90%] top-0 bg-[#f177ae] rounded-[17px] p-[2%]">
@@ -89,7 +106,7 @@ export const GenerateChoose = (): JSX.Element => {
                                 src="https://c.animaapp.com/YStE9pzZ/img/frame-2.svg"
                               />
                             </div>
-                            <div className="flex justify-center items-center relative w-[100%] h-[35%] top-[0] left-[0] [font-family:'lapsus',Helvetica] font-bold text-black text-xl md:text-3xl lg:text-5xl text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+                            <div className="flex justify-center items-center relative w-[100%] h-[40%] top-[0] left-[0] [font-family:'lapsus',Helvetica] font-bold text-black text-[2.5vw] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
                                 Animals
                             </div>
                           </div>
@@ -97,7 +114,7 @@ export const GenerateChoose = (): JSX.Element => {
                       </div>
                       <div className="w-[170%] h-[90%]">
                       <div className="flex flex-row justify-center items-center relative w-[100%] h-[100%] bg-white rounded-r-[24px] p-[3%] space-x-[10%]">
-                        <div className="flex justify-center items-center w-[100%] h-[100%] left-[0] [font-family:'gillsans',Helvetica] font-normal text-black text-[10px] md:text-[13px] lg:text-[15px] xl:text-[17px] 2xl:text[20px] tracking-[0.21px] leading-[normal]">
+                        <div className="overflow-hidden flex justify-center items-center w-[100%] h-[100%] left-[0] [font-family:'gillsans',Helvetica] font-normal text-black text-[10px] md:text-[13px] lg:text-[15px] xl:text-[17px] 2xl:text[20px] tracking-[0.21px] leading-[normal]">
                           Learn about the world of animals and the creatures
                           around you! This educational and entertaining game is
                           designed to help children learn about animals from all
@@ -132,8 +149,8 @@ export const GenerateChoose = (): JSX.Element => {
                 
                       <div className="relative w-[100%] h-[100%]">
                         <div className="relative w-[100%] h-[100%] top-[0] bg-[#facd0a] rounded-[20px]">
-                          <div className="flex md:flex-row flex-col justify-center items-center w-[100%] h-[90%] top-0 bg-[#fae55a] rounded-[17px] p-[2%]">
-                            <div className="flex justify-center items-center  w-[70%] h-[100%]">
+                          <div className="flex md:flex-row flex-col md:justify-center items-center w-[100%] h-[90%] top-0 bg-[#fae55a] rounded-[17px] p-[2%]">
+                            <div className="flex justify-center items-center  w-[70%] h-[70%]">
                               <img
                                 className="w-[100%] h-[100%]"
                                 alt="Frame"
@@ -141,14 +158,14 @@ export const GenerateChoose = (): JSX.Element => {
                               />
                             </div>
                             <div className="flex justify-center items-center relative w-[100%] h-[40%] top-[0] left-[0] [font-family:'lapsus',Helvetica] font-bold text-black text-[2.5vw] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
-                            Shapes &amp; <br></br> Colors
+                              Shapes &amp; <br></br> Colors
                             </div>
                           </div>
                         </div>
                       </div>
                       <div className="w-[170%] h-[90%]">
                       <div className="flex flex-row justify-center items-center relative w-[100%] h-[100%] bg-white rounded-r-[24px] p-[3%] space-x-[10%]">
-                        <div className="flex justify-center items-center w-[100%] h-[100%] left-[0] [font-family:'gillsans',Helvetica] font-normal text-black text-[10px] md:text-[13px] lg:text-[15px] xl:text-[17px] 2xl:text[20px] tracking-[0.21px] leading-[normal]">
+                        <div className="overflow-hidden flex justify-center items-center w-[100%] h-[100%] left-[0] [font-family:'gillsans',Helvetica] font-normal text-black text-[10px] md:text-[13px] lg:text-[15px] xl:text-[17px] 2xl:text[20px] tracking-[0.21px] leading-[normal]">
                           Dive into the fascinating realm of shapes and colors!
                           This engaging show & tell is tailored to help children
                           explore the exciting world of geometric forms and
@@ -198,7 +215,7 @@ export const GenerateChoose = (): JSX.Element => {
                       </div>
                       <div className="w-[170%] h-[90%]">
                       <div className="flex flex-row justify-center items-center relative w-[100%] h-[100%] bg-white rounded-r-[24px] p-[3%] space-x-[10%]">
-                        <div className="flex justify-center items-center w-[100%] h-[100%] left-[0] [font-family:'gillsans',Helvetica] font-normal text-black text-[10px] md:text-[13px] lg:text-[15px] xl:text-[17px] 2xl:text[20px] tracking-[0.21px] leading-[normal]">
+                        <div className="overflow-hidden flex justify-center items-center w-[100%] h-[100%] left-[0] [font-family:'gillsans',Helvetica] font-normal text-black text-[10px] md:text-[13px] lg:text-[15px] xl:text-[17px] 2xl:text[20px] tracking-[0.21px] leading-[normal]">
                           Embark on a thrilling journey through the universe of
                           vehicles! This informative game is designed to introduce
                           children to a wide array of transportation.
@@ -226,7 +243,7 @@ export const GenerateChoose = (): JSX.Element => {
                     </div>
                   </div>
                 </div>
-                  <button className="next">
+                  <button className="next w-[0px] md:w-[40px]">
                       <img
                       src="https://c.animaapp.com/YStE9pzZ/img/frame-5.svg"
                       alt="Frame"
@@ -236,14 +253,14 @@ export const GenerateChoose = (): JSX.Element => {
               </SwiperSlide>
 
               <SwiperSlide style={swiperSlideStyle}>
-              <div className="flex flex-row justify-center items-center w-[100%] h-[100%] space-x-[2%]">
-                  <button className="prev">
+                <div className="flex flex-row justify-center items-center w-[100%] space-x-[2%]">
+                  <button className="prev w-[0px] md:w-[40px]">
                       <img
                       src="https://c.animaapp.com/qxMy52EW/img/frame-3.svg"
                       alt="Frame"
                     />
                   </button>
-                <div className="flex flex-col justify-center items-center w-[48%] h-[55%] space-y-[3%]">
+                  <div className="flex flex-col justify-center items-center w-[100%] h-[500px] lg:w-[70%] lg:h-[550px] xl:w-[60%] xl:h-[700px] space-y-[3%]">
                     {/*Flowers */}
                     <div className="relative w-[100%] h-[30%]">
                       <div className="flex flex-row justify-center items-center w-[100%] h-[100%]">
@@ -266,7 +283,7 @@ export const GenerateChoose = (): JSX.Element => {
                         </div>
                         <div className="w-[170%] h-[90%]">
                         <div className="flex flex-row justify-center items-center relative w-[100%] h-[100%] bg-white rounded-r-[24px] p-[3%] space-x-[10%]">
-                          <div className="flex justify-center items-center w-[100%] h-[100%] left-[0] [font-family:'gillsans',Helvetica] font-normal text-black text-[10px] md:text-[13px] lg:text-[15px] xl:text-[17px] 2xl:text[20px] tracking-[0.21px] leading-[normal]">
+                          <div className="overflow-hidden flex justify-center items-center w-[100%] h-[100%] left-[0] [font-family:'gillsans',Helvetica] font-normal text-black text-[10px] md:text-[13px] lg:text-[15px] xl:text-[17px] 2xl:text[20px] tracking-[0.21px] leading-[normal]">
                           Step into the enchanting world of flowers! This
                           interactive and enlightening game is created to nurture
                           children's curiosity about the diverse and beautiful
@@ -318,7 +335,7 @@ export const GenerateChoose = (): JSX.Element => {
                         </div>
                         <div className="w-[170%] h-[90%]">
                         <div className="flex flex-row justify-center items-center relative w-[100%] h-[100%] bg-white rounded-r-[24px] p-[3%] space-x-[10%]">
-                          <div className="flex justify-center items-center w-[100%] h-[100%] left-[0] [font-family:'gillsans',Helvetica] font-normal text-black text-[10px] md:text-[13px] lg:text-[15px] xl:text-[17px] 2xl:text[20px] tracking-[0.21px] leading-[normal]">
+                          <div className="overflow-hidden flex justify-center items-center w-[100%] h-[100%] left-[0] [font-family:'gillsans',Helvetica] font-normal text-black text-[10px] md:text-[13px] lg:text-[15px] xl:text-[17px] 2xl:text[20px] tracking-[0.21px] leading-[normal]">
                           Delve into the delectable realm of fruits and
                           vegetables! This fun and educational game is crafted to
                           help children discover the wide variety of fresh and
@@ -368,7 +385,7 @@ export const GenerateChoose = (): JSX.Element => {
                         </div>
                         <div className="w-[170%] h-[90%]">
                         <div className="flex flex-row justify-center items-center relative w-[100%] h-[100%] bg-white rounded-r-[24px] p-[3%] space-x-[10%]">
-                          <div className="flex justify-center items-center w-[100%] h-[100%] left-[0] [font-family:'gillsans',Helvetica] font-normal text-black text-[10px] md:text-[13px] lg:text-[15px] xl:text-[17px] 2xl:text[20px] tracking-[0.21px] leading-[normal]">
+                          <div className="overflow-hidden flex justify-center items-center w-[100%] h-[100%] left-[0] [font-family:'gillsans',Helvetica] font-normal text-black text-[10px] md:text-[13px] lg:text-[15px] xl:text-[17px] 2xl:text[20px] tracking-[0.21px] leading-[normal]">
                           Savor the delightful world of food! This engaging and
                           mouthwatering game is designed to introduce children to
                           the different array of food categories, all while having
@@ -397,20 +414,88 @@ export const GenerateChoose = (): JSX.Element => {
                       </div>
                     </div>
                   </div>
+                  <button className="next w-[0px] md:w-[40px]">
+                      <img
+                      src="https://c.animaapp.com/YStE9pzZ/img/frame-5.svg"
+                      alt="Frame"
+                    />
+                  </button>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide style={swiperSlideStyle}>
+                <div className="flex flex-row justify-center items-center w-[100%] space-x-[2%]">
+                  <button className="prev w-[0px] md:w-[40px]">
+                      <img
+                      src="https://c.animaapp.com/qxMy52EW/img/frame-3.svg"
+                      alt="Frame"
+                    />
+                  </button>
+                  <div className="flex flex-col justify-start items-start w-[100%] h-[500px] lg:w-[70%] lg:h-[550px] xl:w-[60%] xl:h-[700px] space-y-[3%]">
+                    <div className="relative w-[100%] h-[30%]">
+                      <div className="flex flex-row justify-center items-center w-[100%] h-[100%]">
+                        <div className="relative w-[100%] h-[100%]">
+                          <div className="relative w-[100%] h-[100%] top-[0] bg-[#5971af] rounded-[20px]">
+                            <div className="flex md:flex-row flex-col md:justify-center items-center w-[100%] h-[90%] top-0 bg-[#82a5ff] rounded-[17px] p-[2%]">
+                              <div className="flex justify-center items-center w-[70%] h-[70%]">
+                                <img
+                                  className="w-[100%] h-[100%] md:shrink-0"
+                                  alt="Frame"
+                                  src="https://c.animaapp.com/zJNs34OX/img/frame.svg"
+                                />
+                              </div>
+                              <div className="flex justify-center items-center relative w-[100%] h-[35%] top-[0] left-[0] [font-family:'lapsus',Helvetica] font-bold text-black text-[2.5vw] text-center tracking-[1.07px] leading-[normal] whitespace-nowrap">
+                                General
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="w-[170%] h-[90%]">
+                          <div className="flex flex-row justify-center items-center relative w-[100%] h-[100%] bg-white rounded-r-[24px] p-[3%] space-x-[10%]">
+                            <div className="overflow-hidden flex justify-center items-center w-[100%] h-[100%] left-[0] [font-family:'gillsans',Helvetica] font-normal text-black text-[10px] md:text-[13px] lg:text-[15px] xl:text-[17px] 2xl:text[20px] tracking-[0.21px] leading-[normal]">
+                              Go beyond traditional subjects, introducing kids to a multitude of fascinating realms. 
+                              Learning is not just about acquiring facts but about exploring the richness of the world around you.
+                            </div>
+                            <div className="flex justify-center items-center relative w-[30%] h-[100%]">
+                              <button
+                                onClick={() =>
+                                  passParams(
+                                    "General",
+                                    "https://c.animaapp.com/zJNs34OX/img/frame.svg",
+                                    "#82a5ff",
+                                    "food"
+                                  )
+                                }
+                              >
+                                <img
+                                  className=""
+                                  alt="Frame"
+                                  src="https://c.animaapp.com/NIGs1Y1e/img/frame-2.svg"
+                                  />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </SwiperSlide>
             </div>
+            <div className="swiper-pagination"></div>
           </Swiper>
+          
           <div className="generatechooseplayer">
             <ReactAudioPlayer
-                src="/assets/Homepage.mp3"
-                autoPlay={true}
-                controls
-                loop
-              />
+              src="/assets/Homepage.mp3"
+              autoPlay={true}
+              controls
+              loop
+            />
           </div>
-        </div>
-      </div>
+          
+        </div>                 
+       </div>
     </div>
+  </div>
   );
 };

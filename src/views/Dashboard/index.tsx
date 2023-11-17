@@ -12,8 +12,11 @@ import { useNavigate, createSearchParams } from "react-router-dom";
 import ProgressBar from "components/progressBar";
 import categoryVal from "components/quest/categoryValues";
 import ReactAudioPlayer from 'react-audio-player';
+import { UseAuthenticatedRoute } from "utils/authRoute";
+import { Animation } from "components/animationComponent";
 
 const Dashboard = () => {
+  UseAuthenticatedRoute();
   const { data: levelData } = useGetLevelQuery();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,6 +43,8 @@ const Dashboard = () => {
       }).toString(),
     });
   };
+
+
 
   useEffect(() => {
     if (levelData && currentprofile && quest) {
@@ -69,11 +74,25 @@ const Dashboard = () => {
     }
   }, [result, navigate]);
 
+  //animation logic
+  const animationComponents = [];
+
+  for (let i = 0; i < 20; i++) {
+    const delayValue = 0.0 + 2*i; // Increment delay by 1 second in each iteration
+    animationComponents.push(<Animation key={i} 
+    delay={delayValue} 
+    location ={-500}
+    minheight = {200}
+    maxheight = {500}/>);
+  }
+
   return (
     <div className="bg-transparent flex flex-wrap flex-row justify-center w-full">
-      <div className="overflow-hidden bg-[url(https://c.animaapp.com/keKAQgUJ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative">
+      <div className="overflow-hidden bg-[url(https://c.animaapp.com/keKAQgUJ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative"
+           style = {{zIndex : 0}}>
+        {animationComponents}
         <Navbar></Navbar>
-        <div className="flex flex-col relative w-[65%] h-[75%] left-[20%] top-[5%] flex-wrap bg-white rounded-[52px]">
+        <div className="overflow-auto flex flex-col relative w-[65%] h-[70%] left-[20%] top-[5%] flex-wrap bg-white rounded-[52px] xl:mt-[45px]">
           <div className="flex flex-col w-[100%] h-[55%] p-10">
             <div className="font-lapsus font-bold text-black text-[49px] tracking-[0.49px] leading-[normal]">
               <p>Dashboard</p>
@@ -123,68 +142,69 @@ const Dashboard = () => {
             <div className="font-lapsus font-bold text-black text-[32px] md:text-[45px] xl:text-[50px] xl:ml-10 tracking-[0.49px] leading-[normal]">
                 Next up:
             </div>
-          </div>
-          {/*Quest box*/}
-          <div
-            className="flex flex-col justify-center items-center p-4"
-            onClick={() => passQuestParams(quests.category, quests.caption)}
-          >
+          
+            {/*Quest box*/}
             <div
-              className="w-64 h-60 md:w-[450px] lg:w-[600px] xl:w-[760px] rounded-t-[20px] font-lapsus p-4"
-              style={{
-                backgroundColor:
-                  quests &&
-                  categoryVal[quests.category as keyof typeof categoryVal]
-                    .color!,
-              }}
+              className="flex flex-col justify-center items-center p-4"
+              onClick={() => passQuestParams(quests.category, quests.caption)}
             >
-              <div className="h-full flex flex-col space-y-2 md:flex-row items-center justify-center md:space-x-6">
-                {/*model icon*/}
-                <img
-                  id="questImage"
-                  className="w-16 lg:w-32"
-                  alt="Frame"
-                  src={
+              <div
+                className="w-60 h-60 md:w-[450px] lg:w-[600px] xl:w-[760px] rounded-t-[20px] font-lapsus p-4"
+                style={{
+                  backgroundColor:
                     quests &&
                     categoryVal[quests.category as keyof typeof categoryVal]
-                      .image
-                  }
-                />
-                <div className="flex flex-col justify-center items-center w-full h-15 md:h-[200px] font-lapsus font-normal text-black text-[16px] md:text-[20px] lg:text-[26px] xl:text-[30px] md:space-y-5">
-                  <div className="w-full flex justify-center md:justify-start items-center">{quests && quests.category}</div>
-                  <div className="w-full flex justify-center items-center">{quests && quests.description}</div>
-                </div>
-                {/*Quest box star reward*/}
-                <div className="flex flex-row space-x-2 items-center relative w-50 h-10 md:w-[250px] lg:w-[300px] lg:h-[100px] bg-white rounded-[14px] p-4">
-                  <div>
-                    <img
-                      className="relative w-[80%]"
-                      alt="Vector"
-                      src="https://c.animaapp.com/keKAQgUJ/img/vector.svg"
-                    />
+                      .color!,
+                }}
+              >
+                <div className="h-full flex flex-col space-y-2 md:flex-row items-center justify-center md:space-x-6">
+                  {/*model icon*/}
+                  <img
+                    id="questImage"
+                    className="w-16 lg:w-32"
+                    alt="Frame"
+                    src={
+                      quests &&
+                      categoryVal[quests.category as keyof typeof categoryVal]
+                        .image
+                    }
+                  />
+                  <div className="flex flex-col justify-center items-center w-full h-15 md:h-[200px] font-lapsus font-normal text-black text-[16px] md:text-[20px] lg:text-[26px] xl:text-[30px] md:space-y-5">
+                    <div className="w-full flex justify-center md:justify-start items-center">{quests && quests.category}</div>
+                    <div className="w-full flex justify-center items-center">{quests && quests.description}</div>
                   </div>
-                  <div className="text-[20px] lg:text-[45px] tracking-[0] font-lapsus font-bold text-black leading-[normal] whitespace-nowrap">
-                    200
+                  {/*Quest box star reward*/}
+                  <div className="flex flex-row space-x-2 items-center relative w-50 h-10 md:w-[250px] lg:w-[300px] lg:h-[100px] bg-white rounded-[14px] p-4">
+                    <div>
+                      <img
+                        className="relative w-[80%]"
+                        alt="Vector"
+                        src="https://c.animaapp.com/keKAQgUJ/img/vector.svg"
+                      />
+                    </div>
+                    <div className="text-[20px] lg:text-[45px] tracking-[0] font-lapsus font-bold text-black leading-[normal] whitespace-nowrap">
+                      200
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div
-              className="w-64 h-10 md:w-[450px] lg:w-[600px] xl:w-[760px] bg-[#facd0a] rounded-b-[15px]"
-              style={{
-                backgroundColor:
-                  quests &&
-                  categoryVal[quests.category as keyof typeof categoryVal]
-                    .darkcolor!,
-              }}
-            ></div>
-            <div className="dashboardplayer">
-            <ReactAudioPlayer
-                src="/assets/Homepage1.mp3"
-                autoPlay={true}
-                controls
-              />
-            </div>
+              <div
+                className="w-60 h-10 md:w-[450px] lg:w-[600px] xl:w-[760px] bg-[#facd0a] rounded-b-[15px]"
+                style={{
+                  backgroundColor:
+                    quests &&
+                    categoryVal[quests.category as keyof typeof categoryVal]
+                      .darkcolor!,
+                }}
+              ></div>
+              <div className="dashboardplayer">
+              <ReactAudioPlayer
+                  src="/assets/Homepage1.mp3"
+                  autoPlay={true}
+                  controls
+                />
+              </div>
+          </div>
           </div>
         </div>
       </div>

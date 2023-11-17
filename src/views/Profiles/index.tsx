@@ -31,7 +31,7 @@ const initialState: ProfileResponseModel = {
 
 const Profiles = () => {
   // Redirect user to profile if they are authenticated
-
+  UseAuthenticatedRoute();
   // const { setProfileState, accountData } = useGetAccount();
   // const { isLoading } = useGetCollection();
   const { setProfileState } = useSetProfile();
@@ -40,8 +40,6 @@ const Profiles = () => {
   const [landing, setLanding] = useState<boolean>(true);
   const [formValue, setFormValue] = useState(initialState);
   const [profiles, setProfiles] = useState<any[] | []>([]);
-
-  UseAuthenticatedRoute();
 
   const {
     addNewProfile,
@@ -122,15 +120,15 @@ const Profiles = () => {
       {landing ? (
         <Landing></Landing>
       ) : (
-        <div className="bg-transparent h-screen flex items-center justify-center alignItems-center">
-          <div className="bg-[url(https://c.animaapp.com/JG9iazHt/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] flex flex-col items-center justify-center">
+        <div className="bg-transparent h-screen flex items-center justify-center items-center">
+          <div className="overflow-auto bg-[url(https://c.animaapp.com/JG9iazHt/img/group.png)] bg-[100%_100%] w-[1920px] h-[2000px] md:h-[1300px] flex flex-col items-center justify-center"> 
+            <div className="p-20 mt-[500px] md:mt-[200px]">
             {/* Title */}
-            <h1 className="[font-family:'lapsus',Helvetica] font-bold text-black text-[60px] tracking-[1.85px] leading-[normal] whitespace-nowrap text-3xl">
+            <h1 className="mt-[50px] w-[100%] text-center [font-family:'lapsus',Helvetica] font-bold text-black text-[30px] md:text-[45px] lg:text-[60px] tracking-[1.85px] leading-[normal] whitespace-nowrap text-3xl">
               Select Profile
             </h1>
-
             {/* Profiles */}
-            <div className="flex flex-row flex-wrap gap-5 mt-8">
+            <div className="flex flex-row justify-center items-center flex-wrap md:gap-5 mt-8">
               {/* Profile 1 */}
               {profiles &&
                 profiles.map((object, index) => {
@@ -166,7 +164,7 @@ const Profiles = () => {
                 })}
               {/* Add Profile */}
               <button
-                className="rounded-lg p-4 cursor-pointer flex flex-col align-middle justify-center alignItems-center"
+                className="w-[124px] h-[180px] p-4 cursor-pointer flex flex-col justify-end items-center"
                 onClick={() => {
                   setShowModal((prevShowModal) => !prevShowModal); // Toggle the state
                 }}
@@ -193,7 +191,7 @@ const Profiles = () => {
             </div>
 
             {/* Sign out */}
-            <div className="flex gap-10">
+            <div className="flex gap-10 justify-center items-center">
               <button
                 //className="border-2 border-gray-600 text-gray-600 px-4 py-1 mt-20 hover:border-gray-400 hover:text-gray-400"
                 className="mt-20"
@@ -209,7 +207,7 @@ const Profiles = () => {
                   </div>
                 </div>
               </button>
-              {/* Manage profiles */}
+              {/* Manage profiles 
               <button
                 //className="border-2 border-gray-600 text-gray-600 px-4 py-1 mt-20 hover:border-gray-400 hover:text-gray-400"
                 className="mt-20"
@@ -225,7 +223,9 @@ const Profiles = () => {
                   </div>
                 </div>
               </button>
+              */}
             </div>
+          </div>
           </div>
         </div>
       )}
