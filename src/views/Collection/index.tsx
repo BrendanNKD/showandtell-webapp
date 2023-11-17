@@ -13,17 +13,17 @@ import { Animation } from "components/animationComponent";
 const Collection = () => {
   UseAuthenticatedRoute();
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(null);
+  // const [isOpen, setIsOpen] = useState(false);
+  // const [selectedValue, setSelectedValue] = useState(null);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+  // const toggleDropdown = () => {
+  //   setIsOpen(!isOpen);
+  // };
 
-  const handleSelect = (value: any) => {
-    setSelectedValue(value);
-    setIsOpen(false); // Close the dropdown after selecting an item
-  };
+  // const handleSelect = (value: any) => {
+  //   setSelectedValue(value);
+  //   setIsOpen(false); // Close the dropdown after selecting an item
+  // };
 
   const collectionData = UseCollection();
 
