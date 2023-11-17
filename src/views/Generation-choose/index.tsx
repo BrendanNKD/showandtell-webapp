@@ -424,7 +424,7 @@ export const GenerateChoose = (): JSX.Element => {
               </SwiperSlide>
               <SwiperSlide style={swiperSlideStyle}>
                 <div className="flex flex-row justify-center items-center w-[100%] space-x-[2%]">
-                  <button className="prev next w-[0px] md:w-[40px]">
+                  <button className="prev w-[0px] md:w-[40px]">
                       <img
                       src="https://c.animaapp.com/qxMy52EW/img/frame-3.svg"
                       alt="Frame"
