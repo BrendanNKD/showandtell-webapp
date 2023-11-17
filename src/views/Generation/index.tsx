@@ -4,8 +4,11 @@ import Navbar from "components/navBar";
 import { ChangeEvent, useEffect, useState } from "react";
 import DragDrop from "components/dragAndDrop";
 import { useGenerateCaption, useReportIssue } from "app/hooks/useGenerate";
-import { useCheck, useOpenAiCompletion } from "app/hooks/useOpenAiCompletion";
-import TextToSpeech from "components/textToSpeech";
+import {
+  useCheck,
+  useOpenAiCompletion,
+  useSpeech,
+} from "app/hooks/useOpenAiCompletion";
 import { UseProfile, UseProfileIndex } from "app/state/profile/useProfile";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Modal } from "components/modal";
@@ -14,6 +17,7 @@ import { useSaveCollection } from "app/hooks/useCollection";
 import { useCompleteQuestMutation } from "services/quest";
 import toast, { Toaster } from "react-hot-toast";
 import { Animation } from "components/animationComponent";
+import AudioPlayer from "components/audioPlayer";
 
 export const GenerateEmpty = () => {
   // Redirect user to profile if they are authenticate
@@ -37,6 +41,8 @@ export const GenerateEmpty = () => {
   const [otherIssue, setOtherIssue] = useState<string>("");
   const { reportIssue, reported, reportLoading } = useReportIssue();
 
+  const { createSpeech, speechBuffer } = useSpeech();
+
   const handleCancelModal = () => {
     setShowQuest(false);
     // Navigate to a different route
@@ -56,7 +62,6 @@ export const GenerateEmpty = () => {
   };
 
   const submitReport = async () => {
-    console.log(selectedIssues);
     if (
       selectedImage &&
       imageCaption &&
@@ -110,13 +115,19 @@ export const GenerateEmpty = () => {
 
   useEffect(() => {
     setImageDescription(description);
+    createSpeech({ text: description });
+
     if (description && searchParams.get("caption") != null) {
       checkAnswer({
         caption: imageCaption,
         sentence: String(searchParams.get("caption")),
       });
     }
-  }, [description, searchParams, checkAnswer, imageCaption]);
+  }, [description, searchParams, checkAnswer, imageCaption, createSpeech]);
+
+  useEffect(() => {
+    console.log(speechBuffer);
+  }, [speechBuffer]);
 
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
@@ -243,12 +254,12 @@ export const GenerateEmpty = () => {
                 {/*Description box*/}
                 <div className="w-[100%] h-[220px] md:h-[250px] bg-white px-2 pt-1 md:px-5">
                   <div className="flex justify-start items-start w-[100%] h-[100%] bg-[#e2e3e4] p-3 rounded-[10px] min-h-fit">
-                    {imageDescription ? (
+                    {imageDescription && speechBuffer ? (
                       <>
                         <div className="flex flex-col">
                           <p>{imageDescription}</p>
                           <div className="flex flex-row justify-center pt-6">
-                            <TextToSpeech text={imageDescription} />
+                            <AudioPlayer bufferData={speechBuffer.data} />
                           </div>
                         </div>
                       </>

@@ -3,6 +3,7 @@ import Navbar from "components/navBar";
 import { useNavigate } from "react-router-dom";
 import { UseAuthenticatedRoute } from "utils/authRoute";
 import { Animation } from "components/animationComponent";
+import ReactAudioPlayer from 'react-audio-player';
 
 const animationComponents: React.ReactNode[] = [];
 
@@ -116,6 +117,13 @@ const PlaygroundChoose = () => {
                 </div>
               </div>
             </div>
+          </div>
+          <div className="playgroundchooseplayer">
+            <ReactAudioPlayer
+                src="/assets/Homepage4.mp3"
+                autoPlay={true}
+                controls
+              />
           </div>
         </div>
       </div>

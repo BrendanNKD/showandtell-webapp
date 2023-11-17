@@ -19,17 +19,21 @@ export const Game = () => {
 
   sendMessage("UI", "GetUsername", username);
 
-  const handleStart = useCallback(
-    (score: any) => {
-      setScore(score);
-      sendMessage(
-        "JigsawUI",
-        "GetUrl",
-        "https://res.cloudinary.com/dxhbnhyfi/image/upload/v1695429689/showandtell/nbofkbyutnr8fiqtuqgd.jpg"
-      );
-    },
-    [sendMessage]
-  );
+  const handleStart = useCallback(() => {
+    sendMessage(
+      "JigsawUI",
+      "GetUrl",
+      "https://res.cloudinary.com/dxhbnhyfi/image/upload/v1695429689/showandtell/nbofkbyutnr8fiqtuqgd.jpg"
+    );
+  }, [sendMessage]);
+
+  const handleMenu = useCallback(() => {
+    sendMessage("UI", "GetUsername", username);
+  }, [sendMessage, username]);
+
+  const handleScore = useCallback((score: any) => {
+    setScore(score);
+  }, []);
 
   useEffect(() => {
     addEventListener("SetStart", handleStart);
@@ -37,6 +41,20 @@ export const Game = () => {
       removeEventListener("SetStart", handleStart);
     };
   }, [addEventListener, removeEventListener, handleStart]);
+
+  useEffect(() => {
+    addEventListener("EnterMain", handleMenu);
+    return () => {
+      removeEventListener("EnterMain", handleMenu);
+    };
+  }, [addEventListener, removeEventListener, handleMenu]);
+
+  useEffect(() => {
+    addEventListener("ScoreToStars", handleScore);
+    return () => {
+      removeEventListener("ScoreToStars", handleMenu);
+    };
+  }, [addEventListener, removeEventListener, handleMenu, handleScore]);
 
   return (
     <div>
