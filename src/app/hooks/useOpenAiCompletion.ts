@@ -3,6 +3,7 @@ import { useCallback } from "react";
 import {
   useCheckMutation,
   useOpenAiCompletionMutation,
+  useSpeechMutation,
 } from "services/openAi/completion";
 
 export const useOpenAiCompletion = () => {
@@ -52,5 +53,29 @@ export const useCheck = () => {
     answer,
     answerSuccess,
     answerloading,
+  };
+};
+
+export const useSpeech = () => {
+  const [
+    speech,
+    {
+      data: speechBuffer,
+      isSuccess: speechBufferSuccess,
+      isLoading: speechBufferloading,
+    },
+  ] = useSpeechMutation();
+
+  const createSpeech = useCallback(
+    async (data: any) => {
+      await speech(data).unwrap();
+    },
+    [speech]
+  );
+  return {
+    createSpeech,
+    speechBuffer,
+    speechBufferSuccess,
+    speechBufferloading,
   };
 };

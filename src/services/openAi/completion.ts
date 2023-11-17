@@ -26,8 +26,21 @@ export const openAiCompletionApi = createApi({
         };
       },
     }),
+    speech: builder.mutation({
+      query: (body: any) => {
+        return {
+          url: "/api/v1/openai/speech",
+          method: "post",
+          credentials: "include",
+          body,
+        };
+      },
+    }),
   }),
 });
 
-export const { useOpenAiCompletionMutation, useCheckMutation } =
-  openAiCompletionApi;
+export const {
+  useOpenAiCompletionMutation,
+  useCheckMutation,
+  useSpeechMutation,
+} = openAiCompletionApi;
