@@ -26,6 +26,7 @@ import storage from "redux-persist/lib/storage";
 import { openAiCompletionApi } from "services/openAi/completion";
 import { collectionApi } from "services/collection";
 import { questApi } from "services/quest";
+import { UseSessionMiddleware } from "utils/authRoute";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -69,6 +70,7 @@ export const store = configureStore({
       openAiCompletionApi.middleware,
       collectionApi.middleware,
       questApi.middleware,
+      UseSessionMiddleware,
     ]),
 });
 
