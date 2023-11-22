@@ -40,7 +40,6 @@ export const GenerateEmpty = () => {
   const [selectedIssues, setSelectedIssues] = useState<string[]>([]);
   const [otherIssue, setOtherIssue] = useState<string>("");
   const { reportIssue, reported, reportLoading } = useReportIssue();
-
   const { createSpeech, speechBuffer } = useSpeech();
 
   const handleCancelModal = () => {
@@ -57,7 +56,11 @@ export const GenerateEmpty = () => {
       await generate({
         image: selectedImage,
         category: String(searchParams.get("category")),
-      });
+      })
+        .then(() => {})
+        .catch((err: any) => {
+          //error thats not session related
+        });
     }
   };
 
@@ -75,7 +78,12 @@ export const GenerateEmpty = () => {
         issues: selectedIssues,
         otherIssues: otherIssue,
       };
-      await reportIssue(data);
+      await reportIssue(data)
+        .then(() => {})
+        .catch((err: any) => {
+          //error thats not session related
+          //or catch using a middle ware to be more clean
+        });
     }
   };
 
@@ -109,19 +117,34 @@ export const GenerateEmpty = () => {
   useEffect(() => {
     if (caption) {
       setImageCaption(caption.result);
-      completion({ prompt: caption.result });
+      completion({ prompt: caption.result })
+        .then(() => {})
+        .catch((err: any) => {
+          //error thats not session related
+          //or catch using a middle ware to be more clean
+        });
     }
   }, [caption, completion]);
 
   useEffect(() => {
     setImageDescription(description);
-    createSpeech({ text: description });
+    createSpeech({ text: description })
+      .then(() => {})
+      .catch((err: any) => {
+        //error thats not session related
+        //or catch using a middle ware to be more clean
+      });
 
     if (description && searchParams.get("caption") != null) {
       checkAnswer({
         caption: imageCaption,
         sentence: String(searchParams.get("caption")),
-      });
+      })
+        .then(() => {})
+        .catch((err: any) => {
+          //error thats not session related
+          //or catch using a middle ware to be more clean
+        });
     }
   }, [description, searchParams, checkAnswer, imageCaption, createSpeech]);
 
@@ -149,18 +172,28 @@ export const GenerateEmpty = () => {
       updateStars({
         awardStars: 200,
         profileId: profile._id,
-      });
+      })
+        .then(() => {})
+        .catch((err: any) => {
+          //error thats not session related
+          //or catch using a middle ware to be more clean
+        });
     }
-  }, [answer, profile._id, updateStars]);
+  }, [answer, profile, updateStars]);
 
   useEffect(() => {
     if (newStarsData) {
       completeQuest({
         profileId: profile._id,
         questIndex: String(searchParams.get("index")),
-      });
+      })
+        .then(() => {})
+        .catch((err: any) => {
+          //error thats not session related
+          //or catch using a middle ware to be more clean
+        });
     }
-  }, [newStarsData, completeQuest, profile._id, searchParams]);
+  }, [newStarsData, completeQuest, profile, searchParams]);
 
   //report function stuff
   const [showModal, setShowModal] = useState(false);
@@ -181,7 +214,6 @@ export const GenerateEmpty = () => {
   return (
     <div className="bg-transparent flex flex-row justify-center w-full h-fit">
       <Navbar />
-
       <Toaster position="top-center" reverseOrder={false} />
       <div className="bg-transparent flex flex-row justify-center items-center w-full">
         <div

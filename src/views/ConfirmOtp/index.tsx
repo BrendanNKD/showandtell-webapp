@@ -40,7 +40,12 @@ const ConfirmOtp = () => {
     if (username) {
       const combinedOTP = otpValues.join("");
       const data: TUserConfirmOtp = { username: username, otp: combinedOTP };
-      confirmOtp(data);
+      confirmOtp(data)
+        .then(() => {})
+        .catch((err: any) => {
+          //error thats not session related
+          //or catch using a middle ware to be more clean
+        });
     } else {
     }
   };

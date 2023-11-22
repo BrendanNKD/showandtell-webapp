@@ -11,7 +11,7 @@ import { defaultPics } from "utils/profilePic";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import ProgressBar from "components/progressBar";
 import categoryVal from "components/quest/categoryValues";
-import ReactAudioPlayer from 'react-audio-player';
+import ReactAudioPlayer from "react-audio-player";
 import { UseAuthenticatedRoute } from "utils/authRoute";
 import { Animation } from "components/animationComponent";
 
@@ -44,8 +44,6 @@ const Dashboard = () => {
     });
   };
 
-
-
   useEffect(() => {
     if (levelData && currentprofile && quest) {
       const nextLimit = levelData[0].rules[Number(currentprofile?.level) + 1];
@@ -63,7 +61,12 @@ const Dashboard = () => {
         setQuestIndex(index);
       } else {
         //do here
-        refreshQuests({ profileId: currentprofile._id });
+        refreshQuests({ profileId: currentprofile._id })
+          .then(() => {})
+          .catch((err: any) => {
+            //error thats not session related
+            //or catch using a middle ware to be more clean
+          });
       }
     }
   }, [levelData, currentprofile, quest, dispatch, refreshQuests]);
@@ -78,18 +81,24 @@ const Dashboard = () => {
   const animationComponents = [];
 
   for (let i = 0; i < 20; i++) {
-    const delayValue = 0.0 + 2*i; // Increment delay by 1 second in each iteration
-    animationComponents.push(<Animation key={i} 
-    delay={delayValue} 
-    location ={-500}
-    minheight = {200}
-    maxheight = {500}/>);
+    const delayValue = 0.0 + 2 * i; // Increment delay by 1 second in each iteration
+    animationComponents.push(
+      <Animation
+        key={i}
+        delay={delayValue}
+        location={-500}
+        minheight={200}
+        maxheight={500}
+      />
+    );
   }
 
   return (
     <div className="bg-transparent flex flex-wrap flex-row justify-center w-full">
-      <div className="overflow-hidden bg-[url(https://c.animaapp.com/keKAQgUJ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative"
-           style = {{zIndex : 0}}>
+      <div
+        className="overflow-hidden bg-[url(https://c.animaapp.com/keKAQgUJ/img/group.png)] bg-[100%_100%] w-[1920px] h-[1136.7px] relative"
+        style={{ zIndex: 0 }}
+      >
         {animationComponents}
         <Navbar></Navbar>
         <div className="overflow-auto flex flex-col relative w-[65%] h-[70%] left-[20%] top-[5%] flex-wrap bg-white rounded-[52px] xl:mt-[45px]">
@@ -101,7 +110,7 @@ const Dashboard = () => {
             <div className="bg-gray-200 flex flex-col justify-center items-center md:flex-row md:justify-start md:p-4 relative w-[100%] h-[55%] space-y-2 md:space-x-5 rounded-xl">
               <div className="w-16 md:w-24 lg:w-32 xl:w-32">
                 {currentprofile && (
-                  <img 
+                  <img
                     className="rounded-full"
                     alt="Frame"
                     src={defaultPics[currentprofile.profilePic].url}
@@ -140,9 +149,9 @@ const Dashboard = () => {
               />
             </div>
             <div className="font-lapsus font-bold text-black text-[32px] md:text-[45px] xl:text-[50px] xl:ml-10 tracking-[0.49px] leading-[normal]">
-                Next up:
+              Next up:
             </div>
-          
+
             {/*Quest box*/}
             <div
               className="flex flex-col justify-center items-center p-4"
@@ -170,8 +179,12 @@ const Dashboard = () => {
                     }
                   />
                   <div className="flex flex-col justify-center items-center w-full h-15 md:h-[200px] font-lapsus font-normal text-black text-[16px] md:text-[20px] lg:text-[26px] xl:text-[30px] md:space-y-5">
-                    <div className="w-full flex justify-center md:justify-start items-center">{quests && quests.category}</div>
-                    <div className="w-full flex justify-center items-center">{quests && quests.description}</div>
+                    <div className="w-full flex justify-center md:justify-start items-center">
+                      {quests && quests.category}
+                    </div>
+                    <div className="w-full flex justify-center items-center">
+                      {quests && quests.description}
+                    </div>
                   </div>
                   {/*Quest box star reward*/}
                   <div className="flex flex-row space-x-2 items-center relative w-50 h-10 md:w-[250px] lg:w-[300px] lg:h-[100px] bg-white rounded-[14px] p-4">
@@ -198,13 +211,13 @@ const Dashboard = () => {
                 }}
               ></div>
               <div className="dashboardplayer">
-              <ReactAudioPlayer
+                <ReactAudioPlayer
                   src="/assets/Homepage1.mp3"
                   autoPlay={true}
                   controls
                 />
               </div>
-          </div>
+            </div>
           </div>
         </div>
       </div>

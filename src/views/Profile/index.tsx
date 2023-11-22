@@ -98,7 +98,12 @@ const Profile = () => {
 
   const handleUpdateProfile = async () => {
     if (profileIndex !== null && profile)
-      await update({ index: profileIndex, profile: profile });
+      await update({ index: profileIndex, profile: profile })
+        .then(() => {})
+        .catch((err: any) => {
+          //error thats not session related
+          //or catch using a middle ware to be more clean
+        });
   };
 
   const handleChangePassword = async () => {

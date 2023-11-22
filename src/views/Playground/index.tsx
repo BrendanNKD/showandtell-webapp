@@ -21,22 +21,6 @@ const Playground = () => {
     setText(event.target.value); // Update the 'text' state with the textarea value
   };
 
-  // const query = async (data: Input) => {
-  //   console.log(data);
-  //   const response = await fetch(
-  //     "https://api-inference.huggingface.co/models/Gustavosta/MagicPrompt-Stable-Diffusion",
-  //     {
-  //       headers: {
-  //         Authorization: "Bearer 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",
-  //       },
-  //       method: "POST",
-  //       body: JSON.stringify(data),
-  //     }
-  //   );
-  //   const result = await response.json();
-  //   return result;
-  // };
-
   const handleGenerateImage = async () => {
     // if (text)
     //   await query({ inputs: text }).then((response) => {
@@ -45,7 +29,12 @@ const Playground = () => {
 
     // if (text)
     // await query({ inputs: text }).then((response) => {
-    generate({ prompt: text });
+    generate({ prompt: text })
+      .then(() => {})
+      .catch((err: any) => {
+        //error thats not session related
+        //or catch using a middle ware to be more clean
+      });
     // });
   };
 
