@@ -179,7 +179,7 @@ export const GenerateEmpty = () => {
           //or catch using a middle ware to be more clean
         });
     }
-  }, [answer, profile, updateStars]);
+  }, [answer, profile._id, updateStars]);
 
   useEffect(() => {
     if (newStarsData) {
@@ -193,7 +193,7 @@ export const GenerateEmpty = () => {
           //or catch using a middle ware to be more clean
         });
     }
-  }, [newStarsData, completeQuest, profile, searchParams]);
+  }, [newStarsData, completeQuest, profile._id, searchParams]);
 
   //report function stuff
   const [showModal, setShowModal] = useState(false);
