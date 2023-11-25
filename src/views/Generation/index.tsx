@@ -474,7 +474,7 @@ export const GenerateEmpty = () => {
                     setSelectedImage={setSelectedImage}
                   />
                   {/*generate button*/}
-                  <div className="flex justify-center items-center w-[100%] h-[30%]">
+                  <div className="flex justify-center items-center w-[100%] h-[30%] flex-col">
                     <button
                       onClick={handleGenerateCaption}
                       disabled={
@@ -516,6 +516,12 @@ export const GenerateEmpty = () => {
                         </div>
                       </div>
                     </button>
+                  </div>
+                  <div className="p-2 flex text-center text-xs text-red-600">
+                    There is cold boot on our GPU server 'This is to save our
+                    hosting cost', please allow 1-2 mins for cold boot after
+                    clicking the first time & click again. After cold boot it
+                    will take approx 2 sec.
                   </div>
                 </div>
               </div>
