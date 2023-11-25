@@ -3,6 +3,7 @@ import { useSignUp } from "../../app/hooks/useCognitoAuth";
 import { useNavigate } from "react-router-dom";
 import { UseNonAuthenticatedRoute } from "utils/authRoute";
 import toast, { Toaster } from "react-hot-toast";
+import passwordValidation from "utils/passwordValidation";
 
 type Form = {
   firstname: string;
@@ -38,6 +39,7 @@ const Register = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     const {
       firstname,
       lastname,
@@ -52,6 +54,11 @@ const Register = () => {
       return;
     }
 
+    const validated = passwordValidation(password);
+    if (validated !== true) {
+      toast.error(validated);
+      return;
+    }
     if (!firstname || !lastname || !email || !dateOfBirth || !username) {
       toast.error("Please fill in the nessasary informations");
       return;
