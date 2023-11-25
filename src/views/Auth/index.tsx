@@ -62,6 +62,9 @@ const Login = () => {
             </p>
             <div className="pt-28 flex flex-row justify-center">
               <div className="bg-white p-16 rounded-2xl shadow-md w-full sm:w-2/4 md:w-2/4 xl:w-1/4">
+                <h1 className=" font-bold mb-6 font-lapsus text-red-600">
+                  * Please enable cookie for session token
+                </h1>
                 <h1 className="text-4xl font-bold mb-6 font-lapsus text-black">
                   Log In
                 </h1>
