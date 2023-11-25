@@ -7,6 +7,7 @@ import type { MiddlewareAPI, Middleware } from "@reduxjs/toolkit";
 import { accountinitialState, setAccount } from "features/accountSlice";
 import { setIsAuthenticated, setTokenExpiry } from "features/authSlice";
 import { setProfile } from "features/profileSlice";
+import toast from "react-hot-toast";
 
 export const UseAuthenticatedRoute = () => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ export const UseSessionMiddleware: Middleware =
     // RTK Query uses `createAsyncThunk` from redux-toolkit under the hood, so we're able to utilize these matchers!
     if (isRejectedWithValue(action)) {
       if (action.payload.status === 404) {
-        console.log("SESSION EXPIRED");
+        toast.error("session expired");
         api.dispatch(setIsAuthenticated(false));
         api.dispatch(setTokenExpiry(0));
         api.dispatch(setAccount(accountinitialState));
